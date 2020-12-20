@@ -1,6 +1,50 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
 
-# Created by https://www.toptal.com/developers/gitignore/api/macos,intellij,dart,flutter
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,intellij,dart,flutter
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+
+
+
+# Created by https://www.toptal.com/developers/gitignore/api/dart,macos,flutter,visualstudiocode,intellij
+# Edit at https://www.toptal.com/developers/gitignore?templates=dart,macos,flutter,visualstudiocode,intellij
 
 ### Dart ###
 # See https://www.dartlang.org/guides/libraries/private-files
@@ -33,12 +77,7 @@ doc/api/
 .fvm/
 .pub-cache/
 .pub/
-coverage/
 lib/generated_plugin_registrant.dart
-# For library packages, don’t commit the pubspec.lock file.
-# Regenerating the pubspec.lock file lets you test your package against the latest compatible versions of its dependencies.
-# See https://dart.dev/guides/libraries/private-files#pubspeclock
-#pubspec.lock
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -218,4 +257,19 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,intellij,dart,flutter
+### VisualStudioCode ###
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+### firebase ios, android 설정 파일
+**/GoogleService-Info.plist
+**/google-services.json
+
+# End of https://www.toptal.com/developers/gitignore/api/dart,macos,flutter,visualstudiocode,intellij

@@ -1,10 +1,11 @@
+import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('App Name'),
@@ -32,6 +33,24 @@ class HomeScreen extends StatelessWidget {
               Container(
                 height: screenSize.height * 0.5,
                 color: Colors.black12,
+              ),
+              Column(
+                children: [
+                  RaisedButton(
+                    onPressed: () {
+                      Provider.of<CharactersProvider>(context, listen: false)
+                          .setCharacters();
+                    },
+                    child: Text('get'),
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      Provider.of<CharactersProvider>(context, listen: false)
+                          .insertCharacter();
+                    },
+                    child: Text('insert 1'),
+                  ),
+                ],
               ),
             ],
           ),

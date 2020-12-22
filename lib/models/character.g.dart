@@ -18,8 +18,6 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
   Iterable<Object> serialize(Serializers serializers, Character object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(int)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'is_home',
@@ -31,6 +29,12 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       serializers.serialize(object.isStarter,
           specifiedType: const FullType(bool)),
     ];
+    if (object.id != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(object.id,
+            specifiedType: const FullType(int)));
+    }
     if (object.description != null) {
       result
         ..add('description')
@@ -107,9 +111,6 @@ class _$Character extends Character {
       this.isTravel,
       this.isStarter})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('Character', 'id');
-    }
     if (name == null) {
       throw new BuiltValueNullFieldError('Character', 'name');
     }

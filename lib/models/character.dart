@@ -5,6 +5,7 @@ part 'character.g.dart';
 
 abstract class Character implements Built<Character, CharacterBuilder> {
   static Serializer<Character> get serializer => _$characterSerializer;
+  @nullable
   int get id;
   String get name;
   @nullable

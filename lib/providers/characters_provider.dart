@@ -10,8 +10,8 @@ class CharactersProvider with ChangeNotifier {
   }
 
   Future<void> setCharacters() async {
-    final dataList = await DbService.getData('character');
-    _characters = dataList
+    final dataMapList = await DbService.getData('character');
+    _characters = dataMapList
         .map((dataMap) =>
             standardSerializers.deserializeWith(Character.serializer, dataMap))
         .toList();
@@ -19,11 +19,14 @@ class CharactersProvider with ChangeNotifier {
   }
 
   void insertCharacter() async {
-    DbService.insert('character', {
-      'name': 'test',
-      'is_starter': 0,
-      'is_home': 0,
-      'is_travel': 0,
-    });
+    DbService.insert(
+        'character',
+        standardSerializers.serializeWith(
+            Character.serializer,
+            Character((b) => b
+              ..name = 'test'
+              ..isHome = 0
+              ..isStarter = 0
+              ..isTravel = 0)));
   }
 }

@@ -12,7 +12,10 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.dynamic_feed),
-            onPressed: () {},
+            onPressed: () {
+              Provider.of<CharactersProvider>(context, listen: false)
+                  .insertCharacter();
+            },
           ),
         ],
       ),
@@ -44,9 +47,18 @@ class HomeScreen extends StatelessWidget {
                         return ListView.builder(
                           itemCount: provider.characters.length,
                           itemBuilder: (context, i) {
+                            final character = provider.characters[i];
                             return SizedBox(
                               height: screenSize.height * 0.1,
-                              child: Text(provider.characters[i].name),
+                              child: Column(
+                                children: [
+                                  Text(character.id.toString()),
+                                  Text(character.name),
+                                  Text(character.isHome.toString()),
+                                  Text(character.isTravel.toString()),
+                                  Text(character.isStarter.toString()),
+                                ],
+                              ),
                             );
                           },
                         );

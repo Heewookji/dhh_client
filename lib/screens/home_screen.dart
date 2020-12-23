@@ -28,31 +28,34 @@ class HomeScreen extends StatelessWidget {
             ),
             color: Colors.black26,
           ),
-          Stack(
-            children: [
-              Container(
-                height: screenSize.height * 0.5,
-                color: Colors.black12,
-              ),
-              Column(
-                children: [
-                  RaisedButton(
-                    onPressed: () {
+          SizedBox(
+            height: screenSize.height * 0.5,
+            child: Stack(
+              children: [
+                FutureBuilder(
+                  future:
                       Provider.of<CharactersProvider>(context, listen: false)
-                          .setCharacters();
-                    },
-                    child: Text('get'),
-                  ),
-                  RaisedButton(
-                    onPressed: () {
-                      Provider.of<CharactersProvider>(context, listen: false)
-                          .insertCharacter();
-                    },
-                    child: Text('insert 1'),
-                  ),
-                ],
-              ),
-            ],
+                          .setCharacters(),
+                  builder: (ctx, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting)
+                      return Container();
+                    return Consumer<CharactersProvider>(
+                      builder: (context, provider, child) {
+                        return ListView.builder(
+                          itemCount: provider.characters.length,
+                          itemBuilder: (context, i) {
+                            return SizedBox(
+                              height: screenSize.height * 0.1,
+                              child: Text(provider.characters[i].name),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

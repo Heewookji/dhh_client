@@ -11,9 +11,9 @@ class CharactersProvider with ChangeNotifier {
 
   Future<void> setCharacters() async {
     final dataList = await DbService.getData('character');
-    print(dataList);
     _characters = dataList
-        .map((dataMap) => serializers.deserialize(dataMap) as Character)
+        .map((dataMap) =>
+            standardSerializers.deserializeWith(Character.serializer, dataMap))
         .toList();
     notifyListeners();
   }

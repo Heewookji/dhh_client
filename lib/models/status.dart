@@ -14,7 +14,7 @@ abstract class Status implements Built<Status, StatusBuilder> {
   @nullable
   String get description;
   @BuiltValueField(wireName: 'is_status_now')
-  bool get isStatusNow;
+  int get isStatusNow;
 
   Status._();
   factory Status([void Function(StatusBuilder) updates]) = _$Status;

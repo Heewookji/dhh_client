@@ -21,13 +21,13 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'is_home',
-      serializers.serialize(object.isHome, specifiedType: const FullType(bool)),
+      serializers.serialize(object.isHome, specifiedType: const FullType(int)),
       'is_travel',
       serializers.serialize(object.isTravel,
-          specifiedType: const FullType(bool)),
+          specifiedType: const FullType(int)),
       'is_starter',
       serializers.serialize(object.isStarter,
-          specifiedType: const FullType(bool)),
+          specifiedType: const FullType(int)),
     ];
     if (object.id != null) {
       result
@@ -69,15 +69,15 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           break;
         case 'is_home':
           result.isHome = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'is_travel':
           result.isTravel = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'is_starter':
           result.isStarter = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(int)) as int;
           break;
       }
     }
@@ -94,11 +94,11 @@ class _$Character extends Character {
   @override
   final String description;
   @override
-  final bool isHome;
+  final int isHome;
   @override
-  final bool isTravel;
+  final int isTravel;
   @override
-  final bool isStarter;
+  final int isStarter;
 
   factory _$Character([void Function(CharacterBuilder) updates]) =>
       (new CharacterBuilder()..update(updates)).build();
@@ -184,17 +184,17 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
 
-  bool _isHome;
-  bool get isHome => _$this._isHome;
-  set isHome(bool isHome) => _$this._isHome = isHome;
+  int _isHome;
+  int get isHome => _$this._isHome;
+  set isHome(int isHome) => _$this._isHome = isHome;
 
-  bool _isTravel;
-  bool get isTravel => _$this._isTravel;
-  set isTravel(bool isTravel) => _$this._isTravel = isTravel;
+  int _isTravel;
+  int get isTravel => _$this._isTravel;
+  set isTravel(int isTravel) => _$this._isTravel = isTravel;
 
-  bool _isStarter;
-  bool get isStarter => _$this._isStarter;
-  set isStarter(bool isStarter) => _$this._isStarter = isStarter;
+  int _isStarter;
+  int get isStarter => _$this._isStarter;
+  set isStarter(int isStarter) => _$this._isStarter = isStarter;
 
   CharacterBuilder();
 

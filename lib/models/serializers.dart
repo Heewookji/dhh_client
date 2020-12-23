@@ -1,6 +1,7 @@
 library serializers;
 
 import 'package:built_value/serializer.dart';
+import 'package:built_value/standard_json_plugin.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/diary.dart';
 import 'package:dhh_client/models/question.dart';
@@ -25,3 +26,7 @@ part 'serializers.g.dart';
   Question,
 ])
 final Serializers serializers = _$serializers;
+Serializers standardSerializers = (serializers.toBuilder()
+      ..addPlugin(StandardJsonPlugin())
+      ..add)
+    .build();

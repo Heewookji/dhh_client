@@ -26,7 +26,7 @@ class _$StatusSerializer implements StructuredSerializer<Status> {
           specifiedType: const FullType(String)),
       'is_status_now',
       serializers.serialize(object.isStatusNow,
-          specifiedType: const FullType(bool)),
+          specifiedType: const FullType(int)),
     ];
     if (object.code != null) {
       result
@@ -72,7 +72,7 @@ class _$StatusSerializer implements StructuredSerializer<Status> {
           break;
         case 'is_status_now':
           result.isStatusNow = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(int)) as int;
           break;
       }
     }
@@ -91,7 +91,7 @@ class _$Status extends Status {
   @override
   final String description;
   @override
-  final bool isStatusNow;
+  final int isStatusNow;
 
   factory _$Status([void Function(StatusBuilder) updates]) =>
       (new StatusBuilder()..update(updates)).build();
@@ -173,9 +173,9 @@ class StatusBuilder implements Builder<Status, StatusBuilder> {
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
 
-  bool _isStatusNow;
-  bool get isStatusNow => _$this._isStatusNow;
-  set isStatusNow(bool isStatusNow) => _$this._isStatusNow = isStatusNow;
+  int _isStatusNow;
+  int get isStatusNow => _$this._isStatusNow;
+  set isStatusNow(int isStatusNow) => _$this._isStatusNow = isStatusNow;
 
   StatusBuilder();
 

@@ -11,11 +11,11 @@ abstract class Character implements Built<Character, CharacterBuilder> {
   @nullable
   String get description;
   @BuiltValueField(wireName: 'is_home')
-  bool get isHome;
+  int get isHome;
   @BuiltValueField(wireName: 'is_travel')
-  bool get isTravel;
+  int get isTravel;
   @BuiltValueField(wireName: 'is_starter')
-  bool get isStarter;
+  int get isStarter;
 
   Character._();
   factory Character([void Function(CharacterBuilder) updates]) = _$Character;

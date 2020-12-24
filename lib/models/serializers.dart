@@ -5,7 +5,6 @@ import 'package:built_value/standard_json_plugin.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/diary.dart';
 import 'package:dhh_client/models/question.dart';
-import 'package:dhh_client/models/status.dart';
 
 part 'serializers.g.dart';
 
@@ -21,7 +20,6 @@ part 'serializers.g.dart';
 ///
 @SerializersFor([
   Character,
-  Status,
   Diary,
   Question,
 ])

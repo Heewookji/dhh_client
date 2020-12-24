@@ -52,11 +52,9 @@ class HomeScreen extends StatelessWidget {
                               height: screenSize.height * 0.1,
                               child: Column(
                                 children: [
-                                  Text(character.id.toString()),
                                   Text(character.name),
-                                  Text(character.isHome.toString()),
-                                  Text(character.isTravel.toString()),
-                                  Text(character.isStarter.toString()),
+                                  Text(character.statusCode.toString()),
+                                  Text(character.statusImageUrl),
                                 ],
                               ),
                             );

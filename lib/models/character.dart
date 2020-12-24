@@ -16,6 +16,10 @@ abstract class Character implements Built<Character, CharacterBuilder> {
   int get isTravel;
   @BuiltValueField(wireName: 'is_starter')
   int get isStarter;
+  @BuiltValueField(wireName: 'code')
+  int get statusCode;
+  @BuiltValueField(wireName: 'image_url')
+  String get statusImageUrl;
 
   Character._();
   factory Character([void Function(CharacterBuilder) updates]) = _$Character;

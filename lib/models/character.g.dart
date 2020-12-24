@@ -28,6 +28,12 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       'is_starter',
       serializers.serialize(object.isStarter,
           specifiedType: const FullType(int)),
+      'code',
+      serializers.serialize(object.statusCode,
+          specifiedType: const FullType(int)),
+      'image_url',
+      serializers.serialize(object.statusImageUrl,
+          specifiedType: const FullType(String)),
     ];
     if (object.id != null) {
       result
@@ -79,6 +85,14 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           result.isStarter = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'code':
+          result.statusCode = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'image_url':
+          result.statusImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -99,6 +113,10 @@ class _$Character extends Character {
   final int isTravel;
   @override
   final int isStarter;
+  @override
+  final int statusCode;
+  @override
+  final String statusImageUrl;
 
   factory _$Character([void Function(CharacterBuilder) updates]) =>
       (new CharacterBuilder()..update(updates)).build();
@@ -109,7 +127,9 @@ class _$Character extends Character {
       this.description,
       this.isHome,
       this.isTravel,
-      this.isStarter})
+      this.isStarter,
+      this.statusCode,
+      this.statusImageUrl})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('Character', 'name');
@@ -122,6 +142,12 @@ class _$Character extends Character {
     }
     if (isStarter == null) {
       throw new BuiltValueNullFieldError('Character', 'isStarter');
+    }
+    if (statusCode == null) {
+      throw new BuiltValueNullFieldError('Character', 'statusCode');
+    }
+    if (statusImageUrl == null) {
+      throw new BuiltValueNullFieldError('Character', 'statusImageUrl');
     }
   }
 
@@ -141,7 +167,9 @@ class _$Character extends Character {
         description == other.description &&
         isHome == other.isHome &&
         isTravel == other.isTravel &&
-        isStarter == other.isStarter;
+        isStarter == other.isStarter &&
+        statusCode == other.statusCode &&
+        statusImageUrl == other.statusImageUrl;
   }
 
   @override
@@ -149,11 +177,15 @@ class _$Character extends Character {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, id.hashCode), name.hashCode),
-                    description.hashCode),
-                isHome.hashCode),
-            isTravel.hashCode),
-        isStarter.hashCode));
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), name.hashCode),
+                            description.hashCode),
+                        isHome.hashCode),
+                    isTravel.hashCode),
+                isStarter.hashCode),
+            statusCode.hashCode),
+        statusImageUrl.hashCode));
   }
 
   @override
@@ -164,7 +196,9 @@ class _$Character extends Character {
           ..add('description', description)
           ..add('isHome', isHome)
           ..add('isTravel', isTravel)
-          ..add('isStarter', isStarter))
+          ..add('isStarter', isStarter)
+          ..add('statusCode', statusCode)
+          ..add('statusImageUrl', statusImageUrl))
         .toString();
   }
 }
@@ -196,6 +230,15 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   int get isStarter => _$this._isStarter;
   set isStarter(int isStarter) => _$this._isStarter = isStarter;
 
+  int _statusCode;
+  int get statusCode => _$this._statusCode;
+  set statusCode(int statusCode) => _$this._statusCode = statusCode;
+
+  String _statusImageUrl;
+  String get statusImageUrl => _$this._statusImageUrl;
+  set statusImageUrl(String statusImageUrl) =>
+      _$this._statusImageUrl = statusImageUrl;
+
   CharacterBuilder();
 
   CharacterBuilder get _$this {
@@ -206,6 +249,8 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
       _isHome = _$v.isHome;
       _isTravel = _$v.isTravel;
       _isStarter = _$v.isStarter;
+      _statusCode = _$v.statusCode;
+      _statusImageUrl = _$v.statusImageUrl;
       _$v = null;
     }
     return this;
@@ -233,7 +278,9 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
             description: description,
             isHome: isHome,
             isTravel: isTravel,
-            isStarter: isStarter);
+            isStarter: isStarter,
+            statusCode: statusCode,
+            statusImageUrl: statusImageUrl);
     replace(_$result);
     return _$result;
   }

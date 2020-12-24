@@ -1,49 +1,49 @@
 
 -- 캐릭터
-insert into character(id, name, is_starter) values (1,'스타터세포1', true);
-insert into character(id, name, is_starter) values (2,'스타터세포2', true);
+insert into character(id, name, is_starter, is_home) values (1,'스타터세포1', true, true);
+insert into character(id, name, is_starter, is_home) values (2,'스타터세포2', true, true);
 insert into character(id, name, is_starter) values (3,'스타터세포3', true);
 insert into character(id, name) values (4,'세포4');
 insert into character(id, name) values (5,'세포5');
 insert into character(id, name) values (6,'세포6');
 
 --캐릭터 스테이터스 (캐릭터당 6개)
-insert into status (code, character_id, image_url) values (1,1,'');
-insert into status (code, character_id, image_url) values (2,1,'');
-insert into status (code, character_id, image_url) values (3,1,'');
-insert into status (code, character_id, image_url) values (4,1,'');
-insert into status (code, character_id, image_url) values (5,1,'');
-insert into status (code, character_id, image_url) values (6,1,'');
-insert into status (code, character_id, image_url) values (1,2,'');
-insert into status (code, character_id, image_url) values (2,2,'');
-insert into status (code, character_id, image_url) values (3,2,'');
-insert into status (code, character_id, image_url) values (4,2,'');
-insert into status (code, character_id, image_url) values (5,2,'');
-insert into status (code, character_id, image_url) values (6,2,'');
-insert into status (code, character_id, image_url) values (1,3,'');
-insert into status (code, character_id, image_url) values (2,3,'');
-insert into status (code, character_id, image_url) values (3,3,'');
-insert into status (code, character_id, image_url) values (4,3,'');
-insert into status (code, character_id, image_url) values (5,3,'');
-insert into status (code, character_id, image_url) values (6,3,'');
-insert into status (code, character_id, image_url) values (1,4,'');
-insert into status (code, character_id, image_url) values (2,4,'');
-insert into status (code, character_id, image_url) values (3,4,'');
-insert into status (code, character_id, image_url) values (4,4,'');
-insert into status (code, character_id, image_url) values (5,4,'');
-insert into status (code, character_id, image_url) values (6,4,'');
-insert into status (code, character_id, image_url) values (1,5,'');
-insert into status (code, character_id, image_url) values (2,5,'');
-insert into status (code, character_id, image_url) values (3,5,'');
-insert into status (code, character_id, image_url) values (4,5,'');
-insert into status (code, character_id, image_url) values (5,5,'');
-insert into status (code, character_id, image_url) values (6,5,'');
-insert into status (code, character_id, image_url) values (1,6,'');
-insert into status (code, character_id, image_url) values (2,6,'');
-insert into status (code, character_id, image_url) values (3,6,'');
-insert into status (code, character_id, image_url) values (4,6,'');
-insert into status (code, character_id, image_url) values (5,6,'');
-insert into status (code, character_id, image_url) values (6,6,'');
+insert into status (code, character_id, image_url, is_status_now) values (1,1,'.', true);
+insert into status (code, character_id, image_url) values (2,1,'.');
+insert into status (code, character_id, image_url) values (3,1,'.');
+insert into status (code, character_id, image_url) values (4,1,'.');
+insert into status (code, character_id, image_url) values (5,1,'.');
+insert into status (code, character_id, image_url) values (6,1,'.');
+insert into status (code, character_id, image_url, is_status_now) values (1,2,'.', true);
+insert into status (code, character_id, image_url) values (2,2,'.');
+insert into status (code, character_id, image_url) values (3,2,'.');
+insert into status (code, character_id, image_url) values (4,2,'.');
+insert into status (code, character_id, image_url) values (5,2,'.');
+insert into status (code, character_id, image_url) values (6,2,'.');
+insert into status (code, character_id, image_url, is_status_now) values (1,3,'.', true);
+insert into status (code, character_id, image_url) values (2,3,'.');
+insert into status (code, character_id, image_url) values (3,3,'.');
+insert into status (code, character_id, image_url) values (4,3,'.');
+insert into status (code, character_id, image_url) values (5,3,'.');
+insert into status (code, character_id, image_url) values (6,3,'.');
+insert into status (code, character_id, image_url, is_status_now) values (1,4,'.', true);
+insert into status (code, character_id, image_url) values (2,4,'.');
+insert into status (code, character_id, image_url) values (3,4,'.');
+insert into status (code, character_id, image_url) values (4,4,'.');
+insert into status (code, character_id, image_url) values (5,4,'.');
+insert into status (code, character_id, image_url) values (6,4,'.');
+insert into status (code, character_id, image_url, is_status_now) values (1,5,'.', true);
+insert into status (code, character_id, image_url) values (2,5,'.');
+insert into status (code, character_id, image_url) values (3,5,'.');
+insert into status (code, character_id, image_url) values (4,5,'.');
+insert into status (code, character_id, image_url) values (5,5,'.');
+insert into status (code, character_id, image_url) values (6,5,'.');
+insert into status (code, character_id, image_url, is_status_now) values (1,6,'.', true);
+insert into status (code, character_id, image_url) values (2,6,'.');
+insert into status (code, character_id, image_url) values (3,6,'.');
+insert into status (code, character_id, image_url) values (4,6,'.');
+insert into status (code, character_id, image_url) values (5,6,'.');
+insert into status (code, character_id, image_url) values (6,6,'.');
 
 --퀘스쳔
 

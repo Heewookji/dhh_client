@@ -49,12 +49,19 @@ class HomeScreen extends StatelessWidget {
                           itemBuilder: (context, i) {
                             final character = provider.characters[i];
                             return SizedBox(
-                              height: screenSize.height * 0.1,
                               child: Column(
                                 children: [
                                   Text(character.name),
-                                  Text(character.statusCode.toString()),
-                                  Text(character.statusImageUrl),
+                                  Container(
+                                    height: screenSize.height * 0.1,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            character.statusImageUrl),
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             );

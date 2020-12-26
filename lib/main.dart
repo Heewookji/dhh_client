@@ -1,5 +1,6 @@
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/screens/home_screen.dart';
+import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/services/db_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,10 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: HomeScreen(),
+        routes: {
+          HomeScreen.routeName: (ctx) => HomeScreen(),
+          WriteScreen.routeName: (ctx) => WriteScreen(),
+        },
       ),
     );
   }

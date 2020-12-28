@@ -1,4 +1,5 @@
 import 'package:dhh_client/providers/characters_provider.dart';
+import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/home_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/services/db_service.dart';
@@ -23,8 +24,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => CharactersProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CharactersProvider()),
+        ChangeNotifierProxyProvider<CharactersProvider, QuestionsProvider>(
+          update: (ctx, characters, previous) {
+            return QuestionsProvider(
+              characters.characters.map((c) => c.id.toString()).toList(),
+              previous != null ? previous.questionMap : Map(),
+            );
+          },
+          create: null,
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,

@@ -38,8 +38,23 @@ class DbService {
 
   static Future<List<Map<String, dynamic>>> getHomeCharacters() async {
     final db = await DbService.database();
-    return db.rawQuery('select * from character c '
+    return db.rawQuery(''
+        'select * from character c '
         'inner join status s on c.id = s.character_id '
-        'where s.is_status_now = 1 and c.is_home = 1;');
+        'where s.is_status_now = 1 and c.is_home = 1;'
+        '');
+  }
+
+  static Future<List<Map<String, dynamic>>> getQuestionsByCharacterIds(
+      List<String> characterIds) async {
+    final db = await DbService.database();
+    String idsString =
+        characterIds.toString().replaceAll('[', '(').replaceAll(']', ')');
+    return db.rawQuery(''
+        'select *  from question q '
+        'where q.character_id in $idsString '
+        'and (select count(*) from diary d where d.question_id = q.id) == 0 '
+        'group by q.character_id '
+        '');
   }
 }

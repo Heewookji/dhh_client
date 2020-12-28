@@ -1,4 +1,5 @@
 import 'package:dhh_client/providers/characters_provider.dart';
+import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _isBusy = true;
+  @override
+  void initState() {
+    super.initState();
+    doFuture();
+  }
+
+  void doFuture() async {
+    await Provider.of<CharactersProvider>(context, listen: false)
+        .setCharacters();
+    await Provider.of<QuestionsProvider>(context, listen: false)
+        .setQuestionMap();
+    setState(() {
+      _isBusy = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -20,10 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.dynamic_feed),
-            onPressed: () {
-              Provider.of<CharactersProvider>(context, listen: false)
-                  .insertCharacter();
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -44,41 +59,39 @@ class _HomeScreenState extends State<HomeScreen> {
       height: screenSize.height * 0.5,
       child: Stack(
         children: [
-          FutureBuilder(
-            future: Provider.of<CharactersProvider>(context, listen: false)
-                .setCharacters(),
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting)
-                return Container();
-              return Consumer<CharactersProvider>(
-                builder: (context, provider, child) {
-                  return ListView.builder(
-                    itemCount: provider.characters.length,
-                    itemBuilder: (context, i) {
-                      final character = provider.characters[i];
-                      return GestureDetector(
-                        onTap: () {},
-                        child: Column(
-                          children: [
-                            Text(character.name),
-                            Container(
-                              height: screenSize.height * 0.1,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(character.statusImageUrl),
-                                  fit: BoxFit.fitHeight,
-                                ),
+          if (_isBusy)
+            Container()
+          else
+            Consumer<CharactersProvider>(
+              builder: (context, provider, child) {
+                return ListView.builder(
+                  itemCount: provider.characters.length,
+                  itemBuilder: (context, i) {
+                    final character = provider.characters[i];
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          Text(character.name),
+                          Text(Provider.of<QuestionsProvider>(context)
+                              .getQuestionByCharacterId(character.id)
+                              .text),
+                          Container(
+                            height: screenSize.height * 0.1,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(character.statusImageUrl),
+                                fit: BoxFit.fitHeight,
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
         ],
       ),
     );

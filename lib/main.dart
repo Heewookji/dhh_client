@@ -1,4 +1,5 @@
 import 'package:dhh_client/providers/characters_provider.dart';
+import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/home_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
           },
           create: null,
         ),
+        ChangeNotifierProvider(create: (_) => DiariesProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

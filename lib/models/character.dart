@@ -20,7 +20,6 @@ abstract class Character implements Built<Character, CharacterBuilder> {
   int get statusCode;
   @BuiltValueField(wireName: 'image_url')
   String get statusImageUrl;
-  @nullable
   int get color;
 
   Character._();

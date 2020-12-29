@@ -34,6 +34,8 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       'image_url',
       serializers.serialize(object.statusImageUrl,
           specifiedType: const FullType(String)),
+      'color',
+      serializers.serialize(object.color, specifiedType: const FullType(int)),
     ];
     if (object.id != null) {
       result
@@ -46,12 +48,6 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
         ..add('description')
         ..add(serializers.serialize(object.description,
             specifiedType: const FullType(String)));
-    }
-    if (object.color != null) {
-      result
-        ..add('color')
-        ..add(serializers.serialize(object.color,
-            specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -161,6 +157,9 @@ class _$Character extends Character {
     }
     if (statusImageUrl == null) {
       throw new BuiltValueNullFieldError('Character', 'statusImageUrl');
+    }
+    if (color == null) {
+      throw new BuiltValueNullFieldError('Character', 'color');
     }
   }
 

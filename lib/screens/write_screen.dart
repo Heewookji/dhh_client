@@ -1,39 +1,41 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
+import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class WriteScreen extends StatefulWidget {
   static final routeName = '/write';
-
   @override
   _WriteScreenState createState() => _WriteScreenState();
 }
 
 class _WriteScreenState extends State<WriteScreen> {
   final TextEditingController _controller = TextEditingController();
+  Character character;
+  Question question;
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     Size screenSize = MediaQuery.of(context).size;
     Map<String, Object> arguments = ModalRoute.of(context).settings.arguments;
-    Character character = arguments['character'];
-    Question question = arguments['question'];
+    character = arguments['character'];
+    question = arguments['question'];
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
-          _buildPanel(theme, screenSize, question, character),
+          _buildPanel(theme, screenSize),
           _buildTextField(screenSize),
-          _buildSubmitButton(),
+          _buildSubmitButton(context),
         ],
       ),
     );
   }
 
-  Widget _buildPanel(ThemeData theme, Size screenSize, Question question,
-      Character character) {
+  Widget _buildPanel(ThemeData theme, Size screenSize) {
     return Column(
       children: [
         Row(
@@ -77,10 +79,16 @@ class _WriteScreenState extends State<WriteScreen> {
     );
   }
 
-  Widget _buildSubmitButton() {
+  Widget _buildSubmitButton(BuildContext context) {
     return FlatButton(
       child: Text('저장하기'),
-      onPressed: _controller.text.length == 0 ? null : () {},
+      onPressed: _controller.text.length == 0
+          ? null
+          : () async {
+              await Provider.of<DiariesProvider>(context, listen: false)
+                  .addDiary(question.id, _controller.text);
+              Navigator.of(context).pop();
+            },
     );
   }
 }

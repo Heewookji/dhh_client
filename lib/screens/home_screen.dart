@@ -43,14 +43,20 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _navigateWriteScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(
+  void _navigateWriteScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(
       WriteScreen.routeName,
       arguments: {
         'character': _chosenCharacter,
         'question': _chosenQuestion,
       },
     );
+    await Provider.of<QuestionsProvider>(context, listen: false)
+        .setQuestionMap();
+    setState(() {
+      _chosenCharacter = _chosenQuestion = null;
+      _chosenLocation = -1;
+    });
   }
 
   @override
@@ -103,32 +109,35 @@ class _HomeScreenState extends State<HomeScreen> {
             Container()
           else
             Consumer<CharactersProvider>(
-              builder: (context, provider, child) {
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: provider.characters.length,
-                  itemBuilder: (context, i) {
-                    final character = provider.characters[i];
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _chosenLocation = i;
-                          _chosenCharacter = character;
-                          _chosenQuestion = Provider.of<QuestionsProvider>(
-                                  context,
-                                  listen: false)
-                              .questionMap[character.id.toString()];
-                        });
-                      },
-                      child: Column(
-                        children: [
-                          Text(character.name),
-                          Container(
-                            height: screenSize.height * 0.1,
-                            child: Image.asset(character.statusImageUrl),
+              builder: (context, charactersProvider, child) {
+                return Consumer<QuestionsProvider>(
+                  builder: (context, questionsProvider, child) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: charactersProvider.characters.length,
+                      itemBuilder: (context, i) {
+                        final character = charactersProvider.characters[i];
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _chosenLocation = i;
+                              _chosenCharacter = character;
+                              _chosenQuestion = questionsProvider
+                                  .questionMap[character.id.toString()];
+                            });
+                          },
+                          child: Column(
+                            children: [
+                              Text(character.name),
+                              Container(
+                                height: screenSize.height * 0.1,
+                                color: Color(character.color),
+                                child: Image.asset(character.statusImageUrl),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        );
+                      },
                     );
                   },
                 );

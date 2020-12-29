@@ -4,6 +4,7 @@ import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
+import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,12 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void doFuture() async {
     await Provider.of<CharactersProvider>(context, listen: false)
-        .setCharacters();
+        .setHomeCharacters();
     await Provider.of<QuestionsProvider>(context, listen: false)
         .setQuestionMap();
     setState(() {
       _isBusy = false;
     });
+  }
+
+  void _navigateDiaryListScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(DiaryListScreen.routeName);
   }
 
   void _navigateWriteScreen(BuildContext context) async {
@@ -68,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.dynamic_feed),
-            onPressed: () {},
+            onPressed: () => _navigateDiaryListScreen(context),
           ),
         ],
       ),

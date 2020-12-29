@@ -45,6 +45,15 @@ class DbService {
         '');
   }
 
+  static Future<List<Map<String, dynamic>>> getAllCharacters() async {
+    final db = await DbService.database();
+    return db.rawQuery(''
+        'select * from character c '
+        'inner join status s on c.id = s.character_id '
+        'where s.is_status_now = 1;'
+        '');
+  }
+
   static Future<List<Map<String, dynamic>>> getQuestionsByCharacterIds(
       List<String> characterIds) async {
     final db = await DbService.database();
@@ -56,5 +65,14 @@ class DbService {
         'and (select count(*) from diary d where d.question_id = q.id) == 0 '
         'group by q.character_id '
         '');
+  }
+
+  static Future<int> getCount(String table) async {
+    final db = await DbService.database();
+    return sql.Sqflite.firstIntValue(
+      await db.rawQuery(''
+          'select count(*) from $table '
+          ''),
+    );
   }
 }

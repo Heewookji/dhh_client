@@ -1,6 +1,7 @@
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
+import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/home_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/services/db_service.dart';
@@ -37,7 +38,9 @@ class _MyAppState extends State<MyApp> {
           },
           create: null,
         ),
-        ChangeNotifierProvider(create: (_) => DiariesProvider()),
+        ChangeNotifierProvider(
+          create: (_) => DiariesProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -48,8 +51,26 @@ class _MyAppState extends State<MyApp> {
         ),
         initialRoute: HomeScreen.routeName,
         routes: {
-          HomeScreen.routeName: (ctx) => HomeScreen(),
+          HomeScreen.routeName: (ctx) => MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(create: (_) => CharactersProvider()),
+                  ChangeNotifierProxyProvider<CharactersProvider,
+                      QuestionsProvider>(
+                    update: (ctx, characters, previous) {
+                      return QuestionsProvider(
+                        characters.characters
+                            .map((c) => c.id.toString())
+                            .toList(),
+                        previous != null ? previous.questionMap : Map(),
+                      );
+                    },
+                    create: null,
+                  ),
+                ],
+                child: HomeScreen(),
+              ),
           WriteScreen.routeName: (ctx) => WriteScreen(),
+          DiaryListScreen.routeName: (ctx) => DiaryListScreen(),
         },
       ),
     );

@@ -9,8 +9,16 @@ class CharactersProvider with ChangeNotifier {
     return [..._characters];
   }
 
-  Future<void> setCharacters() async {
+  Future<void> setHomeCharacters() async {
     final dataMapList = await DbService.getHomeCharacters();
+    _characters = dataMapList.map((dataMap) {
+      return standardSerializers.deserializeWith(Character.serializer, dataMap);
+    }).toList();
+    notifyListeners();
+  }
+
+  Future<void> setAllCharacters() async {
+    final dataMapList = await DbService.getAllCharacters();
     _characters = dataMapList.map((dataMap) {
       return standardSerializers.deserializeWith(Character.serializer, dataMap);
     }).toList();

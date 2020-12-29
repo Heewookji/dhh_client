@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomeScreen(),
+        initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (ctx) => HomeScreen(),
           WriteScreen.routeName: (ctx) => WriteScreen(),

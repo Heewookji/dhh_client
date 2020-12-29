@@ -24,8 +24,4 @@ class QuestionsProvider with ChangeNotifier {
     });
     notifyListeners();
   }
-
-  Question getQuestionByCharacterId(int characterId) {
-    return _questionMap[characterId.toString()];
-  }
 }

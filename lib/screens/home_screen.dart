@@ -29,6 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _navigateWriteScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      WriteScreen.routeName,
+      arguments: {
+        'characterId': 1,
+        'question': 'question',
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -68,14 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: provider.characters.length,
                   itemBuilder: (context, i) {
                     final character = provider.characters[i];
+                    final questionMap =
+                        Provider.of<QuestionsProvider>(context).questionMap;
                     return GestureDetector(
                       onTap: () {},
                       child: Column(
                         children: [
                           Text(character.name),
-                          Text(Provider.of<QuestionsProvider>(context)
-                              .getQuestionByCharacterId(character.id)
-                              .text),
+                          Text(questionMap[character.id.toString()].text),
                           Container(
                             height: screenSize.height * 0.1,
                             decoration: BoxDecoration(
@@ -114,13 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         height: screenSize.height * 0.1,
         child: FlatButton(
-          onPressed: () => Navigator.of(context).pushNamed(
-            WriteScreen.routeName,
-            arguments: {
-              'characterId': 1,
-              'question': 'question',
-            },
-          ),
+          onPressed: () => _navigateWriteScreen(context),
           child: Text('일기쓰기'),
         ),
       ),

@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          _buildAlarmPanel(context, screenSize),
+          _buildPanel(context, screenSize),
           _buildCharacterHome(context, screenSize),
           _buildBottomButton(context, screenSize),
         ],
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildAlarmPanel(BuildContext context, Size screenSize) {
+  Widget _buildPanel(BuildContext context, Size screenSize) {
     return Container(
       alignment: Alignment.center,
       height: screenSize.height * 0.2,
@@ -144,7 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         height: screenSize.height * 0.1,
         child: FlatButton(
-          onPressed: () => _navigateWriteScreen(context),
+          onPressed: _chosenQuestion == null
+              ? null
+              : () => _navigateWriteScreen(context),
           child: Text('일기쓰기'),
         ),
       ),

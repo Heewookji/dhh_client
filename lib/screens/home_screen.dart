@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:dhh_client/models/character.dart';
+import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/write_screen.dart';
@@ -13,6 +17,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isBusy = true;
+  int _chosenLocation = -1;
+  Character _chosenCharacter;
+  Question _chosenQuestion;
+  final _locationPoints = const {
+    1: Point(1, 2),
+    2: Point(1, 2),
+    3: Point(1, 2),
+    4: Point(1, 2),
+  };
+
   @override
   void initState() {
     super.initState();
@@ -33,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.of(context).pushNamed(
       WriteScreen.routeName,
       arguments: {
-        'characterId': 1,
-        'question': 'question',
+        'character': _chosenCharacter,
+        'question': _chosenQuestion,
       },
     );
   }
@@ -55,11 +69,27 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          _buildAlarmPanel(screenSize),
+          _buildAlarmPanel(context, screenSize),
           _buildCharacterHome(context, screenSize),
           _buildBottomButton(context, screenSize),
         ],
       ),
+    );
+  }
+
+  Widget _buildAlarmPanel(BuildContext context, Size screenSize) {
+    return Container(
+      alignment: Alignment.center,
+      height: screenSize.height * 0.2,
+      color: _chosenCharacter != null
+          ? Color(_chosenCharacter.color)
+          : Colors.black26,
+      child: _chosenQuestion != null
+          ? Text(_chosenQuestion.text)
+          : Text(
+              '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
+              textAlign: TextAlign.center,
+            ),
     );
   }
 
@@ -75,25 +105,27 @@ class _HomeScreenState extends State<HomeScreen> {
             Consumer<CharactersProvider>(
               builder: (context, provider, child) {
                 return ListView.builder(
+                  scrollDirection: Axis.horizontal,
                   itemCount: provider.characters.length,
                   itemBuilder: (context, i) {
                     final character = provider.characters[i];
-                    final questionMap =
-                        Provider.of<QuestionsProvider>(context).questionMap;
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          _chosenLocation = i;
+                          _chosenCharacter = character;
+                          _chosenQuestion = Provider.of<QuestionsProvider>(
+                                  context,
+                                  listen: false)
+                              .questionMap[character.id.toString()];
+                        });
+                      },
                       child: Column(
                         children: [
                           Text(character.name),
-                          Text(questionMap[character.id.toString()].text),
                           Container(
                             height: screenSize.height * 0.1,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(character.statusImageUrl),
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
+                            child: Image.asset(character.statusImageUrl),
                           ),
                         ],
                       ),
@@ -104,18 +136,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
         ],
       ),
-    );
-  }
-
-  Container _buildAlarmPanel(Size screenSize) {
-    return Container(
-      alignment: Alignment.center,
-      height: screenSize.height * 0.2,
-      child: Text(
-        '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
-        textAlign: TextAlign.center,
-      ),
-      color: Colors.black26,
     );
   }
 

@@ -47,6 +47,12 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
         ..add(serializers.serialize(object.description,
             specifiedType: const FullType(String)));
     }
+    if (object.color != null) {
+      result
+        ..add('color')
+        ..add(serializers.serialize(object.color,
+            specifiedType: const FullType(int)));
+    }
     return result;
   }
 
@@ -93,6 +99,10 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           result.statusImageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'color':
+          result.color = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
       }
     }
 
@@ -117,6 +127,8 @@ class _$Character extends Character {
   final int statusCode;
   @override
   final String statusImageUrl;
+  @override
+  final int color;
 
   factory _$Character([void Function(CharacterBuilder) updates]) =>
       (new CharacterBuilder()..update(updates)).build();
@@ -129,7 +141,8 @@ class _$Character extends Character {
       this.isTravel,
       this.isStarter,
       this.statusCode,
-      this.statusImageUrl})
+      this.statusImageUrl,
+      this.color})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('Character', 'name');
@@ -169,7 +182,8 @@ class _$Character extends Character {
         isTravel == other.isTravel &&
         isStarter == other.isStarter &&
         statusCode == other.statusCode &&
-        statusImageUrl == other.statusImageUrl;
+        statusImageUrl == other.statusImageUrl &&
+        color == other.color;
   }
 
   @override
@@ -179,13 +193,15 @@ class _$Character extends Character {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, id.hashCode), name.hashCode),
-                            description.hashCode),
-                        isHome.hashCode),
-                    isTravel.hashCode),
-                isStarter.hashCode),
-            statusCode.hashCode),
-        statusImageUrl.hashCode));
+                        $jc(
+                            $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                description.hashCode),
+                            isHome.hashCode),
+                        isTravel.hashCode),
+                    isStarter.hashCode),
+                statusCode.hashCode),
+            statusImageUrl.hashCode),
+        color.hashCode));
   }
 
   @override
@@ -198,7 +214,8 @@ class _$Character extends Character {
           ..add('isTravel', isTravel)
           ..add('isStarter', isStarter)
           ..add('statusCode', statusCode)
-          ..add('statusImageUrl', statusImageUrl))
+          ..add('statusImageUrl', statusImageUrl)
+          ..add('color', color))
         .toString();
   }
 }
@@ -239,6 +256,10 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   set statusImageUrl(String statusImageUrl) =>
       _$this._statusImageUrl = statusImageUrl;
 
+  int _color;
+  int get color => _$this._color;
+  set color(int color) => _$this._color = color;
+
   CharacterBuilder();
 
   CharacterBuilder get _$this {
@@ -251,6 +272,7 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
       _isStarter = _$v.isStarter;
       _statusCode = _$v.statusCode;
       _statusImageUrl = _$v.statusImageUrl;
+      _color = _$v.color;
       _$v = null;
     }
     return this;
@@ -280,7 +302,8 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
             isTravel: isTravel,
             isStarter: isStarter,
             statusCode: statusCode,
-            statusImageUrl: statusImageUrl);
+            statusImageUrl: statusImageUrl,
+            color: color);
     replace(_$result);
     return _$result;
   }

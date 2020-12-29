@@ -12,7 +12,8 @@ CREATE TABLE `character` (
                              `description`	longtext	NULL,
                              `is_home`	bit(1)	NOT NULL	DEFAULT false	,
                              `is_travel`	bit(1)	NOT NULL	DEFAULT false	,
-                             `is_starter`	bit(1)	NOT NULL	DEFAULT false
+                             `is_starter`	bit(1)	NOT NULL	DEFAULT false   ,
+                             'color' INTEGER NOT NULL DEFAULT 0xFF14213D
 );
 
 

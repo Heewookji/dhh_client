@@ -1,3 +1,5 @@
+import 'package:dhh_client/models/character.dart';
+import 'package:dhh_client/models/question.dart';
 import 'package:flutter/material.dart';
 
 class WriteScreen extends StatelessWidget {
@@ -6,14 +8,14 @@ class WriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, Object> arguments = ModalRoute.of(context).settings.arguments;
-    int characterId = arguments['characterId'];
-    String question = arguments['question'];
+    Character character = arguments['character'];
+    Question question = arguments['question'];
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
-          Text(characterId.toString()),
-          Text(question),
+          Text(character.name),
+          Text(question.text),
         ],
       ),
     );

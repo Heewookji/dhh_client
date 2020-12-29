@@ -9,11 +9,7 @@ class QuestionsProvider with ChangeNotifier {
 
   QuestionsProvider(this._characterIds, this._questionMap);
 
-  Map<String, Question> get questionMap {
-    Map<String, Question> retMap = Map();
-    retMap.addAll(_questionMap);
-    return retMap;
-  }
+  Map<String, Question> get questionMap => Map()..addAll(_questionMap);
 
   Future<void> setQuestionMap() async {
     final dataMapList =

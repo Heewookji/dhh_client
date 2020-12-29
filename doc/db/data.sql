@@ -1,11 +1,11 @@
 
 -- 캐릭터
-insert into character(id, name, is_starter, is_home) values (1,'스타터세포1', true, true);
-insert into character(id, name, is_starter, is_home) values (2,'스타터세포2', true, true);
-insert into character(id, name, is_starter) values (3,'스타터세포3', true);
-insert into character(id, name) values (4,'세포4');
-insert into character(id, name) values (5,'세포5');
-insert into character(id, name) values (6,'세포6');
+insert into character(id, name, is_starter, is_home, color) values (1,'스타터캐릭1', true, true, 0xFFFFFFFF);
+insert into character(id, name, is_starter, is_home, color) values (2,'스타터캐릭2', true, true, 0xFFFCA311);
+insert into character(id, name, is_starter, color) values (3,'스타터캐릭3', true, 0xFF14213D);
+insert into character(id, name) values (4,'캐릭4');
+insert into character(id, name) values (5,'캐릭5');
+insert into character(id, name) values (6,'캐릭6');
 
 --캐릭터 스테이터스 (캐릭터당 6개)
 insert into status (code, character_id, image_url, is_status_now) values (1,1,'assets/images/1-1.png', true);

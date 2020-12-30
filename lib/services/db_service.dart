@@ -85,6 +85,7 @@ class DbService {
         'select d.*, c.color from diary d '
         'inner join question q on d.question_id = q.id '
         'inner join character c on q.character_id = c.id '
+        'order by d.created_at desc '
         '');
   }
 

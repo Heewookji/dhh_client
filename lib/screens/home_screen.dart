@@ -31,10 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    doFuture();
+    _doFuture();
   }
 
-  void doFuture() async {
+  void _doFuture() async {
     await Provider.of<CharactersProvider>(context, listen: false)
         .setHomeCharacters();
     await Provider.of<QuestionsProvider>(context, listen: false)

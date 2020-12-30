@@ -8,6 +8,7 @@ abstract class Character implements Built<Character, CharacterBuilder> {
   @nullable
   int get id;
   String get name;
+  int get color;
   @nullable
   String get description;
   @BuiltValueField(wireName: 'is_home')
@@ -16,11 +17,12 @@ abstract class Character implements Built<Character, CharacterBuilder> {
   int get isTravel;
   @BuiltValueField(wireName: 'is_starter')
   int get isStarter;
+  @BuiltValueField(wireName: 'is_npc')
+  int get isNpc;
   @BuiltValueField(wireName: 'code')
   int get statusCode;
   @BuiltValueField(wireName: 'image_url')
   String get statusImageUrl;
-  int get color;
 
   Character._();
   factory Character([void Function(CharacterBuilder) updates]) = _$Character;

@@ -6,6 +6,7 @@ insert into character(id, name, is_starter, color) values (3,'스타터캐릭3',
 insert into character(id, name) values (4,'캐릭4');
 insert into character(id, name) values (5,'캐릭5');
 insert into character(id, name) values (6,'캐릭6');
+insert into character(id, name, is_npc) values (11,'npc1', 1);
 
 --캐릭터 스테이터스 (캐릭터당 6개)
 insert into status (code, character_id, image_url, is_status_now) values (1,1,'assets/images/1-1.png', true);

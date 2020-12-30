@@ -36,6 +36,7 @@ class DbService {
     return db.query(table);
   }
 
+  //캐릭터
   static Future<List<Map<String, dynamic>>> getHomeCharacters() async {
     final db = await DbService.database();
     return db.rawQuery(''
@@ -48,12 +49,21 @@ class DbService {
   static Future<List<Map<String, dynamic>>> getAllCharacters() async {
     final db = await DbService.database();
     return db.rawQuery(''
-        'select * from character c '
+        'select * from '
+        '(select * from '
+        '(select c.*, s.*, d.created_at from character c '
         'inner join status s on c.id = s.character_id '
-        'where s.is_status_now = 1;'
+        'inner join question q on c.id = q.character_id '
+        'left outer join diary d on q.id = d.question_id '
+        'where s.is_status_now = 1 '
+        'order by d.created_at desc '
+        ') t '
+        'group by t.id) t2 '
+        'order by t2.created_at desc, t2.is_home = 0, t2.is_travel = 0 '
         '');
   }
 
+  //질문
   static Future<List<Map<String, dynamic>>> getQuestionsByCharacterIds(
       List<String> characterIds) async {
     final db = await DbService.database();
@@ -67,12 +77,21 @@ class DbService {
         '');
   }
 
-  static Future<int> getCount(String table) async {
+  //일기
+  static Future<List<Map<String, dynamic>>>
+      getAllDiariesOrderByCreatedAt() async {
     final db = await DbService.database();
-    return sql.Sqflite.firstIntValue(
-      await db.rawQuery(''
-          'select count(*) from $table '
-          ''),
-    );
+    return db.query('diary', orderBy: 'created_at desc');
+  }
+
+  static Future<List<Map<String, dynamic>>> getDiariesByCharacterId(
+      int characterId) async {
+    final db = await DbService.database();
+    return db.rawQuery(''
+        'select d.*, q.character_id from diary d '
+        'inner join question q on d.question_id = q.id '
+        'where q.character_id = ${characterId.toString()} '
+        'order by d.created_at desc '
+        '');
   }
 }

@@ -4,20 +4,26 @@ import 'package:dhh_client/services/db_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class DiariesProvider with ChangeNotifier {
-  int _allDiariesCount = 0;
+  List<Diary> _diaries = [];
 
-  int get allDiariesCount => _allDiariesCount;
+  List<Diary> get diaries => [..._diaries];
 
-  Future<void> setAllDiariesCount() async {
-    _allDiariesCount = await DbService.getCount('diary');
+  Future<void> setAllDiaries() async {
+    final dataMapList = await DbService.getAllDiariesOrderByCreatedAt();
+    _diaries = dataMapList
+        .map((dataMap) =>
+            standardSerializers.deserializeWith(Diary.serializer, dataMap))
+        .toList();
     notifyListeners();
   }
 
-  Future<List<Diary>> getAllDiaries() async {
-    final dataMapList = await DbService.getData('diary');
-    return dataMapList.map((dataMap) {
-      return standardSerializers.deserializeWith(Diary.serializer, dataMap);
-    }).toList();
+  Future<void> setDiariesByCharacterId(int characterId) async {
+    final dataMapList = await DbService.getDiariesByCharacterId(characterId);
+    _diaries = dataMapList
+        .map((dataMap) =>
+            standardSerializers.deserializeWith(Diary.serializer, dataMap))
+        .toList();
+    notifyListeners();
   }
 
   Future<void> addDiary(int questionId, String text) async {

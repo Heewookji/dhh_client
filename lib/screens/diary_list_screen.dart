@@ -1,4 +1,3 @@
-import 'package:dhh_client/models/diary.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ class DiaryListScreen extends StatefulWidget {
 
 class _DiaryListScreenState extends State<DiaryListScreen> {
   bool _isBusy = true;
+
   @override
   void initState() {
     super.initState();
@@ -20,11 +20,21 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
   }
 
   void doFuture() async {
-    Provider.of<CharactersProvider>(context, listen: false).setAllCharacters();
-    Provider.of<DiariesProvider>(context, listen: false).setAllDiariesCount();
+    await Provider.of<CharactersProvider>(context, listen: false)
+        .setAllCharacters();
+    await _setDiaries(null);
     setState(() {
       _isBusy = false;
     });
+  }
+
+  Future<void> _setDiaries(int id) async {
+    if (id == null)
+      await Provider.of<DiariesProvider>(context, listen: false)
+          .setAllDiaries();
+    else
+      await Provider.of<DiariesProvider>(context, listen: false)
+          .setDiariesByCharacterId(id);
   }
 
   @override
@@ -42,53 +52,9 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
                     return Column(
                       children: [
                         _buildPanel(
-                            theme, screenSize, diariesProvider.allDiariesCount),
-                        Container(
-                          height: screenSize.height * 0.1,
-                          child: ListView.builder(
-                            itemCount: charactersProvider.characters.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, i) {
-                              final character =
-                                  charactersProvider.characters[i];
-                              return Container(
-                                margin: EdgeInsets.only(
-                                    right: screenSize.width * 0.05),
-                                child: CircleAvatar(
-                                  maxRadius: screenSize.width * 0.1,
-                                  child: Image.asset(character.statusImageUrl),
-                                  backgroundColor: character.isHome != 1 &&
-                                          character.isTravel != 1
-                                      ? Colors.black
-                                      : Colors.black12,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: FutureBuilder<List<Diary>>(
-                            future: diariesProvider.getAllDiaries(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting)
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              return ListView.builder(
-                                itemCount: diariesProvider.allDiariesCount,
-                                itemBuilder: (context, i) {
-                                  final diary = snapshot.data[i];
-                                  return Container(
-                                      margin: EdgeInsets.only(
-                                          top: screenSize.height * 0.05),
-                                      color: Colors.black12,
-                                      height: screenSize.height * 0.2,
-                                      child: Text(diary.text));
-                                },
-                              );
-                            },
-                          ),
-                        )
+                            theme, screenSize, diariesProvider.diaries.length),
+                        _buildCharacterList(screenSize, charactersProvider),
+                        _buildDiaryList(diariesProvider, screenSize),
                       ],
                     );
                   },
@@ -101,7 +67,6 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
   Widget _buildPanel(ThemeData theme, Size screenSize, int allDiariesCount) {
     return Container(
       height: screenSize.height * 0.25,
-      color: Colors.black12,
       child: Row(
         children: [
           Text(
@@ -109,6 +74,74 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
             style: theme.textTheme.headline2,
           ),
         ],
+      ),
+    );
+  }
+
+  Container _buildCharacterList(
+      Size screenSize, CharactersProvider charactersProvider) {
+    return Container(
+      height: screenSize.height * 0.1,
+      child: ListView.builder(
+        itemCount: charactersProvider.characters.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, i) {
+          final characters = charactersProvider.characters;
+          final character = characters[i];
+          return Row(
+            children: [
+              if (i == 0) _buildAllCharacterButton(screenSize),
+              GestureDetector(
+                onTap: () => _setDiaries(character.id),
+                child: Container(
+                  margin: EdgeInsets.only(right: screenSize.width * 0.05),
+                  child: CircleAvatar(
+                    maxRadius: screenSize.width * 0.1,
+                    child: Image.asset(character.statusImageUrl),
+                    backgroundColor:
+                        character.isHome != 1 && character.isTravel != 1
+                            ? Colors.black
+                            : Colors.black12,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  _buildAllCharacterButton(Size screenSize) {
+    return GestureDetector(
+      onTap: () => _setDiaries(null),
+      child: Container(
+        margin: EdgeInsets.only(right: screenSize.width * 0.05),
+        child: CircleAvatar(
+          maxRadius: screenSize.width * 0.1,
+          backgroundColor: Colors.black12,
+          child: Text(
+            '전체',
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Expanded _buildDiaryList(DiariesProvider diariesProvider, Size screenSize) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: diariesProvider.diaries.length,
+        itemBuilder: (context, i) {
+          final diaries = diariesProvider.diaries;
+          final diary = diaries[i];
+          return Container(
+              margin: EdgeInsets.only(top: screenSize.height * 0.05),
+              color: Colors.black12,
+              height: screenSize.height * 0.2,
+              child: Text(diary.text));
+        },
       ),
     );
   }

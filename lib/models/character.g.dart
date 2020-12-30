@@ -20,6 +20,8 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
     final result = <Object>[
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'color',
+      serializers.serialize(object.color, specifiedType: const FullType(int)),
       'is_home',
       serializers.serialize(object.isHome, specifiedType: const FullType(int)),
       'is_travel',
@@ -28,14 +30,14 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       'is_starter',
       serializers.serialize(object.isStarter,
           specifiedType: const FullType(int)),
+      'is_npc',
+      serializers.serialize(object.isNpc, specifiedType: const FullType(int)),
       'code',
       serializers.serialize(object.statusCode,
           specifiedType: const FullType(int)),
       'image_url',
       serializers.serialize(object.statusImageUrl,
           specifiedType: const FullType(String)),
-      'color',
-      serializers.serialize(object.color, specifiedType: const FullType(int)),
     ];
     if (object.id != null) {
       result
@@ -71,6 +73,10 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'color':
+          result.color = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'description':
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -87,6 +93,10 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           result.isStarter = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'is_npc':
+          result.isNpc = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'code':
           result.statusCode = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
@@ -94,10 +104,6 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
         case 'image_url':
           result.statusImageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
-          break;
-        case 'color':
-          result.color = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
           break;
       }
     }
@@ -112,6 +118,8 @@ class _$Character extends Character {
   @override
   final String name;
   @override
+  final int color;
+  @override
   final String description;
   @override
   final int isHome;
@@ -120,11 +128,11 @@ class _$Character extends Character {
   @override
   final int isStarter;
   @override
+  final int isNpc;
+  @override
   final int statusCode;
   @override
   final String statusImageUrl;
-  @override
-  final int color;
 
   factory _$Character([void Function(CharacterBuilder) updates]) =>
       (new CharacterBuilder()..update(updates)).build();
@@ -132,16 +140,20 @@ class _$Character extends Character {
   _$Character._(
       {this.id,
       this.name,
+      this.color,
       this.description,
       this.isHome,
       this.isTravel,
       this.isStarter,
+      this.isNpc,
       this.statusCode,
-      this.statusImageUrl,
-      this.color})
+      this.statusImageUrl})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('Character', 'name');
+    }
+    if (color == null) {
+      throw new BuiltValueNullFieldError('Character', 'color');
     }
     if (isHome == null) {
       throw new BuiltValueNullFieldError('Character', 'isHome');
@@ -152,14 +164,14 @@ class _$Character extends Character {
     if (isStarter == null) {
       throw new BuiltValueNullFieldError('Character', 'isStarter');
     }
+    if (isNpc == null) {
+      throw new BuiltValueNullFieldError('Character', 'isNpc');
+    }
     if (statusCode == null) {
       throw new BuiltValueNullFieldError('Character', 'statusCode');
     }
     if (statusImageUrl == null) {
       throw new BuiltValueNullFieldError('Character', 'statusImageUrl');
-    }
-    if (color == null) {
-      throw new BuiltValueNullFieldError('Character', 'color');
     }
   }
 
@@ -176,13 +188,14 @@ class _$Character extends Character {
     return other is Character &&
         id == other.id &&
         name == other.name &&
+        color == other.color &&
         description == other.description &&
         isHome == other.isHome &&
         isTravel == other.isTravel &&
         isStarter == other.isStarter &&
+        isNpc == other.isNpc &&
         statusCode == other.statusCode &&
-        statusImageUrl == other.statusImageUrl &&
-        color == other.color;
+        statusImageUrl == other.statusImageUrl;
   }
 
   @override
@@ -193,14 +206,16 @@ class _$Character extends Character {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, id.hashCode), name.hashCode),
+                            $jc(
+                                $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                    color.hashCode),
                                 description.hashCode),
                             isHome.hashCode),
                         isTravel.hashCode),
                     isStarter.hashCode),
-                statusCode.hashCode),
-            statusImageUrl.hashCode),
-        color.hashCode));
+                isNpc.hashCode),
+            statusCode.hashCode),
+        statusImageUrl.hashCode));
   }
 
   @override
@@ -208,13 +223,14 @@ class _$Character extends Character {
     return (newBuiltValueToStringHelper('Character')
           ..add('id', id)
           ..add('name', name)
+          ..add('color', color)
           ..add('description', description)
           ..add('isHome', isHome)
           ..add('isTravel', isTravel)
           ..add('isStarter', isStarter)
+          ..add('isNpc', isNpc)
           ..add('statusCode', statusCode)
-          ..add('statusImageUrl', statusImageUrl)
-          ..add('color', color))
+          ..add('statusImageUrl', statusImageUrl))
         .toString();
   }
 }
@@ -229,6 +245,10 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   String _name;
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
+
+  int _color;
+  int get color => _$this._color;
+  set color(int color) => _$this._color = color;
 
   String _description;
   String get description => _$this._description;
@@ -246,6 +266,10 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   int get isStarter => _$this._isStarter;
   set isStarter(int isStarter) => _$this._isStarter = isStarter;
 
+  int _isNpc;
+  int get isNpc => _$this._isNpc;
+  set isNpc(int isNpc) => _$this._isNpc = isNpc;
+
   int _statusCode;
   int get statusCode => _$this._statusCode;
   set statusCode(int statusCode) => _$this._statusCode = statusCode;
@@ -255,23 +279,20 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   set statusImageUrl(String statusImageUrl) =>
       _$this._statusImageUrl = statusImageUrl;
 
-  int _color;
-  int get color => _$this._color;
-  set color(int color) => _$this._color = color;
-
   CharacterBuilder();
 
   CharacterBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
       _name = _$v.name;
+      _color = _$v.color;
       _description = _$v.description;
       _isHome = _$v.isHome;
       _isTravel = _$v.isTravel;
       _isStarter = _$v.isStarter;
+      _isNpc = _$v.isNpc;
       _statusCode = _$v.statusCode;
       _statusImageUrl = _$v.statusImageUrl;
-      _color = _$v.color;
       _$v = null;
     }
     return this;
@@ -296,13 +317,14 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
         new _$Character._(
             id: id,
             name: name,
+            color: color,
             description: description,
             isHome: isHome,
             isTravel: isTravel,
             isStarter: isStarter,
+            isNpc: isNpc,
             statusCode: statusCode,
-            statusImageUrl: statusImageUrl,
-            color: color);
+            statusImageUrl: statusImageUrl);
     replace(_$result);
     return _$result;
   }

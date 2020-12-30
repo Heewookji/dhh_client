@@ -37,15 +37,21 @@ class _HomeScreenState extends State<HomeScreen> {
   void _doFuture() async {
     await Provider.of<CharactersProvider>(context, listen: false)
         .setHomeCharacters();
-    await Provider.of<QuestionsProvider>(context, listen: false).setQuestionMap(
-        Provider.of<CharactersProvider>(context, listen: false).characterIds);
+    await Provider.of<QuestionsProvider>(context, listen: false)
+        .setQuestionMapByCharacterIds(
+            Provider.of<CharactersProvider>(context, listen: false)
+                .characterIds);
     setState(() {
       _isBusy = false;
     });
   }
 
-  void _navigateDiaryListScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(DiaryListScreen.routeName);
+  void _navigateDiaryListScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(DiaryListScreen.routeName);
+    setState(() {
+      _chosenCharacter = _chosenQuestion = null;
+      _chosenLocation = -1;
+    });
   }
 
   void _navigateWriteScreen(BuildContext context) async {
@@ -56,8 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
         'question': _chosenQuestion,
       },
     );
-    await Provider.of<QuestionsProvider>(context, listen: false).setQuestionMap(
-        Provider.of<CharactersProvider>(context, listen: false).characterIds);
+    await Provider.of<QuestionsProvider>(context, listen: false)
+        .setQuestionMapByCharacterIds(
+            Provider.of<CharactersProvider>(context, listen: false)
+                .characterIds);
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
       _chosenLocation = -1;
@@ -113,36 +121,32 @@ class _HomeScreenState extends State<HomeScreen> {
           if (_isBusy)
             Container()
           else
-            Consumer<CharactersProvider>(
-              builder: (context, charactersProvider, child) {
-                return Consumer<QuestionsProvider>(
-                  builder: (context, questionsProvider, child) {
-                    return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: charactersProvider.characters.length,
-                      itemBuilder: (context, i) {
-                        final character = charactersProvider.characters[i];
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _chosenLocation = i;
-                              _chosenCharacter = character;
-                              _chosenQuestion = questionsProvider
-                                  .questionMap[character.id.toString()];
-                            });
-                          },
-                          child: Column(
-                            children: [
-                              Text(character.name),
-                              Container(
-                                height: screenSize.height * 0.1,
-                                color: Color(character.color),
-                                child: Image.asset(character.statusImageUrl),
-                              ),
-                            ],
-                          ),
-                        );
+            Consumer2<CharactersProvider, QuestionsProvider>(
+              builder: (context, charactersProvider, questionsProvider, child) {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: charactersProvider.characters.length,
+                  itemBuilder: (context, i) {
+                    final character = charactersProvider.characters[i];
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _chosenLocation = i;
+                          _chosenCharacter = character;
+                          _chosenQuestion = questionsProvider
+                              .questionMap[character.id.toString()];
+                        });
                       },
+                      child: Column(
+                        children: [
+                          Text(character.name),
+                          Container(
+                            height: screenSize.height * 0.1,
+                            color: Color(character.color),
+                            child: Image.asset(character.statusImageUrl),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 );

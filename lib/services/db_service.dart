@@ -77,23 +77,30 @@ class DbService {
         '');
   }
 
+  static Future<List<Map<String, dynamic>>> getQuestionsByDiaryIds(
+      List<int> diaryIds) async {
+    final db = await DbService.database();
+    String idsString =
+        diaryIds.toString().replaceAll('[', '(').replaceAll(']', ')');
+    return db.rawQuery(''
+        'select d.id as diary_id, q.* from diary d '
+        'inner join question q on q.id = d.question_id '
+        'where d.id in $idsString '
+        '');
+  }
+
   //일기
   static Future<List<Map<String, dynamic>>>
       getAllDiariesOrderByCreatedAt() async {
     final db = await DbService.database();
-    return db.rawQuery(''
-        'select d.*, c.color from diary d '
-        'inner join question q on d.question_id = q.id '
-        'inner join character c on q.character_id = c.id '
-        'order by d.created_at desc '
-        '');
+    return db.query('diary', orderBy: 'created_at desc');
   }
 
   static Future<List<Map<String, dynamic>>> getDiariesByCharacterId(
       int characterId) async {
     final db = await DbService.database();
     return db.rawQuery(''
-        'select d.*, c.color from diary d '
+        'select d.* from diary d '
         'inner join question q on d.question_id = q.id '
         'inner join character c on q.character_id = c.id '
         'where c.id = ${characterId.toString()} '

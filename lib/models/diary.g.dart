@@ -33,12 +33,6 @@ class _$DiarySerializer implements StructuredSerializer<Diary> {
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(int)));
     }
-    if (object.color != null) {
-      result
-        ..add('color')
-        ..add(serializers.serialize(object.color,
-            specifiedType: const FullType(int)));
-    }
     return result;
   }
 
@@ -69,10 +63,6 @@ class _$DiarySerializer implements StructuredSerializer<Diary> {
           result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
           break;
-        case 'color':
-          result.color = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
       }
     }
 
@@ -89,14 +79,11 @@ class _$Diary extends Diary {
   final String text;
   @override
   final DateTime createdAt;
-  @override
-  final int color;
 
   factory _$Diary([void Function(DiaryBuilder) updates]) =>
       (new DiaryBuilder()..update(updates)).build();
 
-  _$Diary._({this.id, this.questionId, this.text, this.createdAt, this.color})
-      : super._() {
+  _$Diary._({this.id, this.questionId, this.text, this.createdAt}) : super._() {
     if (questionId == null) {
       throw new BuiltValueNullFieldError('Diary', 'questionId');
     }
@@ -122,16 +109,14 @@ class _$Diary extends Diary {
         id == other.id &&
         questionId == other.questionId &&
         text == other.text &&
-        createdAt == other.createdAt &&
-        color == other.color;
+        createdAt == other.createdAt;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, id.hashCode), questionId.hashCode), text.hashCode),
-            createdAt.hashCode),
-        color.hashCode));
+        $jc($jc($jc(0, id.hashCode), questionId.hashCode), text.hashCode),
+        createdAt.hashCode));
   }
 
   @override
@@ -140,8 +125,7 @@ class _$Diary extends Diary {
           ..add('id', id)
           ..add('questionId', questionId)
           ..add('text', text)
-          ..add('createdAt', createdAt)
-          ..add('color', color))
+          ..add('createdAt', createdAt))
         .toString();
   }
 }
@@ -165,10 +149,6 @@ class DiaryBuilder implements Builder<Diary, DiaryBuilder> {
   DateTime get createdAt => _$this._createdAt;
   set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
 
-  int _color;
-  int get color => _$this._color;
-  set color(int color) => _$this._color = color;
-
   DiaryBuilder();
 
   DiaryBuilder get _$this {
@@ -177,7 +157,6 @@ class DiaryBuilder implements Builder<Diary, DiaryBuilder> {
       _questionId = _$v.questionId;
       _text = _$v.text;
       _createdAt = _$v.createdAt;
-      _color = _$v.color;
       _$v = null;
     }
     return this;
@@ -200,11 +179,7 @@ class DiaryBuilder implements Builder<Diary, DiaryBuilder> {
   _$Diary build() {
     final _$result = _$v ??
         new _$Diary._(
-            id: id,
-            questionId: questionId,
-            text: text,
-            createdAt: createdAt,
-            color: color);
+            id: id, questionId: questionId, text: text, createdAt: createdAt);
     replace(_$result);
     return _$result;
   }

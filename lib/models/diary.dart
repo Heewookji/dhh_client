@@ -12,8 +12,6 @@ abstract class Diary implements Built<Diary, DiaryBuilder> {
   String get text;
   @BuiltValueField(wireName: 'created_at')
   DateTime get createdAt;
-  @nullable
-  int get color;
 
   Diary._();
   factory Diary([void Function(DiaryBuilder) updates]) = _$Diary;

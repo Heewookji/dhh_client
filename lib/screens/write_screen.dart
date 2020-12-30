@@ -45,9 +45,12 @@ class _WriteScreenState extends State<WriteScreen> {
             Text(character.name),
           ],
         ),
-        Text(
-          question.text,
-          style: theme.textTheme.headline2,
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            question.text,
+            style: theme.textTheme.headline2,
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

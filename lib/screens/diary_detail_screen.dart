@@ -4,19 +4,29 @@ import 'package:dhh_client/models/question.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class DiaryDetailScreen extends StatelessWidget {
+class DiaryDetailScreen extends StatefulWidget {
   static final routeName = '/diary_detail';
+
+  @override
+  _DiaryDetailScreenState createState() => _DiaryDetailScreenState();
+}
+
+class _DiaryDetailScreenState extends State<DiaryDetailScreen> {
+  Character character;
+  Question question;
+  Diary diary;
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     Size screenSize = MediaQuery.of(context).size;
     Map<String, Object> arguments = ModalRoute.of(context).settings.arguments;
-    Character character = arguments['character'];
-    Question question = arguments['question'];
-    Diary diary = arguments['diary'];
+    character = arguments['character'];
+    question = arguments['question'];
+    diary = arguments['diary'];
     return Scaffold(
       appBar: AppBar(),
+      backgroundColor: Color(character.color),
       body: Column(
         children: [
           _buildPanel(theme, screenSize),
@@ -33,12 +43,27 @@ class DiaryDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(DateFormat.yMd().format(DateTime.now())),
+            Text(character.name),
           ],
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            question.text,
+            style: theme.textTheme.headline2,
+            textAlign: TextAlign.left,
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: [Text('질문에 답하기'), Container()],
+          children: [
+            Text('질문에 답하기'),
+            Container(
+              height: screenSize.height * 0.2,
+              child: Image.asset(character.statusImageUrl),
+            )
+          ],
         ),
       ],
     );
@@ -46,8 +71,10 @@ class DiaryDetailScreen extends StatelessWidget {
 
   Container _buildTextField(Size screenSize) {
     return Container(
+      alignment: Alignment.topLeft,
       height: screenSize.height * 0.5,
       color: Colors.black12,
+      child: Text(diary.text),
     );
   }
 }

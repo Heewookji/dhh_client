@@ -39,7 +39,9 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.white,
+          canvasColor: Colors.white,
+          appBarTheme: AppBarTheme(color: Colors.transparent, elevation: 0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         initialRoute: HomeScreen.routeName,
@@ -59,16 +61,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-//CharactersProviderangeNotifierProxyProvider<CharactersProvider,
-//    QuestionsProvider>(
-//update: (ctx, characters, previous) {
-//return QuestionsProvider(
-//characters.characters
-//    .map((c) => c.id.toString())
-//    .toList(),
-//previous != null ? previous.questionMap : Map(),
-//);
-//},
-//create: null,
-//),

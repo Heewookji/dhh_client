@@ -54,17 +54,7 @@ class _DiaryDetailScreenState extends State<DiaryDetailScreen> {
             textAlign: TextAlign.left,
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text('질문에 답하기'),
-            Container(
-              height: screenSize.height * 0.2,
-              child: Image.asset(character.statusImageUrl),
-            )
-          ],
-        ),
+        Container(height: screenSize.height * 0.2),
       ],
     );
   }

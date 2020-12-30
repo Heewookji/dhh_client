@@ -14,7 +14,7 @@ CREATE TABLE `character` (
                              `is_home`	bit(1)	NOT NULL	DEFAULT false	,
                              `is_travel`	bit(1)	NOT NULL	DEFAULT false	,
                              `is_starter`	bit(1)	NOT NULL	DEFAULT false   ,
-                             `is_npc`	bit(1)	NOT NULL	DEFAULT false   ,
+                             `is_npc`	bit(1)	NOT NULL	DEFAULT false
 
 );
 

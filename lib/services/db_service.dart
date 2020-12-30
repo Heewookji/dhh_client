@@ -65,7 +65,7 @@ class DbService {
 
   //질문
   static Future<List<Map<String, dynamic>>> getQuestionsByCharacterIds(
-      List<String> characterIds) async {
+      List<int> characterIds) async {
     final db = await DbService.database();
     String idsString =
         characterIds.toString().replaceAll('[', '(').replaceAll(']', ')');

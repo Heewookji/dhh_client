@@ -37,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void _doFuture() async {
     await Provider.of<CharactersProvider>(context, listen: false)
         .setHomeCharacters();
-    await Provider.of<QuestionsProvider>(context, listen: false)
-        .setQuestionMap();
+    await Provider.of<QuestionsProvider>(context, listen: false).setQuestionMap(
+        Provider.of<CharactersProvider>(context, listen: false).characterIds);
     setState(() {
       _isBusy = false;
     });
@@ -56,8 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
         'question': _chosenQuestion,
       },
     );
-    await Provider.of<QuestionsProvider>(context, listen: false)
-        .setQuestionMap();
+    await Provider.of<QuestionsProvider>(context, listen: false).setQuestionMap(
+        Provider.of<CharactersProvider>(context, listen: false).characterIds);
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
       _chosenLocation = -1;

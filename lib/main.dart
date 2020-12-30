@@ -30,15 +30,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CharactersProvider()),
-        ChangeNotifierProxyProvider<CharactersProvider, QuestionsProvider>(
-          update: (ctx, characters, previous) {
-            return QuestionsProvider(
-              characters.characters.map((c) => c.id.toString()).toList(),
-              previous != null ? previous.questionMap : Map(),
-            );
-          },
-          create: null,
-        ),
+        ChangeNotifierProvider(create: (_) => QuestionsProvider()),
         ChangeNotifierProvider(
           create: (_) => DiariesProvider(),
         ),
@@ -55,18 +47,7 @@ class _MyAppState extends State<MyApp> {
           HomeScreen.routeName: (ctx) => MultiProvider(
                 providers: [
                   ChangeNotifierProvider(create: (_) => CharactersProvider()),
-                  ChangeNotifierProxyProvider<CharactersProvider,
-                      QuestionsProvider>(
-                    update: (ctx, characters, previous) {
-                      return QuestionsProvider(
-                        characters.characters
-                            .map((c) => c.id.toString())
-                            .toList(),
-                        previous != null ? previous.questionMap : Map(),
-                      );
-                    },
-                    create: null,
-                  ),
+                  ChangeNotifierProvider(create: (_) => QuestionsProvider()),
                 ],
                 child: HomeScreen(),
               ),
@@ -78,3 +59,16 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+//CharactersProviderangeNotifierProxyProvider<CharactersProvider,
+//    QuestionsProvider>(
+//update: (ctx, characters, previous) {
+//return QuestionsProvider(
+//characters.characters
+//    .map((c) => c.id.toString())
+//    .toList(),
+//previous != null ? previous.questionMap : Map(),
+//);
+//},
+//create: null,
+//),

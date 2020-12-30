@@ -5,9 +5,8 @@ import 'package:flutter/cupertino.dart';
 
 class CharactersProvider with ChangeNotifier {
   List<Character> _characters = [];
-  List<Character> get characters {
-    return [..._characters];
-  }
+  List<Character> get characters => [..._characters];
+  List<int> get characterIds => characters.map((c) => c.id).toList();
 
   Future<void> setHomeCharacters() async {
     final dataMapList = await DbService.getHomeCharacters();

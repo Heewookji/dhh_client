@@ -9,7 +9,6 @@ class DbService {
       version: 1,
       onCreate: (db, version) {
         print('init ' + dbPath);
-        ddl(db);
       },
     );
   }
@@ -17,13 +16,6 @@ class DbService {
   static void printPath() async {
     final dbPath = await sql.getDatabasesPath();
     print(dbPath);
-  }
-
-  static void ddl(sql.Database db) {
-    db.execute(
-        'CREATE TABLE `character` (`id` INTEGER	NOT NULL primary key autoincrement '
-        ',`name`	varchar(15)	NOT NULL,`description`	longtext	NULL,`is_home`	bit(1)	NOT NULL	DEFAULT false	,`is_travel`'
-        '	bit(1)	NOT NULL	DEFAULT false	,`is_starter`	bit(1)	NOT NULL	DEFAULT false);');
   }
 
   static Future<void> insert(String table, Map<String, Object> data) async {

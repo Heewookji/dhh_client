@@ -100,9 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       alignment: Alignment.center,
       height: screenSize.height * 0.2,
-      color: _chosenCharacter != null
-          ? Color(_chosenCharacter.color)
-          : Colors.black26,
       child: _chosenQuestion != null
           ? Text(_chosenQuestion.text)
           : Text(

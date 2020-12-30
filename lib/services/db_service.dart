@@ -81,16 +81,21 @@ class DbService {
   static Future<List<Map<String, dynamic>>>
       getAllDiariesOrderByCreatedAt() async {
     final db = await DbService.database();
-    return db.query('diary', orderBy: 'created_at desc');
+    return db.rawQuery(''
+        'select d.*, c.color from diary d '
+        'inner join question q on d.question_id = q.id '
+        'inner join character c on q.character_id = c.id '
+        '');
   }
 
   static Future<List<Map<String, dynamic>>> getDiariesByCharacterId(
       int characterId) async {
     final db = await DbService.database();
     return db.rawQuery(''
-        'select d.*, q.character_id from diary d '
+        'select d.*, c.color from diary d '
         'inner join question q on d.question_id = q.id '
-        'where q.character_id = ${characterId.toString()} '
+        'inner join character c on q.character_id = c.id '
+        'where c.id = ${characterId.toString()} '
         'order by d.created_at desc '
         '');
   }

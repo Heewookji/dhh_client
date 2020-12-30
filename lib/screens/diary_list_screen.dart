@@ -138,7 +138,7 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
           final diary = diaries[i];
           return Container(
               margin: EdgeInsets.only(top: screenSize.height * 0.05),
-              color: Colors.black12,
+              color: Color(diary.color),
               height: screenSize.height * 0.2,
               child: Text(diary.text));
         },

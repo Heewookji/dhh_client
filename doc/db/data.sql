@@ -1,3 +1,27 @@
+        Character(
+             (b) => b
+                 ..isHome = 1
+                 ..isTravel = 1
+                 ..color = 0xFFFFFFFF
+                 ..name = 'test'
+                 ..isStarter = 0
+                 ..isNpc = 1
+                 ..statusCode = 1
+                 ..statusImageUrl = '',
+         ),
+          Question(
+            (b) => b
+              ..characterId = 1
+              ..text = 'test',
+          ),
+          Diary(
+            (b) => b
+              ..questionId = 1
+              ..text = 'testQ'
+              ..createdAt = DateTime.now(),
+          ),
+
+
 
 -- 캐릭터
 insert into character(id, name, is_starter, is_home, color) values (1,'스타터캐릭1', true, true, 0xFF11C3FC);

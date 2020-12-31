@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 
 class QuestionsProvider with ChangeNotifier {
   Map<String, Question> _questionMap = {};
-
   Map<String, Question> get questionMap => Map()..addAll(_questionMap);
 
   Future<void> setQuestionMapByCharacterIds(List<int> characterIds) async {

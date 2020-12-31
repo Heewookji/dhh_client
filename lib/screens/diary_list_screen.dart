@@ -1,10 +1,10 @@
 import 'package:dhh_client/models/character.dart';
-import 'package:dhh_client/models/diary.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
+import 'package:dhh_client/providers/diary_details_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
-import 'package:dhh_client/screens/diary_detail_screen.dart';
+import 'package:dhh_client/screens/diary_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,13 +51,14 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
     _chosenCharacterId = id;
   }
 
-  void _navigateDiaryDetailScreen(
-      BuildContext context, character, question, diary) {
-    Navigator.pushNamed(context, DiaryDetailScreen.routeName, arguments: {
-      'character': character,
-      'question': question,
-      'diary': diary,
-    });
+  void _navigateDiaryDetailScreen(BuildContext context,
+      List<Map<Type, Object>> diaryDetails, int initialPage) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DiaryDetailController(initialPage, diaryDetails),
+      ),
+    );
   }
 
   @override
@@ -68,18 +69,20 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
       appBar: AppBar(),
       body: _isBusy
           ? Container()
-          : Consumer3<CharactersProvider, DiariesProvider, QuestionsProvider>(
+          : Consumer4<CharactersProvider, DiariesProvider, QuestionsProvider,
+              DiaryDetailProvider>(
               builder: (context, charactersProvider, diariesProvider,
-                  questionProvider, child) {
+                  questionProvider, diaryDetailProvider, child) {
                 final characters = charactersProvider.characters;
                 final diaries = diariesProvider.diaries;
                 final questionMap = questionProvider.questionMap;
+                final diaryDetails = diaryDetailProvider.setDiaryDetails(
+                    characters, questionMap, diaries);
                 return Column(
                   children: [
                     _buildPanel(theme, screenSize, diaries.length),
                     _buildCharacterList(screenSize, characters),
-                    _buildDiaryList(
-                        diaries, screenSize, characters, questionMap),
+                    _buildDiaryList(screenSize, diaryDetails),
                   ],
                 );
               },
@@ -152,20 +155,20 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
     );
   }
 
-  Expanded _buildDiaryList(List<Diary> diaries, Size screenSize,
-      List<Character> characters, Map<String, Question> questionMap) {
+  Expanded _buildDiaryList(
+      Size screenSize, List<Map<Type, Object>> diaryDetails) {
     return Expanded(
       child: ListView.builder(
-        itemCount: diaries.length,
+        itemCount: diaryDetails.length,
         itemBuilder: (context, i) {
-          final diary = diaries[i];
-          final question = questionMap[diary.id.toString()];
-          final character =
-              Provider.of<CharactersProvider>(context, listen: false)
-                  .getCharacterById(question.characterId);
+          final character = diaryDetails[i][Character] as Character;
+          final question = diaryDetails[i][Question] as Question;
           return GestureDetector(
-            onTap: () =>
-                _navigateDiaryDetailScreen(context, character, question, diary),
+            onTap: () => _navigateDiaryDetailScreen(
+              context,
+              diaryDetails,
+              i,
+            ),
             child: Container(
               margin: EdgeInsets.only(top: screenSize.height * 0.05),
               height: screenSize.height * 0.15,

@@ -7,8 +7,6 @@ class CharactersProvider with ChangeNotifier {
   List<Character> _characters = [];
   List<Character> get characters => [..._characters];
   List<int> get characterIds => characters.map((c) => c.id).toList();
-  Character getCharacterById(int id) =>
-      characters.firstWhere((c) => c.id == id);
 
   Future<void> setHomeCharacters() async {
     final dataMapList = await DbService.getHomeCharacters();

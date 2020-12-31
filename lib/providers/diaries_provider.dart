@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 
 class DiariesProvider with ChangeNotifier {
   List<Diary> _diaries = [];
-
   List<Diary> get diaries => [..._diaries];
   List<int> get diaryIds => diaries.map((d) => d.id).toList();
 

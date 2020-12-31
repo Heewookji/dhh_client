@@ -88,8 +88,11 @@ class _WriteScreenState extends State<WriteScreen> {
       onPressed: _controller.text.length == 0
           ? null
           : () async {
+              // 다이어리 추가
               await Provider.of<DiariesProvider>(context, listen: false)
                   .addDiary(question.id, _controller.text);
+              // 캐릭터 진화, 여행에 필요한 일기 수를 채웠는가?
+              // 홈화면에 캐릭터 추가 가능한가?
               Navigator.of(context).pop();
             },
     );

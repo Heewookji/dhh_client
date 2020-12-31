@@ -25,16 +25,4 @@ class CharactersProvider with ChangeNotifier {
     }).toList();
     notifyListeners();
   }
-
-  void insertCharacter() async {
-    DbService.insert(
-        'character',
-        standardSerializers.serializeWith(
-            Character.serializer,
-            Character((b) => b
-              ..name = 'test'
-              ..isHome = 0
-              ..isStarter = 0
-              ..isTravel = 0)));
-  }
 }

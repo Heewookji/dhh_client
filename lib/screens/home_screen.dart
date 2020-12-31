@@ -78,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('App Name'),
+        centerTitle: false,
         actions: [
           IconButton(
             icon: Icon(Icons.dynamic_feed),

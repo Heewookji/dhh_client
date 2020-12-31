@@ -1,7 +1,7 @@
 
 -- 캐릭터
 insert into character(id, name, is_starter, is_home, color) values (1,'스타터캐릭1', true, true, 0xFF11C3FC);
-insert into character(id, name, is_starter, is_home, color) values (2,'스타터캐릭2', true, true, 0xFFFCA311);
+insert into character(id, name, is_starter, color) values (2,'스타터캐릭2', true, 0xFFFCA311);
 insert into character(id, name, is_starter, color) values (3,'스타터캐릭3', true, 0xFF14213D);
 insert into character(id, name) values (4,'캐릭4');
 insert into character(id, name) values (5,'캐릭5');

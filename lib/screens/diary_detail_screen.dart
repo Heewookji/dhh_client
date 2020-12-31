@@ -15,7 +15,6 @@ class DiaryDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     Size screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Color(character.color),
@@ -34,7 +33,7 @@ class DiaryDetailScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(DateFormat.yMd().format(DateTime.now())),
+            Text(DateFormat.yMd().format(diary.createdAt)),
             Text(character.name),
           ],
         ),

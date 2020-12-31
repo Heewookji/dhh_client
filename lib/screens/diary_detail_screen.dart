@@ -54,7 +54,6 @@ class DiaryDetailScreen extends StatelessWidget {
     return Container(
       alignment: Alignment.topLeft,
       height: screenSize.height * 0.5,
-      color: Colors.black12,
       child: Text(diary.text),
     );
   }

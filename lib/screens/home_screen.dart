@@ -18,15 +18,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isBusy = true;
-  int _chosenLocation = -1;
   Character _chosenCharacter;
   Question _chosenQuestion;
-  final _locationPoints = const {
-    1: Point(1, 2),
-    2: Point(1, 2),
-    3: Point(1, 2),
-    4: Point(1, 2),
-  };
+  List<Point<double>> _locationPoints;
 
   @override
   void initState() {
@@ -46,11 +40,20 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _characterLocationInit(Size screenSize) {
+    _locationPoints = [
+      Point(screenSize.width * 0.2, screenSize.height * 0.1),
+      Point(screenSize.width * 0.6, screenSize.height * 0.1),
+      Point(screenSize.width * 0.1, screenSize.height * 0.25),
+      Point(screenSize.width * 0.4, screenSize.height * 0.25),
+      Point(screenSize.width * 0.7, screenSize.height * 0.25),
+    ];
+  }
+
   void _navigateDiaryListScreen(BuildContext context) async {
     await Navigator.of(context).pushNamed(DiaryListScreen.routeName);
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
-      _chosenLocation = -1;
     });
   }
 
@@ -68,13 +71,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 .characterIds);
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
-      _chosenLocation = -1;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
+    _characterLocationInit(screenSize);
     return Scaffold(
       appBar: AppBar(
         title: Text('App Name'),
@@ -87,7 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _buildPanel(context, screenSize),
           _buildCharacterHome(context, screenSize),
@@ -114,42 +116,51 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       color: Colors.black12,
       height: screenSize.height * 0.5,
-      child: Stack(
+      child: Consumer2<CharactersProvider, QuestionsProvider>(
+        builder: (context, charactersProvider, questionsProvider, child) {
+          return Stack(
+            children: [
+              if (_isBusy)
+                Container()
+              else
+                for (int i = 0; i < charactersProvider.characters.length; i++)
+                  Positioned(
+                    left: _locationPoints[i].x,
+                    top: _locationPoints[i].y,
+                    child: _buildCharacter(
+                      charactersProvider.characters[i],
+                      questionsProvider,
+                      screenSize,
+                    ),
+                  ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  GestureDetector _buildCharacter(Character character,
+      QuestionsProvider questionsProvider, Size screenSize) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _chosenCharacter = character;
+          _chosenQuestion =
+              questionsProvider.questionMap[character.id.toString()];
+        });
+      },
+      child: Column(
         children: [
-          if (_isBusy)
-            Container()
-          else
-            Consumer2<CharactersProvider, QuestionsProvider>(
-              builder: (context, charactersProvider, questionsProvider, child) {
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: charactersProvider.characters.length,
-                  itemBuilder: (context, i) {
-                    final character = charactersProvider.characters[i];
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _chosenLocation = i;
-                          _chosenCharacter = character;
-                          _chosenQuestion = questionsProvider
-                              .questionMap[character.id.toString()];
-                        });
-                      },
-                      child: Column(
-                        children: [
-                          Text(character.name),
-                          Container(
-                            height: screenSize.height * 0.1,
-                            color: Color(character.color),
-                            child: Image.asset(character.statusImageUrl),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
+          Text(character.name),
+          Container(
+            color: Color(character.color),
+            child: Image.asset(
+              character.statusImageUrl,
+              width: screenSize.width * 0.2,
+              height: screenSize.width * 0.2,
             ),
+          ),
         ],
       ),
     );
@@ -158,12 +169,20 @@ class _HomeScreenState extends State<HomeScreen> {
   _buildBottomButton(BuildContext context, Size screenSize) {
     return SafeArea(
       child: Container(
-        height: screenSize.height * 0.1,
-        child: FlatButton(
-          onPressed: _chosenQuestion == null
-              ? null
-              : () => _navigateWriteScreen(context),
-          child: Text('일기쓰기'),
+        height: screenSize.height * 0.15,
+        alignment: Alignment.center,
+        child: Container(
+          height: screenSize.height * 0.06,
+          width: screenSize.width * 0.8,
+          child: RaisedButton(
+            onPressed: _chosenQuestion == null
+                ? null
+                : () => _navigateWriteScreen(context),
+            child: Text(
+              '일기쓰기',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
         ),
       ),
     );

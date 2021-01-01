@@ -31,9 +31,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => CharactersProvider()),
         ChangeNotifierProvider(create: (_) => QuestionsProvider()),
-        ChangeNotifierProvider(
-          create: (_) => DiariesProvider(),
-        ),
+        ChangeNotifierProvider(create: (_) => DiariesProvider()),
         ChangeNotifierProvider(create: (_) => DiaryDetailProvider()),
       ],
       child: MaterialApp(
@@ -42,6 +40,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primaryColor: Colors.white,
           canvasColor: Colors.white,
+          buttonTheme: ButtonThemeData(buttonColor: Colors.black),
           appBarTheme: AppBarTheme(color: Colors.transparent, elevation: 0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),

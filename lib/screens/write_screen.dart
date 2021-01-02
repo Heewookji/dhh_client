@@ -36,40 +36,43 @@ class _WriteScreenState extends State<WriteScreen> {
   }
 
   Widget _buildPanel(ThemeData theme, Size screenSize) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(DateFormat.yMd().format(DateTime.now())),
-            Text(character.name),
-          ],
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            question.text,
-            style: theme.textTheme.headline2,
+    return Container(
+      height: screenSize.height * 0.4,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(DateFormat.yMd().format(DateTime.now())),
+              Text(character.name),
+            ],
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text('질문에 답하기'),
-            Container(
-              height: screenSize.height * 0.2,
-              child: Image.asset(character.statusImageUrl),
-            )
-          ],
-        ),
-      ],
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              question.text,
+              style: theme.textTheme.headline2,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text('질문에 답하기'),
+              Container(
+                height: screenSize.height * 0.2,
+                child: Image.asset(character.statusImageUrl),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Container _buildTextField(Size screenSize) {
     return Container(
-      height: screenSize.height * 0.5,
+      height: screenSize.height * 0.4,
       color: Colors.black12,
       child: TextFormField(
         maxLines: 100,

@@ -11,7 +11,9 @@ class NotificationService {
   static Future<void> initLocalNotification(BuildContext context) async {
 // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
+        AndroidInitializationSettings(
+      'ic_launcher',
+    );
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
             // onDidReceiveLocalNotification: onDidReceiveLocalNotification,
@@ -55,10 +57,10 @@ class NotificationService {
       '오늘 무슨 일 했는지 말해줄 수 있어?',
       targetDateTIme,
       const NotificationDetails(
-//          android: AndroidNotificationDetails('your channel id',
-//              'your channel name', 'your channel description'),
-//          iOS: IOSNotificationDetails(),
-          ),
+        android: AndroidNotificationDetails(
+            'your channel id', 'your channel name', 'your channel description'),
+        iOS: IOSNotificationDetails(),
+      ),
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,

@@ -72,12 +72,15 @@ class DbService {
     final db = await DbService.database();
     String idsString =
         characterIds.toString().replaceAll('[', '(').replaceAll(']', ')');
-    return db.rawQuery(''
-        'select *  from question q '
-        'where q.character_id in $idsString '
-        'and (select count(*) from diary d where d.question_id = q.id) == 0 '
+    final d = db.rawQuery(''
+        'select q.* from question q '
+        'left outer join diary d on q.id = d.question_id '
+        'where q.character_id in $idsString and d.id is null '
         'group by q.character_id '
+        'HAVING q.id = MIN(q.id) '
         '');
+    print(d);
+    return d;
   }
 
   static Future<List<Map<String, dynamic>>> getQuestionsByDiaryIds(

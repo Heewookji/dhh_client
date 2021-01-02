@@ -52,17 +52,14 @@ class DbService {
   static Future<List<Map<String, dynamic>>> getAllCharacters() async {
     final db = await DbService.database();
     return db.rawQuery(''
-        'select * from '
-        '(select * from '
-        '(select c.*, s.*, d.created_at from character c '
+        'select c.*, s.*, d.created_at from character c '
         'inner join status s on c.id = s.character_id '
         'inner join question q on c.id = q.character_id '
         'left outer join diary d on q.id = d.question_id '
         'where s.is_status_now = 1 '
-        'order by d.created_at desc '
-        ') t '
-        'group by t.id) t2 '
-        'order by t2.created_at desc, t2.is_home = 0, t2.is_travel = 0 '
+        'group by c.id '
+        'having d.id = max(d.id) or d.id is null '
+        'order by d.created_at desc, c.is_home = 0, c.is_travel = 0 '
         '');
   }
 
@@ -72,15 +69,13 @@ class DbService {
     final db = await DbService.database();
     String idsString =
         characterIds.toString().replaceAll('[', '(').replaceAll(']', ')');
-    final d = db.rawQuery(''
+    return db.rawQuery(''
         'select q.* from question q '
         'left outer join diary d on q.id = d.question_id '
         'where q.character_id in $idsString and d.id is null '
         'group by q.character_id '
-        'HAVING q.id = MIN(q.id) '
+        'having q.id = min(q.id) '
         '');
-    print(d);
-    return d;
   }
 
   static Future<List<Map<String, dynamic>>> getQuestionsByDiaryIds(

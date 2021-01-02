@@ -6,6 +6,7 @@ import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
+import 'package:dhh_client/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -144,6 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
       QuestionsProvider questionsProvider, Size screenSize) {
     return GestureDetector(
       onTap: () {
+        NotificationService.setScheduledNotification();
         setState(() {
           _chosenCharacter = character;
           _chosenQuestion =

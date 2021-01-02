@@ -6,8 +6,12 @@ import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/home_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/services/db_service.dart';
+import 'package:dhh_client/services/notification_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:provider/provider.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 void main() {
   runApp(MyApp());
@@ -21,8 +25,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    DbService.printPath();
     super.initState();
+    setTimezone();
+    DbService.printPath();
+    NotificationService.initLocalNotification(context);
+  }
+
+  Future<void> setTimezone() async {
+    tz.initializeTimeZones();
+    final localTimezone = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(localTimezone));
   }
 
   @override

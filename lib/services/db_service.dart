@@ -47,13 +47,24 @@ class DbService {
     return db.query(table);
   }
 
+  static Future<Map<String, dynamic>> getTopData(String table) async {
+    final db = await DbService.database();
+    final data = await db.query(table, orderBy: 'id desc', limit: 1);
+    return data.isEmpty ? null : data[0];
+  }
+
   //캐릭터
   static Future<List<Map<String, dynamic>>> getHomeCharacters() async {
     final db = await DbService.database();
     return db.rawQuery(''
         'select * from character c '
         'inner join status s on c.id = s.character_id '
-        'where s.is_status_now = 1 and c.is_home = 1;'
+        'where (s.is_status_now = 1 and c.is_home = 1) or c.is_npc = 1 '
+        'order by '
+        'c.is_npc desc, '
+        'substr( '
+        '(substr(CURRENT_DATE, 0, 5) * id * substr(CURRENT_DATE, 6, 2) * id * substr(CURRENT_DATE, 9, 2) * id), -3'
+        '); '
         '');
   }
 

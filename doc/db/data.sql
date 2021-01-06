@@ -1,24 +1,24 @@
-        Character(
-             (b) => b
-                 ..isHome = 1
-                 ..isTravel = 1
-                 ..color = 0xFFFFFFFF
-                 ..name = 'test'
-                 ..isNpc = 1
-                 ..statusCode = 1
-                 ..statusImageUrl = '',
-         ),
-          Question(
-            (b) => b
-              ..characterId = 1
-              ..text = 'test',
-          ),
-          Diary(
-            (b) => b
-              ..questionId = 1
-              ..text = 'testQ'
-              ..createdAt = DateTime.now(),
-          ),
+--         Character(
+--              (b) => b
+--                  ..isHome = 1
+--                  ..isTravel = 1
+--                  ..color = 0xFFFFFFFF
+--                  ..name = 'test'
+--                  ..isNpc = 1
+--                  ..statusCode = 1
+--                  ..statusImageUrl = '',
+--          ),
+--           Question(
+--             (b) => b
+--               ..characterId = 1
+--               ..text = 'test',
+--           ),
+--           Diary(
+--             (b) => b
+--               ..questionId = 1
+--               ..text = 'testQ'
+--               ..createdAt = DateTime.now(),
+--           ),
 
 
 
@@ -31,6 +31,7 @@ insert into character(id, name) values (5,'캐릭5');
 insert into character(id, name) values (6,'캐릭6');
 insert into character(id, name, is_npc) values (11,'npc1', 1);
 insert into character(id, name, is_npc) values (12,'npc2', 1);
+insert into character(id, name, is_npc) values (13,'npc3', 1);
 
 
 --캐릭터 스테이터스 (캐릭터당 6개)
@@ -70,6 +71,9 @@ insert into status (code, character_id, image_url) values (3,6,'assets/images/6-
 insert into status (code, character_id, image_url) values (4,6,'assets/images/6-4.png');
 insert into status (code, character_id, image_url) values (5,6,'assets/images/6-5.png');
 insert into status (code, character_id, image_url) values (6,6,'assets/images/6-6.png');
+insert into status (code, character_id, image_url, is_status_now) values (1,11,'assets/images/11-1.png', true);
+insert into status (code, character_id, image_url, is_status_now) values (1,12,'assets/images/12-1.png', true);
+insert into status (code, character_id, image_url, is_status_now) values (1,13,'assets/images/13-1.png', true);
 
 --퀘스쳔
 

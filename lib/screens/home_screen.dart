@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
+import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isBusy = true;
+  bool _isSubmittedToday = false;
   Character _chosenCharacter;
   Question _chosenQuestion;
   List<Point<double>> _locationPoints;
@@ -35,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
         .setQuestionMapByCharacterIds(
             Provider.of<CharactersProvider>(context, listen: false)
                 .characterIds);
+    final topDiary = await Provider.of<DiariesProvider>(context, listen: false)
+        .getTopDiary();
+    _isSubmittedToday =
+        (topDiary != null && topDiary.createdAt.day == DateTime.now().day);
     setState(() {
       _isBusy = false;
     });
@@ -42,11 +48,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _characterLocationInit(Size screenSize) {
     _locationPoints = [
-      Point(screenSize.width * 0.2, screenSize.height * 0.1),
-      Point(screenSize.width * 0.6, screenSize.height * 0.1),
-      Point(screenSize.width * 0.1, screenSize.height * 0.25),
-      Point(screenSize.width * 0.4, screenSize.height * 0.25),
-      Point(screenSize.width * 0.7, screenSize.height * 0.25),
+      //npc
+      Point(screenSize.width * 0.1, screenSize.height * 0),
+      Point(screenSize.width * 0.6, screenSize.height * 0.15),
+      Point(screenSize.width * 0.1, screenSize.height * 0.3),
+      //character
+      Point(screenSize.width * 0.4, screenSize.height * 0),
+      Point(screenSize.width * 0.7, screenSize.height * 0),
+      Point(screenSize.width * 0.3, screenSize.height * 0.15),
+      Point(screenSize.width * 0.4, screenSize.height * 0.3),
+      Point(screenSize.width * 0.7, screenSize.height * 0.3),
     ];
   }
 
@@ -58,17 +69,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _navigateWriteScreen(BuildContext context) async {
-    await Navigator.of(context).pushNamed(
+    final result = await Navigator.of(context).pushNamed(
       WriteScreen.routeName,
       arguments: {
         'character': _chosenCharacter,
         'question': _chosenQuestion,
       },
-    );
+    ) as Map;
+    if (result != null) {
+      _isSubmittedToday = true;
+      if (result['isFirstSubmit']) print('first');
+    }
     await Provider.of<QuestionsProvider>(context, listen: false)
         .setQuestionMapByCharacterIds(
-            Provider.of<CharactersProvider>(context, listen: false)
-                .characterIds);
+      Provider.of<CharactersProvider>(context, listen: false).characterIds,
+    );
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
     });
@@ -103,12 +118,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       alignment: Alignment.center,
       height: screenSize.height * 0.2,
-      child: _chosenQuestion != null
-          ? Text(_chosenQuestion.text)
-          : Text(
-              '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
-              textAlign: TextAlign.center,
-            ),
+      child: _isSubmittedToday
+          ? null
+          : _chosenQuestion != null
+              ? Text(_chosenQuestion.text)
+              : Text(
+                  '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
+                  textAlign: TextAlign.center,
+                ),
     );
   }
 
@@ -171,19 +188,21 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         height: screenSize.height * 0.15,
         alignment: Alignment.center,
-        child: Container(
-          height: screenSize.height * 0.06,
-          width: screenSize.width * 0.8,
-          child: RaisedButton(
-            onPressed: _chosenQuestion == null
-                ? null
-                : () => _navigateWriteScreen(context),
-            child: Text(
-              '일기쓰기',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
+        child: _isSubmittedToday
+            ? null
+            : Container(
+                height: screenSize.height * 0.06,
+                width: screenSize.width * 0.8,
+                child: RaisedButton(
+                  onPressed: _chosenQuestion == null
+                      ? null
+                      : () => _navigateWriteScreen(context),
+                  child: Text(
+                    '일기쓰기',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
       ),
     );
   }

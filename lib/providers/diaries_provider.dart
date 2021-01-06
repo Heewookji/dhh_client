@@ -37,5 +37,13 @@ class DiariesProvider with ChangeNotifier {
           ..questionId = questionId),
       ),
     );
+    notifyListeners();
+  }
+
+  Future<Diary> getTopDiary() async {
+    final dataMap = await DbService.getTopData('diary');
+    return dataMap == null
+        ? null
+        : standardSerializers.deserializeWith(Diary.serializer, dataMap);
   }
 }

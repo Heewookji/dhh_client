@@ -1,8 +1,9 @@
+import 'package:dhh_client/models/question.dart';
 import 'package:flutter/material.dart';
 
 class HomePanel extends StatelessWidget {
-  final _isSubmittedToday;
-  final _chosenQuestion;
+  final bool _isSubmittedToday;
+  final Question _chosenQuestion;
   HomePanel(this._isSubmittedToday, this._chosenQuestion);
 
   @override

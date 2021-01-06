@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _chooseCharacter(
       Character character, QuestionsProvider questionsProvider) {
+    if (character.isNpc == 1) return;
     setState(() {
       _chosenCharacter = character;
       _chosenQuestion = questionsProvider.questionMap[character.id.toString()];

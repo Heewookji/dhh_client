@@ -17,24 +17,14 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    setTimezone();
-    DbService.printPath();
-    NotificationService.initLocalNotification(context);
-  }
-
-  Future<void> setTimezone() async {
+class MyApp extends StatelessWidget {
+  Future<void> _doFuture(BuildContext context) async {
     tz.initializeTimeZones();
     final localTimezone = await FlutterNativeTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(localTimezone));
+    DbService.printPath();
+    await DbService.database();
+    await NotificationService.initLocalNotification(context);
   }
 
   @override
@@ -56,15 +46,24 @@ class _MyAppState extends State<MyApp> {
           appBarTheme: AppBarTheme(color: Colors.transparent, elevation: 0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: HomeScreen.routeName,
-        routes: {
-          HomeScreen.routeName: (ctx) => MultiProvider(
+        home: FutureBuilder(
+            future: _doFuture(context),
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting)
+                return Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              return MultiProvider(
                 providers: [
                   ChangeNotifierProvider(create: (_) => CharactersProvider()),
                   ChangeNotifierProvider(create: (_) => QuestionsProvider()),
                 ],
                 child: HomeScreen(),
-              ),
+              );
+            }),
+        routes: {
           WriteScreen.routeName: (ctx) => WriteScreen(),
           DiaryListScreen.routeName: (ctx) => DiaryListScreen(),
         },

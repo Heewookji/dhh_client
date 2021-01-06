@@ -17,11 +17,19 @@ class DbService {
   }
 
   static Future _dbInit(String dbPath) async {
-    print('init!');
     ByteData data = await rootBundle.load("assets/db/data.db");
     List<int> bytes =
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     await File('$dbPath/data.db').writeAsBytes(bytes);
+    final db = await sql.openDatabase(
+      path.join(dbPath, 'data.db'),
+      version: 1,
+    );
+    await db.rawUpdate(
+      'update character set is_home = 1 where is_npc = 0 '
+      'and id in (select id from character where is_npc = 0  order by random() limit 4)',
+    );
+    print('init!');
   }
 
   static void printPath() async {

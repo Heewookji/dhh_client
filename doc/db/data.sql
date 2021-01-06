@@ -4,7 +4,6 @@
                  ..isTravel = 1
                  ..color = 0xFFFFFFFF
                  ..name = 'test'
-                 ..isStarter = 0
                  ..isNpc = 1
                  ..statusCode = 1
                  ..statusImageUrl = '',
@@ -24,13 +23,15 @@
 
 
 -- 캐릭터
-insert into character(id, name, is_starter, is_home, color) values (1,'스타터캐릭1', true, true, 0xFF11C3FC);
-insert into character(id, name, is_starter, color) values (2,'스타터캐릭2', true, 0xFFFCA311);
-insert into character(id, name, is_starter, color) values (3,'스타터캐릭3', true, 0xFF14213D);
+insert into character(id, name, color) values (1,'스타터캐릭1', 0xFF11C3FC);
+insert into character(id, name, color) values (2,'스타터캐릭2', 0xFFFCA311);
+insert into character(id, name, color) values (3,'스타터캐릭3', 0xFF14213D);
 insert into character(id, name) values (4,'캐릭4');
 insert into character(id, name) values (5,'캐릭5');
 insert into character(id, name) values (6,'캐릭6');
 insert into character(id, name, is_npc) values (11,'npc1', 1);
+insert into character(id, name, is_npc) values (12,'npc2', 1);
+
 
 --캐릭터 스테이터스 (캐릭터당 6개)
 insert into status (code, character_id, image_url, is_status_now) values (1,1,'assets/images/1-1.png', true);

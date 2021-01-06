@@ -27,9 +27,6 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       'is_travel',
       serializers.serialize(object.isTravel,
           specifiedType: const FullType(int)),
-      'is_starter',
-      serializers.serialize(object.isStarter,
-          specifiedType: const FullType(int)),
       'is_npc',
       serializers.serialize(object.isNpc, specifiedType: const FullType(int)),
       'code',
@@ -89,10 +86,6 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           result.isTravel = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'is_starter':
-          result.isStarter = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
         case 'is_npc':
           result.isNpc = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
@@ -126,8 +119,6 @@ class _$Character extends Character {
   @override
   final int isTravel;
   @override
-  final int isStarter;
-  @override
   final int isNpc;
   @override
   final int statusCode;
@@ -144,7 +135,6 @@ class _$Character extends Character {
       this.description,
       this.isHome,
       this.isTravel,
-      this.isStarter,
       this.isNpc,
       this.statusCode,
       this.statusImageUrl})
@@ -160,9 +150,6 @@ class _$Character extends Character {
     }
     if (isTravel == null) {
       throw new BuiltValueNullFieldError('Character', 'isTravel');
-    }
-    if (isStarter == null) {
-      throw new BuiltValueNullFieldError('Character', 'isStarter');
     }
     if (isNpc == null) {
       throw new BuiltValueNullFieldError('Character', 'isNpc');
@@ -192,7 +179,6 @@ class _$Character extends Character {
         description == other.description &&
         isHome == other.isHome &&
         isTravel == other.isTravel &&
-        isStarter == other.isStarter &&
         isNpc == other.isNpc &&
         statusCode == other.statusCode &&
         statusImageUrl == other.statusImageUrl;
@@ -206,13 +192,11 @@ class _$Character extends Character {
                 $jc(
                     $jc(
                         $jc(
-                            $jc(
-                                $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                    color.hashCode),
-                                description.hashCode),
-                            isHome.hashCode),
-                        isTravel.hashCode),
-                    isStarter.hashCode),
+                            $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                color.hashCode),
+                            description.hashCode),
+                        isHome.hashCode),
+                    isTravel.hashCode),
                 isNpc.hashCode),
             statusCode.hashCode),
         statusImageUrl.hashCode));
@@ -227,7 +211,6 @@ class _$Character extends Character {
           ..add('description', description)
           ..add('isHome', isHome)
           ..add('isTravel', isTravel)
-          ..add('isStarter', isStarter)
           ..add('isNpc', isNpc)
           ..add('statusCode', statusCode)
           ..add('statusImageUrl', statusImageUrl))
@@ -262,10 +245,6 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   int get isTravel => _$this._isTravel;
   set isTravel(int isTravel) => _$this._isTravel = isTravel;
 
-  int _isStarter;
-  int get isStarter => _$this._isStarter;
-  set isStarter(int isStarter) => _$this._isStarter = isStarter;
-
   int _isNpc;
   int get isNpc => _$this._isNpc;
   set isNpc(int isNpc) => _$this._isNpc = isNpc;
@@ -289,7 +268,6 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
       _description = _$v.description;
       _isHome = _$v.isHome;
       _isTravel = _$v.isTravel;
-      _isStarter = _$v.isStarter;
       _isNpc = _$v.isNpc;
       _statusCode = _$v.statusCode;
       _statusImageUrl = _$v.statusImageUrl;
@@ -321,7 +299,6 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
             description: description,
             isHome: isHome,
             isTravel: isTravel,
-            isStarter: isStarter,
             isNpc: isNpc,
             statusCode: statusCode,
             statusImageUrl: statusImageUrl);

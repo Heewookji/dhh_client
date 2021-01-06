@@ -7,6 +7,7 @@ import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/widgets/home/character_home.dart';
 import 'package:dhh_client/widgets/home/home_button.dart';
+import 'package:dhh_client/widgets/home/home_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -73,7 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('App Name'),
@@ -87,26 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: <Widget>[
-          _buildPanel(context, screenSize),
+          HomePanel(_isSubmittedToday, _chosenQuestion),
           CharacterHome(_chooseCharacter),
           HomeButton(_isSubmittedToday, _chosenQuestion, _navigateWriteScreen),
         ],
       ),
-    );
-  }
-
-  Widget _buildPanel(BuildContext context, Size screenSize) {
-    return Container(
-      alignment: Alignment.center,
-      height: screenSize.height * 0.2,
-      child: _isSubmittedToday
-          ? null
-          : _chosenQuestion != null
-              ? Text(_chosenQuestion.text)
-              : Text(
-                  '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
-                  textAlign: TextAlign.center,
-                ),
     );
   }
 }

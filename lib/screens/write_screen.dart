@@ -92,8 +92,8 @@ class _WriteScreenState extends State<WriteScreen> {
           ? null
           : () async {
               final isFirstSubmit =
-                  await Provider.of<DiariesProvider>(context, listen: false)
-                          .getTopDiary() ==
+                  Provider.of<DiariesProvider>(context, listen: false)
+                          .topDiary ==
                       null;
               // 다이어리 추가
               await Provider.of<DiariesProvider>(context, listen: false)

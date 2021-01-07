@@ -15,26 +15,7 @@ class CharacterHome extends StatefulWidget {
 }
 
 class _CharacterHomeState extends State<CharacterHome> {
-  bool _isBusy = true;
   List<Point<double>> _locationPoints;
-
-  @override
-  void initState() {
-    super.initState();
-    doFuture();
-  }
-
-  void doFuture() async {
-    await Provider.of<CharactersProvider>(context, listen: false)
-        .setHomeCharacters();
-    await Provider.of<QuestionsProvider>(context, listen: false)
-        .setQuestionMapByCharacterIds(
-            Provider.of<CharactersProvider>(context, listen: false)
-                .characterIds);
-    setState(() {
-      _isBusy = false;
-    });
-  }
 
   void _characterLocationInit(Size homeSize) {
     _locationPoints = [
@@ -63,21 +44,16 @@ class _CharacterHomeState extends State<CharacterHome> {
               _characterLocationInit(constraints.biggest);
               return Stack(
                 children: [
-                  if (_isBusy)
-                    Container()
-                  else
-                    for (int i = 0;
-                        i < charactersProvider.characters.length;
-                        i++)
-                      Positioned(
-                        left: _locationPoints[i].x,
-                        top: _locationPoints[i].y,
-                        child: _buildCharacter(
-                          charactersProvider.characters[i],
-                          questionsProvider,
-                          constraints.biggest,
-                        ),
+                  for (int i = 0; i < charactersProvider.characters.length; i++)
+                    Positioned(
+                      left: _locationPoints[i].x,
+                      top: _locationPoints[i].y,
+                      child: _buildCharacter(
+                        charactersProvider.characters[i],
+                        questionsProvider,
+                        constraints.biggest,
                       ),
+                    ),
                 ],
               );
             },

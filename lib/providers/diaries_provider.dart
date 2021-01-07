@@ -5,8 +5,17 @@ import 'package:flutter/cupertino.dart';
 
 class DiariesProvider with ChangeNotifier {
   List<Diary> _diaries = [];
+  Diary topDiary;
   List<Diary> get diaries => [..._diaries];
   List<int> get diaryIds => diaries.map((d) => d.id).toList();
+
+  Future<void> setTopDiary() async {
+    final dataMap = await DbService.getTopData('diary');
+    topDiary = dataMap == null
+        ? null
+        : standardSerializers.deserializeWith(Diary.serializer, dataMap);
+    notifyListeners();
+  }
 
   Future<void> setAllDiaries() async {
     final dataMapList = await DbService.getAllDiariesOrderByCreatedAt();
@@ -37,13 +46,6 @@ class DiariesProvider with ChangeNotifier {
           ..questionId = questionId),
       ),
     );
-    notifyListeners();
-  }
-
-  Future<Diary> getTopDiary() async {
-    final dataMap = await DbService.getTopData('diary');
-    return dataMap == null
-        ? null
-        : standardSerializers.deserializeWith(Diary.serializer, dataMap);
+    setTopDiary();
   }
 }

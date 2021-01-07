@@ -19,7 +19,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isSubmittedToday = true;
+  bool _isBusy = true;
+  bool _isSubmittedToday;
   Character _chosenCharacter;
   Question _chosenQuestion;
 
@@ -30,10 +31,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _doFuture() async {
-    final topDiary = await Provider.of<DiariesProvider>(context, listen: false)
-        .getTopDiary();
-    _isSubmittedToday =
-        (topDiary != null && topDiary.createdAt.day == DateTime.now().day);
+    await Provider.of<CharactersProvider>(context, listen: false)
+        .setHomeCharacters();
+    await Provider.of<QuestionsProvider>(context, listen: false)
+        .setQuestionMapByCharacterIds(
+            Provider.of<CharactersProvider>(context, listen: false)
+                .characterIds);
+    await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
+    setState(() {
+      _isBusy = false;
+    });
   }
 
   void _chooseCharacter(
@@ -61,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     ) as Map;
     if (result != null) {
-      _isSubmittedToday = true;
       if (result['isFirstSubmit']) print('first');
     }
     await Provider.of<QuestionsProvider>(context, listen: false)
@@ -93,20 +99,21 @@ class _HomeScreenState extends State<HomeScreen> {
           mediaQuery.padding.top -
           mediaQuery.padding.bottom,
     );
+    final topDiary = Provider.of<DiariesProvider>(context).topDiary;
+    _isSubmittedToday =
+        topDiary != null && topDiary.createdAt.day == DateTime.now().day;
     return Scaffold(
       appBar: appBar,
-      body: Column(
-        children: <Widget>[
-          HomePanel(_isSubmittedToday, _chosenQuestion, _bodySize),
-          CharacterHome(_chooseCharacter, _bodySize),
-          HomeButton(
-            _isSubmittedToday,
-            _chosenQuestion,
-            _navigateWriteScreen,
-            _bodySize,
-          ),
-        ],
-      ),
+      body: _isBusy
+          ? Center()
+          : Column(
+              children: <Widget>[
+                HomePanel(_chosenQuestion, _bodySize, _isSubmittedToday),
+                CharacterHome(_chooseCharacter, _bodySize),
+                HomeButton(_chosenQuestion, _navigateWriteScreen, _bodySize,
+                    _isSubmittedToday),
+              ],
+            ),
     );
   }
 }

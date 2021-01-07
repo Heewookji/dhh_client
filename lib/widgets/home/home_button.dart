@@ -2,12 +2,12 @@ import 'package:dhh_client/models/question.dart';
 import 'package:flutter/material.dart';
 
 class HomeButton extends StatelessWidget {
-  final bool _isSubmittedToday;
   final Question _chosenQuestion;
   final Function(BuildContext context) _navigateWriteScreen;
   final Size _bodySize;
-  HomeButton(this._isSubmittedToday, this._chosenQuestion,
-      this._navigateWriteScreen, this._bodySize);
+  final _isSubmittedToday;
+  HomeButton(this._chosenQuestion, this._navigateWriteScreen, this._bodySize,
+      this._isSubmittedToday);
   @override
   Widget build(BuildContext context) {
     return Container(

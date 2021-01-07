@@ -2,10 +2,10 @@ import 'package:dhh_client/models/question.dart';
 import 'package:flutter/material.dart';
 
 class HomePanel extends StatelessWidget {
-  final bool _isSubmittedToday;
   final Question _chosenQuestion;
   final Size _bodySize;
-  HomePanel(this._isSubmittedToday, this._chosenQuestion, this._bodySize);
+  final bool _isSubmittedToday;
+  HomePanel(this._chosenQuestion, this._bodySize, this._isSubmittedToday);
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,8 @@ import 'package:provider/provider.dart';
 
 class CharacterHome extends StatefulWidget {
   final Function(Character, QuestionsProvider) _chooseCharacter;
-  CharacterHome(this._chooseCharacter);
+  final Size _bodySize;
+  CharacterHome(this._chooseCharacter, this._bodySize);
   @override
   _CharacterHomeState createState() => _CharacterHomeState();
 }
@@ -56,7 +57,7 @@ class _CharacterHomeState extends State<CharacterHome> {
     _characterLocationInit(screenSize);
     return Container(
       color: Colors.black12,
-      height: screenSize.height * 0.5,
+      height: widget._bodySize.height * 0.55,
       child: Consumer2<CharactersProvider, QuestionsProvider>(
         builder: (context, charactersProvider, questionsProvider, child) {
           return Stack(

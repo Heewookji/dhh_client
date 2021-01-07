@@ -5,20 +5,19 @@ class HomeButton extends StatelessWidget {
   final bool _isSubmittedToday;
   final Question _chosenQuestion;
   final Function(BuildContext context) _navigateWriteScreen;
-  HomeButton(
-      this._isSubmittedToday, this._chosenQuestion, this._navigateWriteScreen);
+  final Size _bodySize;
+  HomeButton(this._isSubmittedToday, this._chosenQuestion,
+      this._navigateWriteScreen, this._bodySize);
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
-        height: screenSize.height * 0.15,
+        height: _bodySize.height * 0.25,
         alignment: Alignment.center,
         child: _isSubmittedToday
             ? null
             : Container(
-                height: screenSize.height * 0.06,
-                width: screenSize.width * 0.8,
+                height: _bodySize.height * 0.2,
                 child: _chosenQuestion == null
                     ? null
                     : RaisedButton(

@@ -75,22 +75,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('App Name'),
+      centerTitle: false,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.dynamic_feed),
+          onPressed: () => _navigateDiaryListScreen(context),
+        ),
+      ],
+    );
+    final bodySize = Size(
+      MediaQuery.of(context).size.width,
+      MediaQuery.of(context).size.height -
+          appBar.preferredSize.height -
+          MediaQuery.of(context).padding.top,
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('App Name'),
-        centerTitle: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.dynamic_feed),
-            onPressed: () => _navigateDiaryListScreen(context),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: Column(
         children: <Widget>[
-          HomePanel(_isSubmittedToday, _chosenQuestion),
-          CharacterHome(_chooseCharacter),
-          HomeButton(_isSubmittedToday, _chosenQuestion, _navigateWriteScreen),
+          HomePanel(_isSubmittedToday, _chosenQuestion, bodySize),
+          CharacterHome(_chooseCharacter, bodySize),
+          HomeButton(
+            _isSubmittedToday,
+            _chosenQuestion,
+            _navigateWriteScreen,
+            bodySize,
+          ),
         ],
       ),
     );

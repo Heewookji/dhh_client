@@ -17,8 +17,20 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  Future<void> _doFuture(BuildContext context) async {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Future _initFuture;
+  @override
+  void initState() {
+    _initFuture = _doInitFuture();
+    super.initState();
+  }
+
+  Future<void> _doInitFuture() async {
     tz.initializeTimeZones();
     final localTimezone = await FlutterNativeTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(localTimezone));
@@ -47,7 +59,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: FutureBuilder(
-            future: _doFuture(context),
+            future: _initFuture,
             builder: (ctx, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting)
                 return Scaffold(

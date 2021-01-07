@@ -23,19 +23,19 @@
 
 
 -- 캐릭터
-insert into character(id, name, color) values (1,'스타터캐릭1', 0xFF11C3FC);
-insert into character(id, name, color) values (2,'스타터캐릭2', 0xFFFCA311);
-insert into character(id, name, color) values (3,'스타터캐릭3', 0xFF14213D);
-insert into character(id, name) values (4,'캐릭4');
-insert into character(id, name) values (5,'캐릭5');
-insert into character(id, name) values (6,'캐릭6');
-insert into character(id, name) values (7,'캐릭7');
-insert into character(id, name) values (8,'캐릭8');
-insert into character(id, name) values (9,'캐릭9');
-insert into character(id, name) values (10,'캐릭10');
-insert into character(id, name, is_npc) values (11,'npc1', 1);
-insert into character(id, name, is_npc) values (12,'npc2', 1);
-insert into character(id, name, is_npc) values (13,'npc3', 1);
+insert into character(id, name, color) values (1,'캐릭1', 0xFF11C3FC);
+insert into character(id, name, color) values (2,'캐릭2', 0xFFFCA311);
+insert into character(id, name, color) values (3,'캐릭3', 0xFF14213D);
+insert into character(id, name, color) values (4,'캐릭4', 0xFF4059AD);
+insert into character(id, name, color) values (5,'캐릭5', 0xFF6B9AC4);
+insert into character(id, name, color) values (6,'캐릭6', 0xFF97D8C4);
+insert into character(id, name, color) values (7,'캐릭7', 0xFFF4B942);
+insert into character(id, name, color) values (8,'캐릭8', 0xFF4DAA57);
+insert into character(id, name, color) values (9,'캐릭9', 0xFF754668);
+insert into character(id, name, color) values (10,'캐릭10', 0xFFD62246);
+insert into character(id, name, is_npc, color) values (11,'npc1', 1, 0xFF000000);
+insert into character(id, name, is_npc, color) values (12,'npc2', 1, 0xFF000000);
+insert into character(id, name, is_npc, color) values (13,'npc3', 1, 0xFF000000);
 
 
 --캐릭터 스테이터스 (캐릭터당 6개)

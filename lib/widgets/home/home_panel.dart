@@ -11,7 +11,7 @@ class HomePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: _bodySize.height * 0.2,
+      height: _bodySize.height * 0.25,
       child: _isSubmittedToday
           ? null
           : _chosenQuestion != null

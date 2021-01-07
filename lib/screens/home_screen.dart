@@ -85,23 +85,25 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ],
     );
-    final bodySize = Size(
-      MediaQuery.of(context).size.width,
-      MediaQuery.of(context).size.height -
+    final mediaQuery = MediaQuery.of(context);
+    final _bodySize = Size(
+      mediaQuery.size.width,
+      mediaQuery.size.height -
           appBar.preferredSize.height -
-          MediaQuery.of(context).padding.top,
+          mediaQuery.padding.top -
+          mediaQuery.padding.bottom,
     );
     return Scaffold(
       appBar: appBar,
       body: Column(
         children: <Widget>[
-          HomePanel(_isSubmittedToday, _chosenQuestion, bodySize),
-          CharacterHome(_chooseCharacter, bodySize),
+          HomePanel(_isSubmittedToday, _chosenQuestion, _bodySize),
+          CharacterHome(_chooseCharacter, _bodySize),
           HomeButton(
             _isSubmittedToday,
             _chosenQuestion,
             _navigateWriteScreen,
-            bodySize,
+            _bodySize,
           ),
         ],
       ),

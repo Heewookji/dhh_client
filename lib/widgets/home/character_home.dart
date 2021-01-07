@@ -36,54 +36,59 @@ class _CharacterHomeState extends State<CharacterHome> {
     });
   }
 
-  void _characterLocationInit(Size screenSize) {
+  void _characterLocationInit(Size homeSize) {
     _locationPoints = [
       //npc
-      Point(screenSize.width * 0.1, screenSize.height * 0),
-      Point(screenSize.width * 0.6, screenSize.height * 0.15),
-      Point(screenSize.width * 0.1, screenSize.height * 0.3),
+      Point(homeSize.width * 0.1, homeSize.height * 0.05),
+      Point(homeSize.width * 0.6, homeSize.height * 0.35),
+      Point(homeSize.width * 0.1, homeSize.height * 0.65),
       //character
-      Point(screenSize.width * 0.4, screenSize.height * 0),
-      Point(screenSize.width * 0.7, screenSize.height * 0),
-      Point(screenSize.width * 0.3, screenSize.height * 0.15),
-      Point(screenSize.width * 0.4, screenSize.height * 0.3),
-      Point(screenSize.width * 0.7, screenSize.height * 0.3),
+      Point(homeSize.width * 0.4, homeSize.height * 0.05),
+      Point(homeSize.width * 0.7, homeSize.height * 0.05),
+      Point(homeSize.width * 0.3, homeSize.height * 0.35),
+      Point(homeSize.width * 0.4, homeSize.height * 0.65),
+      Point(homeSize.width * 0.7, homeSize.height * 0.65),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    _characterLocationInit(screenSize);
     return Container(
       color: Colors.black12,
       height: widget._bodySize.height * 0.55,
-      child: Consumer2<CharactersProvider, QuestionsProvider>(
-        builder: (context, charactersProvider, questionsProvider, child) {
-          return Stack(
-            children: [
-              if (_isBusy)
-                Container()
-              else
-                for (int i = 0; i < charactersProvider.characters.length; i++)
-                  Positioned(
-                    left: _locationPoints[i].x,
-                    top: _locationPoints[i].y,
-                    child: _buildCharacter(
-                      charactersProvider.characters[i],
-                      questionsProvider,
-                      screenSize,
-                    ),
-                  ),
-            ],
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Consumer2<CharactersProvider, QuestionsProvider>(
+            builder: (context, charactersProvider, questionsProvider, child) {
+              _characterLocationInit(constraints.biggest);
+              return Stack(
+                children: [
+                  if (_isBusy)
+                    Container()
+                  else
+                    for (int i = 0;
+                        i < charactersProvider.characters.length;
+                        i++)
+                      Positioned(
+                        left: _locationPoints[i].x,
+                        top: _locationPoints[i].y,
+                        child: _buildCharacter(
+                          charactersProvider.characters[i],
+                          questionsProvider,
+                          constraints.biggest,
+                        ),
+                      ),
+                ],
+              );
+            },
           );
         },
       ),
     );
   }
 
-  GestureDetector _buildCharacter(Character character,
-      QuestionsProvider questionsProvider, Size screenSize) {
+  GestureDetector _buildCharacter(
+      Character character, QuestionsProvider questionsProvider, Size homeSize) {
     return GestureDetector(
       onTap: () => widget._chooseCharacter(character, questionsProvider),
       child: Column(
@@ -93,8 +98,8 @@ class _CharacterHomeState extends State<CharacterHome> {
             color: Color(character.color),
             child: Image.asset(
               character.statusImageUrl,
-              width: screenSize.width * 0.2,
-              height: screenSize.width * 0.2,
+              width: homeSize.width * 0.2,
+              height: homeSize.width * 0.2,
             ),
           ),
         ],

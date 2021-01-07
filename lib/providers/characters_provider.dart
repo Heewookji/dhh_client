@@ -4,6 +4,8 @@ import 'package:dhh_client/services/db_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class CharactersProvider with ChangeNotifier {
+  static const TRAVEL_STATUS = 3;
+  static const FULL_HOME_CHARACTER = 8;
   List<Character> _characters = [];
   List<Character> get characters => [..._characters];
   List<int> get characterIds => characters.map((c) => c.id).toList();
@@ -32,22 +34,23 @@ class CharactersProvider with ChangeNotifier {
       return -1;
     final result =
         await DbService.updateStatus('status', characterId, statusCode);
-    if (statusCode >= 3) {}
+    if (statusCode >= TRAVEL_STATUS) {
+      await DbService.updateById(
+        'character',
+        {'is_home': 0, 'is_travel': 1},
+        characterId,
+      );
+      await DbService.updateRandomCharacterHome(travelCharacterId: characterId);
+    }
     await setHomeCharacters();
     return result;
   }
 
-  Future<int> updateRandomCharacterHome({int traveledCharacterId}) async {
+  Future<int> updateRandomCharacterHome() async {
     final homeCharacters = await DbService.getHomeCharacters();
-    if (homeCharacters.length == 8) {
-      return -1;
-    } else if (homeCharacters.length == 7) {
-      final result = await DbService.updateRandomCharacterHome(
-        traveledCharacterId: traveledCharacterId,
-      );
-      await setHomeCharacters();
-      return result;
-    }
-    return -1;
+    if (homeCharacters.length == FULL_HOME_CHARACTER) return -1;
+    final result = await DbService.updateRandomCharacterHome();
+    await setHomeCharacters();
+    return result;
   }
 }

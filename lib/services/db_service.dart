@@ -88,15 +88,14 @@ class DbService {
         '');
   }
 
-  static Future<int> updateRandomCharacterHome(
-      {int traveledCharacterId}) async {
+  static Future<int> updateRandomCharacterHome({int travelCharacterId}) async {
     final db = await DbService.database();
     return db.rawUpdate(''
         'update character set is_home = 1 '
         'where id = ( '
         'select id from character '
         'where is_home = 0 and is_npc = 0 '
-        '${traveledCharacterId == null ? '' : 'and id != ${traveledCharacterId.toString()}'} '
+        '${travelCharacterId == null ? '' : 'and id != ${travelCharacterId.toString()}'} '
         'order by random() limit 1 '
         ') '
         '');

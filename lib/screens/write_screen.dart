@@ -20,25 +20,35 @@ class _WriteScreenState extends State<WriteScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    Size screenSize = MediaQuery.of(context).size;
+    final appBar = AppBar();
+    final _mediaQuery = MediaQuery.of(context);
+    final _bodySize = Size(
+      _mediaQuery.size.width,
+      _mediaQuery.size.height -
+          appBar.preferredSize.height -
+          _mediaQuery.padding.top -
+          _mediaQuery.padding.bottom,
+    );
     Map<String, Object> arguments = ModalRoute.of(context).settings.arguments;
     character = arguments['character'];
     question = arguments['question'];
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          _buildPanel(theme, screenSize),
-          _buildTextField(screenSize),
-          _buildSubmitButton(context),
-        ],
+      appBar: appBar,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildPanel(theme, _bodySize),
+            _buildTextField(_bodySize),
+            _buildSubmitButton(context),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildPanel(ThemeData theme, Size screenSize) {
+  Widget _buildPanel(ThemeData theme, Size bodySize) {
     return Container(
-      height: screenSize.height * 0.4,
+      height: bodySize.height * 0.5,
       child: Column(
         children: [
           Row(
@@ -61,7 +71,7 @@ class _WriteScreenState extends State<WriteScreen> {
             children: [
               Text('질문에 답하기'),
               Container(
-                height: screenSize.height * 0.2,
+                height: bodySize.height * 0.2,
                 child: Image.asset(character.statusImageUrl),
               )
             ],
@@ -71,9 +81,12 @@ class _WriteScreenState extends State<WriteScreen> {
     );
   }
 
-  Container _buildTextField(Size screenSize) {
+  Widget _buildTextField(Size bodySize) {
     return Container(
-      height: screenSize.height * 0.4,
+      height: bodySize.height * 0.35,
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+      ),
       color: Colors.black12,
       child: TextFormField(
         maxLines: 100,
@@ -104,6 +117,9 @@ class _WriteScreenState extends State<WriteScreen> {
                   Navigator.of(context).pop<Map>({
                     'isFirstSubmit': isFirstSubmit,
                     'statusUpdated': statusUpdated == 1,
+                    'characterTraveled': statusUpdated == 1 &&
+                        character.statusCode >=
+                            CharactersProvider.TRAVEL_STATUS,
                     'newCharacterAtHome': newCharacterAtHome == 1,
                   });
                 },

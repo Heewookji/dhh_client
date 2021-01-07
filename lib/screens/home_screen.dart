@@ -91,13 +91,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ],
     );
-    final mediaQuery = MediaQuery.of(context);
+    final _mediaQuery = MediaQuery.of(context);
     final _bodySize = Size(
-      mediaQuery.size.width,
-      mediaQuery.size.height -
+      _mediaQuery.size.width,
+      _mediaQuery.size.height -
           appBar.preferredSize.height -
-          mediaQuery.padding.top -
-          mediaQuery.padding.bottom,
+          _mediaQuery.padding.top -
+          _mediaQuery.padding.bottom,
     );
     final topDiary = Provider.of<DiariesProvider>(context).topDiary;
     _isSubmittedToday =

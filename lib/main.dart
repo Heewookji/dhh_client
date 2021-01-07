@@ -24,6 +24,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future _initFuture;
+  final _homeCharacterProvider = CharactersProvider();
+  final _homeQuestionProvider = QuestionsProvider();
+  final _allCharacterProvider = CharactersProvider();
+  final _allQuestionProvider = QuestionsProvider();
+
   @override
   void initState() {
     _initFuture = _doInitFuture();
@@ -43,8 +48,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CharactersProvider()),
-        ChangeNotifierProvider(create: (_) => QuestionsProvider()),
+        ChangeNotifierProvider.value(value: _allCharacterProvider),
+        ChangeNotifierProvider.value(value: _allQuestionProvider),
         ChangeNotifierProvider(create: (_) => DiariesProvider()),
         ChangeNotifierProvider(create: (_) => DiaryDetailProvider()),
       ],
@@ -69,14 +74,17 @@ class _MyAppState extends State<MyApp> {
                 );
               return MultiProvider(
                 providers: [
-                  ChangeNotifierProvider(create: (_) => CharactersProvider()),
-                  ChangeNotifierProvider(create: (_) => QuestionsProvider()),
+                  ChangeNotifierProvider.value(value: _homeCharacterProvider),
+                  ChangeNotifierProvider.value(value: _homeQuestionProvider),
                 ],
                 child: HomeScreen(),
               );
             }),
         routes: {
-          WriteScreen.routeName: (ctx) => WriteScreen(),
+          WriteScreen.routeName: (ctx) => ChangeNotifierProvider.value(
+                value: _homeCharacterProvider,
+                builder: (context, child) => WriteScreen(),
+              ),
           DiaryListScreen.routeName: (ctx) => DiaryListScreen(),
         },
       ),

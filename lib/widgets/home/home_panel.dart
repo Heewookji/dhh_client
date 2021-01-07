@@ -12,7 +12,7 @@ class HomePanel extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: _bodySize.height * 0.25,
-      child: _isSubmittedToday
+      child: false
           ? null
           : _chosenQuestion != null
               ? Text(_chosenQuestion.text)

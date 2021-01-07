@@ -13,7 +13,7 @@ class HomeButton extends StatelessWidget {
     return Container(
       height: _bodySize.height * 0.2,
       alignment: Alignment.center,
-      child: _isSubmittedToday
+      child: false
           ? null
           : Container(
               height: _bodySize.height * 0.075,

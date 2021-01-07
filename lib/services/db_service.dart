@@ -42,6 +42,12 @@ class DbService {
     db.insert(table, data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
+  static Future<void> updateById(
+      String table, Map<String, Object> data, int id) async {
+    final db = await DbService.database();
+    db.update(table, data, where: 'id = ${id.toString()}');
+  }
+
   static Future<List<Map<String, dynamic>>> getData(String table) async {
     final db = await DbService.database();
     return db.query(table);
@@ -80,6 +86,35 @@ class DbService {
         'having d.id = max(d.id) or d.id is null '
         'order by d.created_at desc, c.is_home = 0, c.is_travel = 0 '
         '');
+  }
+
+  static Future<int> updateRandomCharacterHome(
+      {int traveledCharacterId}) async {
+    final db = await DbService.database();
+    return db.rawUpdate(''
+        'update character set is_home = 1 '
+        'where id = ( '
+        'select id from character '
+        'where is_home = 0 and is_npc = 0 '
+        '${traveledCharacterId == null ? '' : 'and id != ${traveledCharacterId.toString()}'} '
+        'order by random() limit 1 '
+        ') '
+        '');
+  }
+
+  static Future<int> updateStatus(
+      String table, int characterId, int statusCode) async {
+    final db = await DbService.database();
+    final batch = db.batch();
+    batch.update(table, {'is_status_now': 0},
+        where:
+            'character_id = ${characterId.toString()} and code = ${statusCode.toString()}');
+    statusCode++;
+    batch.update(table, {'is_status_now': 1},
+        where:
+            'character_id = ${characterId.toString()} and code = ${statusCode.toString()}');
+    final result = await batch.commit();
+    return result[0] as int;
   }
 
   //질문

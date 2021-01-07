@@ -23,4 +23,31 @@ class CharactersProvider with ChangeNotifier {
     }).toList();
     notifyListeners();
   }
+
+  Future<int> updateCharacterByDiaryCount(
+      int characterId, int statusCode) async {
+    final characterDiaries =
+        await DbService.getDiariesByCharacterId(characterId);
+    if (characterDiaries.length == 0 || characterDiaries.length % 5 != 0)
+      return -1;
+    final result =
+        await DbService.updateStatus('status', characterId, statusCode);
+    if (statusCode >= 3) {}
+    await setHomeCharacters();
+    return result;
+  }
+
+  Future<int> updateRandomCharacterHome({int traveledCharacterId}) async {
+    final homeCharacters = await DbService.getHomeCharacters();
+    if (homeCharacters.length == 8) {
+      return -1;
+    } else if (homeCharacters.length == 7) {
+      final result = await DbService.updateRandomCharacterHome(
+        traveledCharacterId: traveledCharacterId,
+      );
+      await setHomeCharacters();
+      return result;
+    }
+    return -1;
+  }
 }

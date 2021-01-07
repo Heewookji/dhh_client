@@ -1,5 +1,6 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
+import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -86,22 +87,28 @@ class _WriteScreenState extends State<WriteScreen> {
   }
 
   Widget _buildSubmitButton(BuildContext context) {
-    return FlatButton(
-      child: Text('저장하기'),
-      onPressed: _controller.text.length == 0
-          ? null
-          : () async {
-              final isFirstSubmit =
-                  Provider.of<DiariesProvider>(context, listen: false)
-                          .topDiary ==
-                      null;
-              // 다이어리 추가
-              await Provider.of<DiariesProvider>(context, listen: false)
-                  .addDiary(question.id, _controller.text);
-              // 캐릭터 진화, 여행에 필요한 일기 수를 채웠는가?
-              // 홈화면에 캐릭터 추가 가능한가?
-              Navigator.of(context).pop<Map>({'isFirstSubmit': isFirstSubmit});
-            },
+    return Consumer2<DiariesProvider, CharactersProvider>(
+      builder: (context, diariesProvider, charactersProvider, child) {
+        return FlatButton(
+          child: Text('저장하기'),
+          onPressed: _controller.text.length == 0
+              ? null
+              : () async {
+                  final isFirstSubmit = diariesProvider.topDiary == null;
+                  await diariesProvider.addDiary(question.id, _controller.text);
+                  final statusUpdated =
+                      await charactersProvider.updateCharacterByDiaryCount(
+                          character.id, character.statusCode);
+                  final newCharacterAtHome =
+                      await charactersProvider.updateRandomCharacterHome();
+                  Navigator.of(context).pop<Map>({
+                    'isFirstSubmit': isFirstSubmit,
+                    'statusUpdated': statusUpdated == 1,
+                    'newCharacterAtHome': newCharacterAtHome == 1,
+                  });
+                },
+        );
+      },
     );
   }
 }

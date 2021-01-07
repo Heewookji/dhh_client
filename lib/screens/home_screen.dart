@@ -27,10 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _doFuture();
+    _doInitFuture();
   }
 
-  void _doFuture() async {
+  void _doInitFuture() async {
     await Provider.of<CharactersProvider>(context, listen: false)
         .setHomeCharacters();
     await Provider.of<QuestionsProvider>(context, listen: false)
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     ) as Map;
     if (result != null) {
-      if (result['isFirstSubmit']) print('first');
+      print(result);
     }
     await Provider.of<QuestionsProvider>(context, listen: false)
         .setQuestionMapByCharacterIds(

@@ -69,7 +69,6 @@ class _CharacterHomeState extends State<CharacterHome> {
       onTap: () => widget._chooseCharacter(character, questionsProvider),
       child: Column(
         children: [
-          Text(character.name),
           Container(
             color: Color(character.color),
             child: Image.asset(

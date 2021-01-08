@@ -39,7 +39,7 @@ class _WriteScreenState extends State<WriteScreen> {
           children: [
             _buildPanel(theme, _bodySize),
             _buildTextField(_bodySize),
-            _buildSubmitButton(context),
+            _buildSubmitButton(context, _bodySize),
           ],
         ),
       ),
@@ -48,7 +48,7 @@ class _WriteScreenState extends State<WriteScreen> {
 
   Widget _buildPanel(ThemeData theme, Size bodySize) {
     return Container(
-      height: bodySize.height * 0.5,
+      height: bodySize.height * 0.4,
       child: Column(
         children: [
           Row(
@@ -71,7 +71,6 @@ class _WriteScreenState extends State<WriteScreen> {
             children: [
               Text('질문에 답하기'),
               Container(
-                height: bodySize.height * 0.2,
                 child: Image.asset(character.statusImageUrl),
               )
             ],
@@ -83,36 +82,37 @@ class _WriteScreenState extends State<WriteScreen> {
 
   Widget _buildTextField(Size bodySize) {
     return Container(
-      height: bodySize.height * 0.35,
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom + 10,
-      ),
+      height: bodySize.height * 0.5,
       color: Colors.black12,
       child: TextFormField(
-        maxLines: 100,
         controller: _controller,
         onChanged: (value) {
           setState(() {});
         },
+        maxLines: 100,
         decoration: InputDecoration(border: InputBorder.none),
       ),
     );
   }
 
-  Widget _buildSubmitButton(BuildContext context) {
+  Widget _buildSubmitButton(BuildContext context, Size bodySize) {
     return Consumer2<DiariesProvider, CharactersProvider>(
       builder: (context, diariesProvider, charactersProvider, child) {
-        return FlatButton(
-          child: Text('저장하기'),
-          onPressed: _controller.text.length == 0
-              ? null
-              : () async {
-                  final isFirstSubmit = diariesProvider.topDiary == null;
-                  await diariesProvider.addDiary(question.id, _controller.text);
-                  final result = await charactersProvider
-                      .updateCharacterByDiaryCount(isFirstSubmit, character);
-                  Navigator.of(context).pop<Map>(result);
-                },
+        return Container(
+          height: bodySize.height * 0.1,
+          child: FlatButton(
+            child: Text('저장하기'),
+            onPressed: _controller.text.length == 0
+                ? null
+                : () async {
+                    final isFirstSubmit = diariesProvider.topDiary == null;
+                    await diariesProvider.addDiary(
+                        question.id, _controller.text);
+                    final result = await charactersProvider
+                        .updateCharacterByDiaryCount(isFirstSubmit, character);
+                    Navigator.of(context).pop<Map>(result);
+                  },
+          ),
         );
       },
     );

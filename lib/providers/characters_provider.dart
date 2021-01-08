@@ -10,6 +10,15 @@ class CharactersProvider with ChangeNotifier {
   List<int> get characterIds => characters.map((c) => c.id).toList();
 
   Future<void> setHomeCharacters() async {
+    final homeData = await DbService.getData('home');
+    final modifiedAt = homeData[0]['modified_at'] == null
+        ? null
+        : DateTime.parse(homeData[0]['modified_at']);
+    if (modifiedAt.day != DateTime.now().day) {
+      final idMapList = await DbService.getHomeRandomId();
+      await DbService.updateHomeLocationByIdMapList(idMapList);
+      await DbService.updateHomeModifiedAt();
+    }
     final dataMapList = await DbService.getHomeCharacters();
     _characters = dataMapList.map((dataMap) {
       return standardSerializers.deserializeWith(Character.serializer, dataMap);

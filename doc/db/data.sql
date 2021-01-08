@@ -22,6 +22,7 @@
 
 
 
+
 -- 캐릭터
 insert into character(id, name, color) values (1,'캐릭1', 0xFF11C3FC);
 insert into character(id, name, color) values (2,'캐릭2', 0xFFFCA311);
@@ -37,6 +38,19 @@ insert into character(id, name, is_npc, color) values (11,'npc1', 1, 0xFF000000)
 insert into character(id, name, is_npc, color) values (12,'npc2', 1, 0xFF000000);
 insert into character(id, name, is_npc, color) values (13,'npc3', 1, 0xFF000000);
 
+-- 홈
+insert into home(modified_at) values (null);
+
+-- 홈 캐릭터 위치
+
+insert into home_location(id) values (1);
+insert into home_location(id) values (2);
+insert into home_location(id) values (3);
+insert into home_location(id) values (4);
+insert into home_location(id) values (5);
+insert into home_location(id) values (6);
+insert into home_location(id) values (7);
+insert into home_location(id) values (8);
 
 --캐릭터 스테이터스 (캐릭터당 6개)
 insert into status (code, character_id, image_url, is_status_now) values (1,1,'assets/images/1-1.png', true);

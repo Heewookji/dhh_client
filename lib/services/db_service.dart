@@ -25,11 +25,10 @@ class DbService {
       path.join(dbPath, 'data.db'),
       version: 1,
     );
-    await db.rawUpdate(
-      'update character set is_home = 1 where is_npc = 0 '
-      'and id in (select id from character where is_npc = 0  order by random() limit 4)',
-    );
-    print('init!');
+    final idMapList = await db.rawQuery(
+        'select id from character order by is_npc desc,random() limit 7');
+    await updateHomeLocationByIdMapList(idMapList);
+    await updateHomeModifiedAt();
   }
 
   static void printPath() async {
@@ -60,17 +59,40 @@ class DbService {
   }
 
   //캐릭터
+  static Future<void> updateHomeLocationByIdMapList(
+      List<Map<String, dynamic>> idMapList) async {
+    final db = await DbService.database();
+    for (int i = 1; i <= idMapList.length; i++) {
+      await db.rawUpdate(
+          'update home_location set character_id = ${idMapList[i - 1]['id']} where id = $i');
+    }
+  }
+
+  static Future<void> updateHomeModifiedAt() async {
+    final db = await DbService.database();
+    await db.rawUpdate('update home set modified_at = current_date');
+  }
+
+  static Future<List<Map<String, dynamic>>> getHomeRandomId() async {
+    final db = await DbService.database();
+    return db.rawQuery(''
+        'select id from character c '
+        'where '
+        '(select count(*) from home_location h where c.id = h.character_id) = 1 '
+        'order by '
+        'c.is_npc desc, '
+        'random() '
+        '');
+  }
+
   static Future<List<Map<String, dynamic>>> getHomeCharacters() async {
     final db = await DbService.database();
     return db.rawQuery(''
-        'select * from character c '
+        'select c.*, s.* from home_location h '
+        'inner join character c on c.id = h.character_id '
         'inner join status s on c.id = s.character_id '
-        'where (s.is_status_now = 1 and c.is_home = 1) or c.is_npc = 1 '
-        'order by '
-        'c.is_npc desc, '
-        'substr( '
-        '(substr(CURRENT_DATE, 0, 5) * id * substr(CURRENT_DATE, 6, 2) * id * substr(CURRENT_DATE, 9, 2) * id), -3'
-        '); '
+        'where s.is_status_now = 1 '
+        'order by h.id '
         '');
   }
 
@@ -84,7 +106,6 @@ class DbService {
         'where s.is_status_now = 1 '
         'group by c.id '
         'having d.id = max(d.id) or d.id is null '
-        'order by d.created_at desc, c.is_home = 0, c.is_travel = 0 '
         '');
   }
 

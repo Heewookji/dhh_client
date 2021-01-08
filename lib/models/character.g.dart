@@ -22,11 +22,6 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'color',
       serializers.serialize(object.color, specifiedType: const FullType(int)),
-      'is_home',
-      serializers.serialize(object.isHome, specifiedType: const FullType(int)),
-      'is_travel',
-      serializers.serialize(object.isTravel,
-          specifiedType: const FullType(int)),
       'is_npc',
       serializers.serialize(object.isNpc, specifiedType: const FullType(int)),
       'code',
@@ -47,6 +42,18 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
         ..add('description')
         ..add(serializers.serialize(object.description,
             specifiedType: const FullType(String)));
+    }
+    if (object.isHome != null) {
+      result
+        ..add('is_home')
+        ..add(serializers.serialize(object.isHome,
+            specifiedType: const FullType(int)));
+    }
+    if (object.isTravel != null) {
+      result
+        ..add('is_travel')
+        ..add(serializers.serialize(object.isTravel,
+            specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -144,12 +151,6 @@ class _$Character extends Character {
     }
     if (color == null) {
       throw new BuiltValueNullFieldError('Character', 'color');
-    }
-    if (isHome == null) {
-      throw new BuiltValueNullFieldError('Character', 'isHome');
-    }
-    if (isTravel == null) {
-      throw new BuiltValueNullFieldError('Character', 'isTravel');
     }
     if (isNpc == null) {
       throw new BuiltValueNullFieldError('Character', 'isNpc');

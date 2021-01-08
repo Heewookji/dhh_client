@@ -1,6 +1,8 @@
 --외래 키 constraints 허용
 PRAGMA foreign_keys = ON;
 
+DROP TABLE IF EXISTS `home`;
+DROP TABLE IF EXISTS `home_location`;
 DROP TABLE IF EXISTS `status`;
 DROP TABLE IF EXISTS `character`;
 DROP TABLE IF EXISTS `question`;
@@ -11,8 +13,6 @@ CREATE TABLE `character` (
                              `name`	varchar(15)	NOT NULL,
                              'color' INTEGER NOT NULL DEFAULT 0xFF14213D,
                              `description`	longtext	NULL,
-                             `is_home`	bit(1)	NOT NULL	DEFAULT false	,
-                             `is_travel`	bit(1)	NOT NULL	DEFAULT false	,
                              `is_npc`	bit(1)	NOT NULL	DEFAULT false
 
 );
@@ -46,6 +46,16 @@ CREATE TABLE `status` (
                           FOREIGN KEY (character_id)
                               REFERENCES character (id)
 );
+
+CREATE TABLE `home` (
+                         `modified_at`	datetime	NULL
+);
+
+CREATE TABLE `home_location` (
+                        `id`	INTEGER	NOT NULL primary key autoincrement,
+                        `character_id`	INTEGER	NULL
+);
+
 
 
 

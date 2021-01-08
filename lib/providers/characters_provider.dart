@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 
 class CharactersProvider with ChangeNotifier {
   static const TRAVEL_STATUS = 3;
-  static const FULL_HOME_CHARACTER = 8;
   List<Character> _characters = [];
   List<Character> get characters => [..._characters];
   List<int> get characterIds => characters.map((c) => c.id).toList();
@@ -26,30 +25,38 @@ class CharactersProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<int> updateCharacterByDiaryCount(
-      int characterId, int statusCode) async {
-    final characterDiaries =
-        await DbService.getDiariesByCharacterId(characterId);
-    if (characterDiaries.length == 0 || characterDiaries.length % 5 != 0)
-      return -1;
-    final result =
-        await DbService.updateStatus('status', characterId, statusCode);
-    if (statusCode >= TRAVEL_STATUS) {
-      await DbService.updateById(
-        'character',
-        {'is_home': 0, 'is_travel': 1},
-        characterId,
-      );
-      await DbService.updateRandomCharacterHome(travelCharacterId: characterId);
+  Future<Map<String, bool>> updateCharacterByDiaryCount(
+      bool isFirstSubmit, Character character) async {
+    final result = {
+      'isFirstSubmit': isFirstSubmit,
+      'updateStatus': false,
+      'traveled': false,
+      'newCharacter': false,
+    };
+    if (isFirstSubmit) {
+      await DbService.updateRandomCharacterHome();
+      await setHomeCharacters();
+      return result;
     }
-    await setHomeCharacters();
-    return result;
-  }
-
-  Future<int> updateRandomCharacterHome() async {
-    final homeCharacters = await DbService.getHomeCharacters();
-    if (homeCharacters.length == FULL_HOME_CHARACTER) return -1;
-    final result = await DbService.updateRandomCharacterHome();
+    final characterDiaries =
+        await DbService.getDiariesByCharacterId(character.id);
+    if (characterDiaries.length % 5 != 0) return result;
+    result['updateStatus'] =
+        await DbService.updateStatus(character.id, character.statusCode) == 1;
+    if (result['updateStatus'] && character.statusCode >= TRAVEL_STATUS) {
+      result['traveled'] = await DbService.updateById(
+            'character',
+            {'is_home': 0, 'is_travel': 1},
+            character.id,
+          ) ==
+          1;
+    }
+    if (result['traveled']) {
+      result['newCharacter'] = await DbService.updateRandomCharacterHome(
+            avoidCharacterId: character.id,
+          ) ==
+          1;
+    }
     await setHomeCharacters();
     return result;
   }

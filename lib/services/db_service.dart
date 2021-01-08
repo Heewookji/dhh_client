@@ -42,10 +42,10 @@ class DbService {
     db.insert(table, data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
-  static Future<void> updateById(
+  static Future<int> updateById(
       String table, Map<String, Object> data, int id) async {
     final db = await DbService.database();
-    db.update(table, data, where: 'id = ${id.toString()}');
+    return db.update(table, data, where: 'id = ${id.toString()}');
   }
 
   static Future<List<Map<String, dynamic>>> getData(String table) async {
@@ -88,32 +88,37 @@ class DbService {
         '');
   }
 
-  static Future<int> updateRandomCharacterHome({int travelCharacterId}) async {
+  static Future<int> updateRandomCharacterHome({int avoidCharacterId}) async {
     final db = await DbService.database();
     return db.rawUpdate(''
-        'update character set is_home = 1 '
+        'update character set is_home = 1, is_travel = 0 '
         'where id = ( '
         'select id from character '
         'where is_home = 0 and is_npc = 0 and '
         '(select code from status where character_id = id and is_status_now = 1 order by code desc limit 1) '
         '< (select code from status order by code desc limit 1) '
-        '${travelCharacterId == null ? '' : 'and id != ${travelCharacterId.toString()}'} '
+        '${avoidCharacterId == null ? '' : 'and id != ${avoidCharacterId.toString()}'} '
         'order by random() limit 1 '
         ') '
         '');
   }
 
-  static Future<int> updateStatus(
-      String table, int characterId, int statusCode) async {
+  static Future<int> updateStatus(int characterId, int statusCode) async {
     final db = await DbService.database();
     final batch = db.batch();
-    batch.update(table, {'is_status_now': 0},
-        where:
-            'character_id = ${characterId.toString()} and code = ${statusCode.toString()}');
+    batch.update(
+      'status',
+      {'is_status_now': 0},
+      where:
+          'character_id = ${characterId.toString()} and code = ${statusCode.toString()}',
+    );
     statusCode++;
-    batch.update(table, {'is_status_now': 1},
-        where:
-            'character_id = ${characterId.toString()} and code = ${statusCode.toString()}');
+    batch.update(
+      'status',
+      {'is_status_now': 1},
+      where:
+          'character_id = ${characterId.toString()} and code = ${statusCode.toString()}',
+    );
     final result = await batch.commit();
     return result[0] as int;
   }

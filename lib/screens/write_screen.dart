@@ -109,19 +109,9 @@ class _WriteScreenState extends State<WriteScreen> {
               : () async {
                   final isFirstSubmit = diariesProvider.topDiary == null;
                   await diariesProvider.addDiary(question.id, _controller.text);
-                  final statusUpdated =
-                      await charactersProvider.updateCharacterByDiaryCount(
-                          character.id, character.statusCode);
-                  final newCharacterAtHome =
-                      await charactersProvider.updateRandomCharacterHome();
-                  Navigator.of(context).pop<Map>({
-                    'isFirstSubmit': isFirstSubmit,
-                    'statusUpdated': statusUpdated == 1,
-                    'characterTraveled': statusUpdated == 1 &&
-                        character.statusCode >=
-                            CharactersProvider.TRAVEL_STATUS,
-                    'newCharacterAtHome': newCharacterAtHome == 1,
-                  });
+                  final result = await charactersProvider
+                      .updateCharacterByDiaryCount(isFirstSubmit, character);
+                  Navigator.of(context).pop<Map>(result);
                 },
         );
       },

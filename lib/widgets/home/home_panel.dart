@@ -19,6 +19,7 @@ class HomePanel extends StatelessWidget {
               : Text(
                   '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14),
                 ),
     );
   }

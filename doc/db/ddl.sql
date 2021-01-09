@@ -12,11 +12,9 @@ CREATE TABLE `character` (
                              `id` INTEGER	NOT NULL primary key autoincrement ,
                              `name`	varchar(15)	NOT NULL,
                              'color' INTEGER NOT NULL DEFAULT 0xFF14213D,
-                             `description`	longtext	NULL,
+                             `description`	longtext 	NULL,
                              `is_npc`	bit(1)	NOT NULL	DEFAULT false
-
 );
-
 
 
 CREATE TABLE `question` (
@@ -40,7 +38,6 @@ CREATE TABLE `status` (
                           `code`	INTEGER	NOT NULL,
                           `character_id`	INTEGER	NOT NULL,
                           `image_url`	longtext	NOT NULL,
-                          `description`	longtext	NULL,
                           `is_status_now`	bit(1)	NOT NULL	DEFAULT false,
                           PRIMARY Key(code, character_id),
                           FOREIGN KEY (character_id)

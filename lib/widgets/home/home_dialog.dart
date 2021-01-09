@@ -50,7 +50,7 @@ class HomeDialog extends StatelessWidget {
               children: <Widget>[
                 Text('title'),
                 SizedBox(height: 15),
-                Text('description'),
+                Text(newCharacter.description.replaceAll('\\n', '\n')),
                 SizedBox(height: 22),
                 Align(
                   alignment: Alignment.center,
@@ -75,7 +75,7 @@ class HomeDialog extends StatelessWidget {
               child: ClipRRect(
                 borderRadius:
                     BorderRadius.all(Radius.circular(CHARACTER_RADIUS)),
-                child: Image.asset("assets/images/1-1.png"),
+                child: Image.asset(newCharacter.statusImageUrl),
               ),
             ),
           ),

@@ -7,6 +7,7 @@ import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/widgets/home/character_home.dart';
 import 'package:dhh_client/widgets/home/home_button.dart';
+import 'package:dhh_client/widgets/home/home_dialog.dart';
 import 'package:dhh_client/widgets/home/home_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -67,8 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
         'question': _chosenQuestion,
       },
     ) as Map;
-    if (result != null) {
-      print(result);
+    if (result != null && (result['newCharacter'] != null)) {
+      showDialog(
+        context: context,
+        builder: (context) => HomeDialog(result),
+      );
     }
     await Provider.of<QuestionsProvider>(context, listen: false)
         .setQuestionMapByCharacterIds(

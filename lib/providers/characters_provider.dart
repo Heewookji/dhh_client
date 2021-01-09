@@ -1,10 +1,10 @@
+import 'package:dhh_client/const_util.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/serializers.dart';
 import 'package:dhh_client/services/db_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class CharactersProvider with ChangeNotifier {
-  static const TRAVEL_STATUS = 3;
   List<Character> _characters = [];
   List<Character> get characters => [..._characters];
   List<int> get characterIds => characters.map((c) => c.id).toList();
@@ -51,10 +51,12 @@ class CharactersProvider with ChangeNotifier {
     }
     final characterDiaries =
         await DbService.getDiariesByCharacterId(character.id);
-    if (characterDiaries.length % 5 != 0) return result;
+    if (characterDiaries.length % ConstUtil.DIARY_STATUS_COUNT != 0)
+      return result;
     result['updateStatus'] =
         await DbService.updateStatus(character.id, character.statusCode) == 1;
-    if (result['updateStatus'] && character.statusCode >= TRAVEL_STATUS) {
+    if (result['updateStatus'] &&
+        character.statusCode >= ConstUtil.TRAVEL_STATUS) {
       result['traveled'] =
           await DbService.setCharacterAtTravelById(character.id) == 1;
     }

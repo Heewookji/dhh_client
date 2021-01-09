@@ -25,8 +25,7 @@ class DbService {
       path.join(dbPath, 'data.db'),
       version: 1,
     );
-    final idMapList = await db.rawQuery(
-        'select id from character order by is_npc desc,random() limit 7 ');
+    final idMapList = await getHomeRandomIds(init: true);
     await updateHomeLocation(idMapList);
     await updateHomeModifiedAt();
   }
@@ -73,8 +72,12 @@ class DbService {
     await db.rawUpdate('update home set modified_at = current_date');
   }
 
-  static Future<List<Map<String, dynamic>>> getHomeRandomIds() async {
+  static Future<List<Map<String, dynamic>>> getHomeRandomIds(
+      {bool init}) async {
     final db = await DbService.database();
+    if (init)
+      return db.rawQuery(
+          'select id from character order by is_npc desc,random() limit 7 ');
     return db.rawQuery(''
         'select id from character c '
         'where '

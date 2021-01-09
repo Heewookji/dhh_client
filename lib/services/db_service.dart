@@ -73,7 +73,7 @@ class DbService {
     await db.rawUpdate('update home set modified_at = current_date');
   }
 
-  static Future<List<Map<String, dynamic>>> getHomeRandomId() async {
+  static Future<List<Map<String, dynamic>>> getHomeRandomIds() async {
     final db = await DbService.database();
     return db.rawQuery(''
         'select id from character c '
@@ -132,7 +132,7 @@ class DbService {
         '< (select s2.code from status s2 order by s2.code desc limit 1) '
         'and hl.id is null '
         '${avoidCharacterId == null ? '' : 'and c.id != ${avoidCharacterId.toString()}'} '
-        'order by random() limit 1 '
+        'order by s.code != 1, random() limit 1 '
         '');
     final randomCharacter = randomResult[0];
     final updateResult = await db.rawUpdate(''

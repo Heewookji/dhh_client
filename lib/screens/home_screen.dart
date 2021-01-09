@@ -68,9 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
         'question': _chosenQuestion,
       },
     ) as Map;
-    if (result != null && (result['newCharacter'] != null)) {
+    if (result != null && result['newCharacter'] != null) {
       showDialog(
         context: context,
+        barrierColor: Colors.black54,
         builder: (context) => HomeDialog(result),
       );
     }
@@ -112,10 +113,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ? Center()
           : Column(
               children: <Widget>[
-                HomePanel(_chosenQuestion, _bodySize, _isSubmittedToday),
+                HomePanel(
+                  _chosenQuestion,
+                  _bodySize,
+                  _isSubmittedToday,
+                ),
                 CharacterHome(_chooseCharacter, _bodySize),
-                HomeButton(_chosenQuestion, _navigateWriteScreen, _bodySize,
-                    _isSubmittedToday),
+                HomeButton(
+                  _chosenQuestion,
+                  _navigateWriteScreen,
+                  _bodySize,
+                  _isSubmittedToday,
+                ),
               ],
             ),
     );

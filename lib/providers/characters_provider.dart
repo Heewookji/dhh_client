@@ -16,7 +16,7 @@ class CharactersProvider with ChangeNotifier {
         : DateTime.parse(homeData[0]['modified_at']);
     if (modifiedAt.day != DateTime.now().day) {
       final idMapList = await DbService.getHomeRandomId();
-      await DbService.updateHomeLocationByIdMapList(idMapList);
+      await DbService.updateHomeLocation(idMapList);
       await DbService.updateHomeModifiedAt();
     }
     final dataMapList = await DbService.getHomeCharacters();
@@ -34,16 +34,18 @@ class CharactersProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Map<String, bool>> updateCharacterByDiaryCount(
+  Future<Map<String, Object>> updateCharacterByDiaryCount(
       bool isFirstSubmit, Character character) async {
-    final result = {
+    final Map<String, Object> result = {
       'isFirstSubmit': isFirstSubmit,
       'updateStatus': false,
       'traveled': false,
-      'newCharacter': false,
+      'newCharacter': null,
     };
     if (isFirstSubmit) {
-      await DbService.updateRandomCharacterHome();
+      final dataMap = await DbService.setRandomCharacterAtHome();
+      result['newCharacter'] =
+          standardSerializers.deserializeWith(Character.serializer, dataMap);
       await setHomeCharacters();
       return result;
     }
@@ -53,18 +55,14 @@ class CharactersProvider with ChangeNotifier {
     result['updateStatus'] =
         await DbService.updateStatus(character.id, character.statusCode) == 1;
     if (result['updateStatus'] && character.statusCode >= TRAVEL_STATUS) {
-      result['traveled'] = await DbService.updateById(
-            'character',
-            {'is_home': 0, 'is_travel': 1},
-            character.id,
-          ) ==
-          1;
+      result['traveled'] =
+          await DbService.setCharacterAtTravelById(character.id) == 1;
     }
     if (result['traveled']) {
-      result['newCharacter'] = await DbService.updateRandomCharacterHome(
-            avoidCharacterId: character.id,
-          ) ==
-          1;
+      final dataMap = await DbService.setRandomCharacterAtHome(
+          avoidCharacterId: character.id);
+      result['newCharacter'] =
+          standardSerializers.deserializeWith(Character.serializer, dataMap);
     }
     await setHomeCharacters();
     return result;

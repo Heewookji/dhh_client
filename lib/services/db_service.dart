@@ -26,8 +26,8 @@ class DbService {
       version: 1,
     );
     final idMapList = await db.rawQuery(
-        'select id from character order by is_npc desc,random() limit 7');
-    await updateHomeLocationByIdMapList(idMapList);
+        'select id from character order by is_npc desc,random() limit 7 ');
+    await updateHomeLocation(idMapList);
     await updateHomeModifiedAt();
   }
 
@@ -59,7 +59,7 @@ class DbService {
   }
 
   //캐릭터
-  static Future<void> updateHomeLocationByIdMapList(
+  static Future<void> updateHomeLocation(
       List<Map<String, dynamic>> idMapList) async {
     final db = await DbService.database();
     for (int i = 1; i <= idMapList.length; i++) {
@@ -120,18 +120,33 @@ class DbService {
         '');
   }
 
-  static Future<int> updateRandomCharacterHome({int avoidCharacterId}) async {
+  static Future<Map<String, dynamic>> setRandomCharacterAtHome(
+      {int avoidCharacterId}) async {
+    final db = await DbService.database();
+    final randomResult = await db.rawQuery(''
+        'select c.*, s.* from character c '
+        'left outer join home_location hl on c.id = hl.character_id '
+        'inner join status s on c.id = s.character_id '
+        'where s.is_status_now = 1 and c.is_npc = 0 '
+        'and (select s.code from status s where s.character_id = c.id and s.is_status_now = 1 order by s.code desc limit 1) '
+        '< (select s2.code from status s2 order by s2.code desc limit 1) '
+        'and hl.id is null '
+        '${avoidCharacterId == null ? '' : 'and c.id != ${avoidCharacterId.toString()}'} '
+        'order by random() limit 1 '
+        '');
+    final randomCharacter = randomResult[0];
+    final updateResult = await db.rawUpdate(''
+        'update home_location set character_id = ${randomCharacter['id']} '
+        'where character_id is null '
+        '');
+    return updateResult == 1 ? randomCharacter : null;
+  }
+
+  static Future<int> setCharacterAtTravelById(int characterId) async {
     final db = await DbService.database();
     return db.rawUpdate(''
-        'update character set is_home = 1, is_travel = 0 '
-        'where id = ( '
-        'select id from character '
-        'where is_home = 0 and is_npc = 0 and '
-        '(select code from status where character_id = id and is_status_now = 1 order by code desc limit 1) '
-        '< (select code from status order by code desc limit 1) '
-        '${avoidCharacterId == null ? '' : 'and id != ${avoidCharacterId.toString()}'} '
-        'order by random() limit 1 '
-        ') '
+        'update home_location set character_id = null '
+        'where character_id = ${characterId.toString()}'
         '');
   }
 

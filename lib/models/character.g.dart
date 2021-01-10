@@ -22,8 +22,6 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'color',
       serializers.serialize(object.color, specifiedType: const FullType(int)),
-      'is_npc',
-      serializers.serialize(object.isNpc, specifiedType: const FullType(int)),
       'code',
       serializers.serialize(object.statusCode,
           specifiedType: const FullType(int)),
@@ -93,10 +91,6 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           result.isTravel = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'is_npc':
-          result.isNpc = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
         case 'code':
           result.statusCode = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
@@ -126,8 +120,6 @@ class _$Character extends Character {
   @override
   final int isTravel;
   @override
-  final int isNpc;
-  @override
   final int statusCode;
   @override
   final String statusImageUrl;
@@ -142,7 +134,6 @@ class _$Character extends Character {
       this.description,
       this.isHome,
       this.isTravel,
-      this.isNpc,
       this.statusCode,
       this.statusImageUrl})
       : super._() {
@@ -151,9 +142,6 @@ class _$Character extends Character {
     }
     if (color == null) {
       throw new BuiltValueNullFieldError('Character', 'color');
-    }
-    if (isNpc == null) {
-      throw new BuiltValueNullFieldError('Character', 'isNpc');
     }
     if (statusCode == null) {
       throw new BuiltValueNullFieldError('Character', 'statusCode');
@@ -180,7 +168,6 @@ class _$Character extends Character {
         description == other.description &&
         isHome == other.isHome &&
         isTravel == other.isTravel &&
-        isNpc == other.isNpc &&
         statusCode == other.statusCode &&
         statusImageUrl == other.statusImageUrl;
   }
@@ -192,13 +179,11 @@ class _$Character extends Character {
             $jc(
                 $jc(
                     $jc(
-                        $jc(
-                            $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                color.hashCode),
-                            description.hashCode),
-                        isHome.hashCode),
-                    isTravel.hashCode),
-                isNpc.hashCode),
+                        $jc($jc($jc(0, id.hashCode), name.hashCode),
+                            color.hashCode),
+                        description.hashCode),
+                    isHome.hashCode),
+                isTravel.hashCode),
             statusCode.hashCode),
         statusImageUrl.hashCode));
   }
@@ -212,7 +197,6 @@ class _$Character extends Character {
           ..add('description', description)
           ..add('isHome', isHome)
           ..add('isTravel', isTravel)
-          ..add('isNpc', isNpc)
           ..add('statusCode', statusCode)
           ..add('statusImageUrl', statusImageUrl))
         .toString();
@@ -246,10 +230,6 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   int get isTravel => _$this._isTravel;
   set isTravel(int isTravel) => _$this._isTravel = isTravel;
 
-  int _isNpc;
-  int get isNpc => _$this._isNpc;
-  set isNpc(int isNpc) => _$this._isNpc = isNpc;
-
   int _statusCode;
   int get statusCode => _$this._statusCode;
   set statusCode(int statusCode) => _$this._statusCode = statusCode;
@@ -269,7 +249,6 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
       _description = _$v.description;
       _isHome = _$v.isHome;
       _isTravel = _$v.isTravel;
-      _isNpc = _$v.isNpc;
       _statusCode = _$v.statusCode;
       _statusImageUrl = _$v.statusImageUrl;
       _$v = null;
@@ -300,7 +279,6 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
             description: description,
             isHome: isHome,
             isTravel: isTravel,
-            isNpc: isNpc,
             statusCode: statusCode,
             statusImageUrl: statusImageUrl);
     replace(_$result);

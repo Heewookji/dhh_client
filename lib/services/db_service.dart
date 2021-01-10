@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:dhh_client/const_util.dart';
+import 'package:dhh_client/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart' as sql;
@@ -25,6 +25,7 @@ class DbService {
     final idMapList = await getHomeRandomIds(init: true);
     await updateHomeLocation(idMapList, init: true);
     await updateHomeModifiedAt();
+    print('DB Init!');
   }
 
   static void printPath() async {
@@ -55,11 +56,25 @@ class DbService {
   }
 
   //캐릭터
+  static Future<List<Map<String, dynamic>>> getHomeRandomIds(
+      {bool init = false}) async {
+    final db = await DbService.database();
+    if (init)
+      return db.rawQuery(
+          'select id from character order by random() limit ${(Constants.HOME_CHARACTER_COUNT - 1).toString()} ');
+    return db.rawQuery(''
+        'select c.id from character c '
+        'inner join home_location hl on c.id = hl.character_id '
+        'order by '
+        'random() '
+        '');
+  }
+
   static Future<void> updateHomeLocation(List<Map<String, dynamic>> idMapList,
-      {bool init}) async {
+      {bool init = false}) async {
     final db = await DbService.database();
     if (init) {
-      for (int i = 1; i <= ConstUtil.HOME_CHARACTER_COUNT; i++)
+      for (int i = 1; i <= Constants.HOME_CHARACTER_COUNT; i++)
         await db.insert('home_location', {'id': i});
     }
     for (int i = 1; i <= idMapList.length; i++) {
@@ -71,22 +86,6 @@ class DbService {
   static Future<void> updateHomeModifiedAt() async {
     final db = await DbService.database();
     await db.rawUpdate('update home set modified_at = current_date');
-  }
-
-  static Future<List<Map<String, dynamic>>> getHomeRandomIds(
-      {bool init}) async {
-    final db = await DbService.database();
-    if (init)
-      return db.rawQuery(
-          'select id from character order by is_npc desc,random() limit ${(ConstUtil.HOME_CHARACTER_COUNT - 1).toString()} ');
-    return db.rawQuery(''
-        'select id from character c '
-        'where '
-        '(select count(*) from home_location h where c.id = h.character_id) = 1 '
-        'order by '
-        'c.is_npc desc, '
-        'random() '
-        '');
   }
 
   static Future<List<Map<String, dynamic>>> getHomeCharacters() async {
@@ -131,9 +130,8 @@ class DbService {
         'select c.*, s.* from character c '
         'left outer join home_location hl on c.id = hl.character_id '
         'inner join status s on c.id = s.character_id '
-        'where s.is_status_now = 1 and c.is_npc = 0 '
-        'and (select s.code from status s where s.character_id = c.id and s.is_status_now = 1) '
-        '< ${ConstUtil.FINAL_STATUS.toString()} '
+        'where s.is_status_now = 1 '
+        'and s.code < ${Constants.FINAL_STATUS.toString()} '
         'and hl.id is null '
         '${avoidCharacterId == null ? '' : 'and c.id != ${avoidCharacterId.toString()}'} '
         'order by s.code != 1, random() limit 1 '

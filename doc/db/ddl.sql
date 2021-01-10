@@ -11,9 +11,8 @@ DROP TABLE IF EXISTS `diary`;
 CREATE TABLE `character` (
                              `id` INTEGER	NOT NULL primary key autoincrement ,
                              `name`	varchar(15)	NOT NULL,
-                             'color' INTEGER NOT NULL DEFAULT 0xFF14213D,
-                             `description`	longtext 	NULL,
-                             `is_npc`	bit(1)	NOT NULL	DEFAULT false
+                             `color` INTEGER NOT NULL DEFAULT 0xFF14213D,
+                             `description`	longtext 	NULL
 );
 
 

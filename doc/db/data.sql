@@ -32,10 +32,6 @@ insert into character(id, name, color, description) values (7,'상상이'  , 0xF
 insert into character(id, name, color, description) values (8,'폭폭이'  , 0xFF4DAA57, '안녕? 내 이름은 폭폭이!\n인생의 쓴맛을 과감없이 알려줄께!\n자아성찰은 중요하다고!');
 insert into character(id, name, color, description) values (9,'뭉그리'  , 0xFF754668, '안녕? 내 이름은 뭉그리!\n질척질척 남겨두고 있던 과거의\n미련은 나에게 버려줘!');
 insert into character(id, name, color, description) values (10,'똘똘이', 0xFFD62246, '안녕? 내 이름은 똘똘이!\n미래를 어떻게 계획하면 좋을까?\n나랑 같이 이야기해보자.');
-insert into character(id, name, is_npc, color) values (11,'npc1', 1, 0xFF000000);
-insert into character(id, name, is_npc, color) values (12,'npc2', 1, 0xFF000000);
-insert into character(id, name, is_npc, color) values (13,'npc3', 1, 0xFF000000);
-insert into character(id, name, is_npc, color) values (14,'npc4', 1, 0xFF000000);
 
 -- 홈
 insert into home(modified_at) values (null);
@@ -101,10 +97,6 @@ insert into status (code, character_id, image_url) values (3,10,'assets/images/1
 insert into status (code, character_id, image_url) values (4,10,'assets/images/10-4.png');
 insert into status (code, character_id, image_url) values (5,10,'assets/images/10-5.png');
 insert into status (code, character_id, image_url) values (6,10,'assets/images/10-6.png');
-insert into status (code, character_id, image_url, is_status_now) values (1,11,'assets/images/11-1.png', true);
-insert into status (code, character_id, image_url, is_status_now) values (1,12,'assets/images/12-1.png', true);
-insert into status (code, character_id, image_url, is_status_now) values (1,13,'assets/images/13-1.png', true);
-insert into status (code, character_id, image_url, is_status_now) values (1,14,'assets/images/14-1.png', true);
 
 --퀘스쳔
 

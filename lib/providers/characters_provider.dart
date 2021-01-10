@@ -1,4 +1,4 @@
-import 'package:dhh_client/const_util.dart';
+import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/serializers.dart';
 import 'package:dhh_client/services/db_service.dart';
@@ -51,12 +51,12 @@ class CharactersProvider with ChangeNotifier {
     }
     final characterDiaries =
         await DbService.getDiariesByCharacterId(character.id);
-    if (characterDiaries.length % ConstUtil.DIARY_STATUS_COUNT != 0)
+    if (characterDiaries.length % Constants.DIARY_STATUS_COUNT != 0)
       return result;
     result['updateStatus'] =
         await DbService.updateStatus(character.id, character.statusCode) == 1;
     if (result['updateStatus'] &&
-        character.statusCode >= ConstUtil.TRAVEL_STATUS) {
+        character.statusCode >= Constants.TRAVEL_STATUS) {
       result['traveled'] =
           await DbService.setCharacterAtTravelById(character.id) == 1;
     }

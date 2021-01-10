@@ -17,8 +17,6 @@ abstract class Character implements Built<Character, CharacterBuilder> {
   @nullable
   @BuiltValueField(wireName: 'is_travel')
   int get isTravel;
-  @BuiltValueField(wireName: 'is_npc')
-  int get isNpc;
   @BuiltValueField(wireName: 'code')
   int get statusCode;
   @BuiltValueField(wireName: 'image_url')

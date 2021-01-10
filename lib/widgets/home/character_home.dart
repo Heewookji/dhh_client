@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:dhh_client/const_util.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
@@ -18,6 +17,17 @@ class CharacterHome extends StatefulWidget {
 class _CharacterHomeState extends State<CharacterHome> {
   List<Point<double>> _locationPoints;
 
+  static List<Point<double>> getLocationPoints(Size homeSize) {
+    return [
+      //character
+      Point(homeSize.width * 0.4, homeSize.height * 0.05),
+      Point(homeSize.width * 0.7, homeSize.height * 0.05),
+      Point(homeSize.width * 0.3, homeSize.height * 0.35),
+      Point(homeSize.width * 0.4, homeSize.height * 0.65),
+      Point(homeSize.width * 0.7, homeSize.height * 0.65),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +35,7 @@ class _CharacterHomeState extends State<CharacterHome> {
       height: widget._bodySize.height * 0.55,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          _locationPoints = ConstUtil.getCharacterLocation(constraints.biggest);
+          _locationPoints = getLocationPoints(constraints.biggest);
           return Consumer2<CharactersProvider, QuestionsProvider>(
             builder: (context, charactersProvider, questionsProvider, child) {
               return Stack(

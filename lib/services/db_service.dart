@@ -123,25 +123,35 @@ class DbService {
         '');
   }
 
-  static Future<Map<String, dynamic>> setRandomCharacterAtHome(
+  static Future<Map<String, dynamic>> getHomeRandomCharacter(
       {int avoidCharacterId}) async {
     final db = await DbService.database();
-    final randomResult = await db.rawQuery(''
-        'select c.*, s.* from character c '
+    final result = await db.rawQuery(''
+        'select c.*, s.*,'
+        '( '
+        'select count(*) from question q '
+        'left outer join diary d on q.id = d.question_id '
+        'where q.character_id = c.id and d.id is null '
+        ') as not_answered '
+        'from character c '
         'left outer join home_location hl on c.id = hl.character_id '
         'inner join status s on c.id = s.character_id '
         'where s.is_status_now = 1 '
-        'and s.code < ${Constants.FINAL_STATUS.toString()} '
         'and hl.id is null '
+        'and not_answered > 0 '
+        'and s.code <= ${Constants.FINAL_STATUS.toString()} '
         '${avoidCharacterId == null ? '' : 'and c.id != ${avoidCharacterId.toString()}'} '
         'order by s.code != 1, random() limit 1 '
         '');
-    final randomCharacter = randomResult[0];
-    final updateResult = await db.rawUpdate(''
-        'update home_location set character_id = ${randomCharacter['id']} '
+    return result == null ? null : result[0];
+  }
+
+  static Future<int> setCharacterAtHomeById(int characterId) async {
+    final db = await DbService.database();
+    return await db.rawUpdate(''
+        'update home_location set character_id = ${characterId.toString()} '
         'where character_id is null '
         '');
-    return updateResult == 1 ? randomCharacter : null;
   }
 
   static Future<int> setCharacterAtTravelById(int characterId) async {

@@ -67,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'question': _chosenQuestion,
       },
     ) as Map;
+    print(result);
     if (result != null && result['newCharacter'] != null) {
       showDialog(
         context: context,

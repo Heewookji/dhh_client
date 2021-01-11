@@ -68,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     ) as Map;
     print(result);
-    if (result != null && result['newCharacter'] != null) {
+    if (result != null &&
+        result['traveled'] &&
+        result['newCharacter'] != null) {
       showDialog(
         context: context,
         barrierColor: Colors.black54,

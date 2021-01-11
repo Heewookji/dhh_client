@@ -65,9 +65,11 @@ class CharactersProvider with ChangeNotifier {
     if (result['traveled']) {
       final dataMap = await DbService.getHomeRandomCharacter(
           avoidCharacterId: character.id);
-      await DbService.setCharacterAtHomeById(dataMap['id']);
-      result['newCharacter'] =
-          standardSerializers.deserializeWith(Character.serializer, dataMap);
+      if (dataMap != null) {
+        await DbService.setCharacterAtHomeById(dataMap['id']);
+        result['newCharacter'] =
+            standardSerializers.deserializeWith(Character.serializer, dataMap);
+      }
     }
     await setHomeCharacters();
     return result;

@@ -143,7 +143,7 @@ class DbService {
         '${avoidCharacterId == null ? '' : 'and c.id != ${avoidCharacterId.toString()}'} '
         'order by s.code != 1, random() limit 1 '
         '');
-    return result == null ? null : result[0];
+    return result.length == 0 ? null : result[0];
   }
 
   static Future<int> setCharacterAtHomeById(int characterId) async {

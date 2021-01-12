@@ -1,6 +1,8 @@
+import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/diary.dart';
 import 'package:dhh_client/models/serializers.dart';
-import 'package:dhh_client/services/db_service.dart';
+import 'package:dhh_client/providers/characters_provider.dart';
+import 'package:dhh_client/sql/diary_sql.dart';
 import 'package:flutter/cupertino.dart';
 
 class DiariesProvider with ChangeNotifier {
@@ -10,12 +12,12 @@ class DiariesProvider with ChangeNotifier {
   List<int> get diaryIds => diaries.map((d) => d.id).toList();
 
   Future<int> getDiaryCount() async {
-    final count = await DbService.getCount('diary');
+    final count = await DiarySql.getAllDiariesCount();
     return count;
   }
 
   Future<void> setTopDiary() async {
-    final dataMap = await DbService.getTopData('diary');
+    final dataMap = await DiarySql.getTopDiary();
     topDiary = dataMap == null
         ? null
         : standardSerializers.deserializeWith(Diary.serializer, dataMap);
@@ -23,7 +25,7 @@ class DiariesProvider with ChangeNotifier {
   }
 
   Future<void> setAllDiaries() async {
-    final dataMapList = await DbService.getAllDiariesOrderByCreatedAt();
+    final dataMapList = await DiarySql.getAllDiariesOrderByCreatedAt();
     _diaries = dataMapList
         .map((dataMap) =>
             standardSerializers.deserializeWith(Diary.serializer, dataMap))
@@ -32,7 +34,7 @@ class DiariesProvider with ChangeNotifier {
   }
 
   Future<void> setDiariesByCharacterId(int characterId) async {
-    final dataMapList = await DbService.getDiariesByCharacterId(characterId);
+    final dataMapList = await DiarySql.getDiariesByCharacterId(characterId);
     _diaries = dataMapList
         .map((dataMap) =>
             standardSerializers.deserializeWith(Diary.serializer, dataMap))
@@ -40,9 +42,13 @@ class DiariesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addDiary(int questionId, String text) async {
-    await DbService.insert(
-      'diary',
+  Future<Map<String, dynamic>> addDiaryAndUpdateCharacter(
+    int questionId,
+    String text,
+    CharactersProvider characterProvider,
+    Character character,
+  ) async {
+    final result = await DiarySql.addDiaryAndUpdateCharacter(
       standardSerializers.serializeWith(
         Diary.serializer,
         Diary((b) => b
@@ -50,7 +56,10 @@ class DiariesProvider with ChangeNotifier {
           ..createdAt = DateTime.now().toUtc()
           ..questionId = questionId),
       ),
+      character,
     );
     setTopDiary();
+    characterProvider.setHomeCharacters();
+    return result;
   }
 }

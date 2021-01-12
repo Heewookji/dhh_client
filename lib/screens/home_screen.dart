@@ -68,12 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     ) as Map;
     print(result);
-    if (result != null && result['traveled']) {
+    if (result != null && (result['traveled'])) {
       await showDialog(
         context: context,
         barrierColor: Colors.black54,
         builder: (context) => HomeDialog(result),
       );
+      Future.delayed(Duration(seconds: 5), () => _newCharacterComeIfPossible());
     }
     await Provider.of<QuestionsProvider>(context, listen: false)
         .setQuestionMapByCharacterIds(
@@ -82,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
     });
-    Future.delayed(Duration(seconds: 5), _newCharacterComeIfPossible);
   }
 
   Future<void> _newCharacterComeIfPossible() async {

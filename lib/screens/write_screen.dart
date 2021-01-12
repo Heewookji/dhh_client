@@ -105,10 +105,13 @@ class _WriteScreenState extends State<WriteScreen> {
             onPressed: _controller.text.length == 0
                 ? null
                 : () async {
-                    await diariesProvider.addDiary(
-                        question.id, _controller.text);
-                    final result = await charactersProvider
-                        .updateCharacterByDiaryCount(character);
+                    final result =
+                        await diariesProvider.addDiaryAndUpdateCharacter(
+                      question.id,
+                      _controller.text,
+                      charactersProvider,
+                      character,
+                    );
                     Navigator.of(context).pop<Map>(result);
                   },
           ),

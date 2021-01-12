@@ -82,19 +82,28 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
     });
+    Future.delayed(Duration(seconds: 5), _newCharacterComeIfPossible);
   }
 
-  void _newCharacterComeIfPossible() async {
-    final isFirstNewCharacter =
-        Provider.of<DiariesProvider>(context, listen: false).topDiary == null;
+  Future<void> _newCharacterComeIfPossible() async {
+    final firstSubmitted =
+        await Provider.of<DiariesProvider>(context, listen: false)
+                .getDiaryCount() ==
+            1;
     final result = await Provider.of<CharactersProvider>(context, listen: false)
-        .setNewCharacterIfPossible(isFirstNewCharacter);
+        .setNewCharacterIfPossible(firstSubmitted);
     print(result);
+    if (result['newCharacter'] != null) {
+      await showDialog(
+        context: context,
+        barrierColor: Colors.black54,
+        builder: (context) => HomeDialog(result),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    _newCharacterComeIfPossible();
     final appBar = AppBar(
       title: Text('App Name'),
       centerTitle: false,

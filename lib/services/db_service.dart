@@ -49,6 +49,15 @@ class DbService {
     return db.query(table);
   }
 
+  static Future<int> getCount(String table) async {
+    final db = await DbService.database();
+    return sql.Sqflite.firstIntValue(
+      await db.rawQuery(''
+          'select count(*) from $table'
+          ''),
+    );
+  }
+
   static Future<Map<String, dynamic>> getTopData(String table) async {
     final db = await DbService.database();
     final data = await db.query(table, orderBy: 'id desc', limit: 1);

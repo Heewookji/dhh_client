@@ -9,6 +9,11 @@ class DiariesProvider with ChangeNotifier {
   List<Diary> get diaries => [..._diaries];
   List<int> get diaryIds => diaries.map((d) => d.id).toList();
 
+  Future<int> getDiaryCount() async {
+    final count = await DbService.getCount('diary');
+    return count;
+  }
+
   Future<void> setTopDiary() async {
     final dataMap = await DbService.getTopData('diary');
     topDiary = dataMap == null

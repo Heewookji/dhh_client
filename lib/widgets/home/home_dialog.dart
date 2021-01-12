@@ -1,19 +1,22 @@
-import 'package:dhh_client/models/character.dart';
 import 'package:flutter/material.dart';
+
+enum Status {
+  First,
+  TravelThenNew,
+  TravelThenTraveled,
+  Finished,
+  AllFinished,
+}
 
 class HomeDialog extends StatelessWidget {
   static const double PADDING = 20;
   static const double CHARACTER_RADIUS = 45;
-  final bool isFirstSubmit;
-  final bool updateStatus;
-  final bool traveled;
-  final Character newCharacter;
+  final Status status;
 
   HomeDialog(Map<String, Object> result)
-      : this.isFirstSubmit = result['isFirstSubmit'],
-        this.updateStatus = result['updateStatus'],
-        this.traveled = result['traveled'],
-        this.newCharacter = result['newCharacter'];
+      : this.status = result['isFirstSubmit'] == true
+            ? Status.First
+            : Status.TravelThenNew;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,9 @@ class HomeDialog extends StatelessWidget {
               children: <Widget>[
                 Text('title'),
                 SizedBox(height: 15),
-                Text(newCharacter.description.replaceAll('\\n', '\n')),
+                Text(''
+//                  newCharacter.description.replaceAll('\\n', '\n'),
+                    ),
                 SizedBox(height: 22),
                 Align(
                   alignment: Alignment.center,
@@ -75,7 +80,8 @@ class HomeDialog extends StatelessWidget {
               child: ClipRRect(
                 borderRadius:
                     BorderRadius.all(Radius.circular(CHARACTER_RADIUS)),
-                child: Image.asset(newCharacter.statusImageUrl),
+                child: Container(),
+                //Image.asset(),
               ),
             ),
           ),

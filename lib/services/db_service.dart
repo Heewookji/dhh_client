@@ -88,6 +88,11 @@ class DbService {
     await db.rawUpdate('update home set modified_at = current_date');
   }
 
+  static Future<void> updateHomeAllFinished() async {
+    final db = await DbService.database();
+    await db.rawUpdate('update ');
+  }
+
   static Future<List<Map<String, dynamic>>> getHomeCharacters() async {
     final db = await DbService.database();
     return db.rawQuery(''

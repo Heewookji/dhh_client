@@ -35,21 +35,13 @@ class CharactersProvider with ChangeNotifier {
   }
 
   Future<Map<String, Object>> updateCharacterByDiaryCount(
-      bool isFirstSubmit, Character character) async {
+      Character character) async {
     final Map<String, Object> result = {
-      'isFirstSubmit': isFirstSubmit,
+      'submittedCharacter': character,
       'updateStatus': false,
       'traveled': false,
-      'newCharacter': null,
+      'isFinished': false,
     };
-    if (isFirstSubmit) {
-      final dataMap = await DbService.getHomeRandomCharacter();
-      await DbService.setCharacterAtHomeById(dataMap['id']);
-      result['newCharacter'] =
-          standardSerializers.deserializeWith(Character.serializer, dataMap);
-      await setHomeCharacters();
-      return result;
-    }
     final characterDiaries =
         await DbService.getDiariesByCharacterId(character.id);
     if (characterDiaries.length % Constants.DIARY_STATUS_COUNT != 0)
@@ -57,21 +49,41 @@ class CharactersProvider with ChangeNotifier {
     if (character.statusCode < Constants.FINAL_STATUS) {
       result['updateStatus'] =
           await DbService.updateStatus(character.id, character.statusCode) == 1;
+    } else {
+      result['isFinished'] = true;
     }
     if (character.statusCode >= Constants.TRAVEL_STATUS) {
       result['traveled'] =
           await DbService.setCharacterAtTravelById(character.id) == 1;
     }
-    if (result['traveled']) {
-      final dataMap = await DbService.getHomeRandomCharacter(
-          avoidCharacterId: character.id);
-      if (dataMap != null) {
-        await DbService.setCharacterAtHomeById(dataMap['id']);
-        result['newCharacter'] =
-            standardSerializers.deserializeWith(Character.serializer, dataMap);
-      }
-    }
     await setHomeCharacters();
+    return result;
+  }
+
+  Future<Map<String, Object>> setNewCharacterIfPossible(
+      bool isFirstNewCharacter) async {
+    final Map<String, Object> result = {
+      'newCharacter': null,
+    };
+//    if (isFirstNewCharacter) {
+//      final dataMap = await DbService.getHomeRandomCharacter();
+//      await DbService.setCharacterAtHomeById(dataMap['id']);
+//      result['newCharacter'] =
+//          standardSerializers.deserializeWith(Character.serializer, dataMap);
+//      await setHomeCharacters();
+//      return result;
+//    }
+//    final dataMap =
+//        await DbService.getHomeRandomCharacter(avoidCharacterId: character.id);
+//    if (dataMap != null) {
+//      await DbService.setCharacterAtHomeById(dataMap['id']);
+//      result['newCharacter'] =
+//          standardSerializers.deserializeWith(Character.serializer, dataMap);
+//    } else {
+//      final dataMap = await DbService.updateHomeAllFinished();
+//    }
+//    await setHomeCharacters();
+//  }
     return result;
   }
 }

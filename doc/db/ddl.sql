@@ -44,7 +44,8 @@ CREATE TABLE `status` (
 );
 
 CREATE TABLE `home` (
-                         `modified_at`	datetime	NULL
+                         `modified_at`	datetime	NULL,
+                         `all_finished`	bit(1)	NOT NULL	DEFAULT false
 );
 
 CREATE TABLE `home_location` (

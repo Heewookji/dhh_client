@@ -68,10 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     ) as Map;
     print(result);
-    if (result != null &&
-        result['traveled'] &&
-        result['newCharacter'] != null) {
-      showDialog(
+    if (result != null && result['traveled']) {
+      await showDialog(
         context: context,
         barrierColor: Colors.black54,
         builder: (context) => HomeDialog(result),
@@ -86,8 +84,17 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _newCharacterComeIfPossible() async {
+    final isFirstNewCharacter =
+        Provider.of<DiariesProvider>(context, listen: false).topDiary == null;
+    final result = await Provider.of<CharactersProvider>(context, listen: false)
+        .setNewCharacterIfPossible(isFirstNewCharacter);
+    print(result);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _newCharacterComeIfPossible();
     final appBar = AppBar(
       title: Text('App Name'),
       centerTitle: false,

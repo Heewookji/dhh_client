@@ -1,4 +1,5 @@
 import 'package:dhh_client/services/db_service.dart';
+import 'package:sqflite/sqflite.dart' as sql;
 
 import '../constants.dart';
 
@@ -6,6 +7,17 @@ class HomeSql {
   static Future<List<Map<String, dynamic>>> getHomeData() async {
     final db = await DbService.database();
     return db.query('home');
+  }
+
+  static Future<bool> existEmptySpace() async {
+    final db = await DbService.database();
+    return sql.Sqflite.firstIntValue(
+          await db.rawQuery(''
+              'select count(*) from home_location '
+              'where character_id is null '
+              ''),
+        ) !=
+        0;
   }
 
   static Future<void> updateHomeLocation(List<Map<String, dynamic>> idMapList,
@@ -22,10 +34,5 @@ class HomeSql {
     }
     batch.rawUpdate('update home set modified_at = current_date');
     return await batch.commit();
-  }
-
-  static Future<void> updateHomeAllFinished() async {
-    final db = await DbService.database();
-    await db.rawUpdate('update ');
   }
 }

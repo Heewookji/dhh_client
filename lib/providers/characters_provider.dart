@@ -33,23 +33,7 @@ class CharactersProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Map<String, Object>> setNewCharacterIfPossible(
-      bool firstSubmitted) async {
-    final Map<String, Object> result = {
-      'firstSubmitted': firstSubmitted,
-      'newCharacter': null,
-    };
-    final dataMap = await CharacterSql.getHomeRandomCharacter();
-//      final dataMap = await CharacterSql.getHomeRandomCharacter(
-//          avoidCharacterId: character.id);
-    if (dataMap != null) {
-      await CharacterSql.setCharacterAtHomeById(dataMap['id']);
-      result['newCharacter'] =
-          standardSerializers.deserializeWith(Character.serializer, dataMap);
-    } else {
-      final dataMap = await HomeSql.updateHomeAllFinished();
-    }
-    await setHomeCharacters();
-    return result;
+  Future<Map<String, Object>> setNewCharacterIfPossible(int diaryCount) async {
+    return await CharacterSql.setNewCharacterIfPossible(diaryCount);
   }
 }

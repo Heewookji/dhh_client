@@ -1,5 +1,6 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/services/db_service.dart';
+import 'package:dhh_client/sql/character_sql.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 import '../constants.dart';
@@ -46,19 +47,18 @@ class DiarySql {
     final batch = db.batch();
     final Map<String, Object> result = {
       'submittedCharacter': character,
-      'updateStatus': false,
+      'updated': false,
       'traveled': false,
-      'isFinished': false,
+      'finished': false,
+      'allFinished': false,
     };
-
     batch.insert('diary', diary);
     final characterDiaries = await getDiariesByCharacterId(character.id);
-    if (characterDiaries.length % Constants.DIARY_STATUS_COUNT != 0) {
+    if ((characterDiaries.length + 1) % Constants.DIARY_STATUS_COUNT != 0) {
       await batch.commit();
       return result;
     }
     if (character.statusCode < Constants.FINAL_STATUS) {
-      result['updateStatus'] = true;
       batch.update(
         'status',
         {'is_status_now': 0},
@@ -71,15 +71,26 @@ class DiarySql {
         where:
             'character_id = ${character.id.toString()} and code = ${(character.statusCode + 1).toString()}',
       );
+      result['updated'] = true;
     } else {
-      result['isFinished'] = true;
+      final allFinished = await CharacterSql.getCharacterAllFinished();
+      if (allFinished) {
+        batch.rawUpdate(''
+            'update home set all_finished = 1'
+            '');
+        result['allFinished'] = true;
+      }
+      result['finished'] = true;
     }
     if (character.statusCode >= Constants.TRAVEL_STATUS) {
-      result['traveled'] = true;
+      batch.rawUpdate(''
+          'update home set last_traveled_location_id = '
+          '(select id from home_location where character_id = ${character.id.toString()})');
       batch.rawUpdate(''
           'update home_location set character_id = null '
           'where character_id = ${character.id.toString()}'
           '');
+      result['traveled'] = true;
     }
     await batch.commit();
     return result;

@@ -6,8 +6,8 @@ import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/widgets/home/character_home.dart';
+import 'package:dhh_client/widgets/home/character_out_dialog.dart';
 import 'package:dhh_client/widgets/home/home_button.dart';
-import 'package:dhh_client/widgets/home/home_dialog.dart';
 import 'package:dhh_client/widgets/home/home_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,16 +32,33 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _doInitFuture() async {
+    await _newCharacterComeIfPossible();
+    await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
+    setState(() {
+      _isBusy = false;
+    });
+  }
+
+  Future<void> _newCharacterComeIfPossible() async {
+    final diaryCount =
+        await Provider.of<DiariesProvider>(context, listen: false)
+            .getDiaryCount();
+    final result = await Provider.of<CharactersProvider>(context, listen: false)
+        .setNewCharacterIfPossible(diaryCount);
+    print(result);
+    if (result['newCharacter'] != null) {
+      await showDialog(
+        context: context,
+        barrierColor: Colors.black54,
+        builder: (context) => CharacterOutDialog(result),
+      );
+    }
     await Provider.of<CharactersProvider>(context, listen: false)
         .setHomeCharacters();
     await Provider.of<QuestionsProvider>(context, listen: false)
         .setQuestionMapByCharacterIds(
             Provider.of<CharactersProvider>(context, listen: false)
                 .characterIds);
-    await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
-    setState(() {
-      _isBusy = false;
-    });
   }
 
   void _chooseCharacter(
@@ -68,38 +85,24 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     ) as Map;
     print(result);
-    if (result != null && (result['traveled'])) {
+    if (result != null &&
+        (result['traveled'] || result['finished'] || result['allFinished'])) {
       await showDialog(
         context: context,
         barrierColor: Colors.black54,
-        builder: (context) => HomeDialog(result),
+        builder: (context) => CharacterOutDialog(result),
       );
-      Future.delayed(Duration(seconds: 5), () => _newCharacterComeIfPossible());
     }
-    await Provider.of<QuestionsProvider>(context, listen: false)
-        .setQuestionMapByCharacterIds(
-      Provider.of<CharactersProvider>(context, listen: false).characterIds,
-    );
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
     });
-  }
-
-  Future<void> _newCharacterComeIfPossible() async {
-    final firstSubmitted =
-        await Provider.of<DiariesProvider>(context, listen: false)
-                .getDiaryCount() ==
-            1;
-    final result = await Provider.of<CharactersProvider>(context, listen: false)
-        .setNewCharacterIfPossible(firstSubmitted);
-    print(result);
-    if (result['newCharacter'] != null) {
-      await showDialog(
-        context: context,
-        barrierColor: Colors.black54,
-        builder: (context) => HomeDialog(result),
-      );
-    }
+    await Provider.of<QuestionsProvider>(context, listen: false)
+        .setQuestionMapByCharacterIds(
+            Provider.of<CharactersProvider>(context, listen: false)
+                .characterIds);
+    if (result != null &&
+        (result['traveled'] || result['finished'] || result['allFinished']))
+      Future.delayed(Duration(seconds: 1), () => _newCharacterComeIfPossible());
   }
 
   @override

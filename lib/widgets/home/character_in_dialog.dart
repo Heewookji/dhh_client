@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum Status {
+enum inStatus {
   First,
   TravelThenNew,
   TravelThenTraveled,
@@ -8,15 +8,15 @@ enum Status {
   AllFinished,
 }
 
-class HomeDialog extends StatelessWidget {
+class CharacterInDialog extends StatelessWidget {
   static const double PADDING = 20;
   static const double CHARACTER_RADIUS = 45;
-  final Status status;
+  final inStatus status;
 
-  HomeDialog(Map<String, Object> result)
+  CharacterInDialog(Map<String, Object> result)
       : this.status = result['isFirstSubmit'] == true
-            ? Status.First
-            : Status.TravelThenNew;
+            ? inStatus.First
+            : inStatus.TravelThenNew;
 
   @override
   Widget build(BuildContext context) {

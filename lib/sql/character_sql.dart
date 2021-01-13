@@ -1,6 +1,10 @@
+import 'package:dhh_client/models/character.dart';
+import 'package:dhh_client/models/serializers.dart';
 import 'package:dhh_client/services/db_service.dart';
+import 'package:sqflite/sqflite.dart' as sql;
 
 import '../constants.dart';
+import 'home_sql.dart';
 
 class CharacterSql {
   static Future<List<Map<String, dynamic>>> getHomeRandomIds(
@@ -52,9 +56,20 @@ class CharacterSql {
         '');
   }
 
-  static Future<Map<String, dynamic>> getHomeRandomCharacter(
-      {int avoidCharacterId}) async {
+  static Future<Map<String, dynamic>> getHomeRandomCharacter() async {
     final db = await DbService.database();
+    final lastDiaryData = await db.rawQuery(''
+        'select c.id, d.created_at from diary d '
+        'inner join question q on q.id = d.question_id '
+        'inner join character c on q.character_id = c.id '
+        'order by d.created_at desc '
+        'limit 1 '
+        '');
+    final avoidCharacterId = lastDiaryData[0]['id'];
+    final lastDiaryDate = DateTime.fromMillisecondsSinceEpoch(
+        lastDiaryData[0]['created_at'],
+        isUtc: true);
+    print(lastDiaryDate);
     final result = await db.rawQuery(''
         'select c.*, s.*,'
         '( '
@@ -69,17 +84,49 @@ class CharacterSql {
         'and hl.id is null '
         'and not_answered > 0 '
         'and s.code <= ${Constants.FINAL_STATUS.toString()} '
-        '${avoidCharacterId == null ? '' : 'and c.id != ${avoidCharacterId.toString()}'} '
-        'order by s.code != 1, random() limit 1 '
+        'order by '
+        '${avoidCharacterId == null ? '' : 'c.id != ${avoidCharacterId.toString()} desc,'} '
+        's.code = 1 desc, random() limit 1 '
         '');
     return result.length == 0 ? null : result[0];
   }
 
-  static Future<int> setCharacterAtHomeById(int characterId) async {
+  static Future<bool> getCharacterAllFinished() async {
     final db = await DbService.database();
-    return await db.rawUpdate(''
-        'update home_location set character_id = ${characterId.toString()} '
-        'where character_id is null '
+    return sql.Sqflite.firstIntValue(await db.rawQuery(''
+            'select count(*) from character c '
+            'inner join status s on c.id = s.character_id '
+            'where s.is_status_now = 1 and s.code != ${Constants.FINAL_STATUS} '
+            '')) ==
+        0;
+  }
+
+  static Future<Map<String, Object>> setNewCharacterIfPossible(
+      int diaryCount) async {
+    final db = await DbService.database();
+    final Map<String, Object> result = {
+      'newCharacter': null,
+      'firstSubmitted': diaryCount == 1,
+    };
+    if (!await getPossibilitySetNewCharacter(diaryCount)) return result;
+    final dataMap = await getHomeRandomCharacter();
+    if (dataMap == null) return result;
+    final newCharacter =
+        standardSerializers.deserializeWith(Character.serializer, dataMap);
+    final emptyLocationId = sql.Sqflite.firstIntValue(
+        await db.rawQuery('select last_traveled_location_id from home'));
+    await db.rawUpdate(''
+        'update home_location set character_id = ${newCharacter.id.toString()} '
+        'where ${emptyLocationId == null ? 'character_id is null' : 'id = $emptyLocationId'} '
         '');
+    result['newCharacter'] = newCharacter;
+    return result;
+  }
+
+  static Future<bool> getPossibilitySetNewCharacter(int diaryCount) async {
+    final homeData = await HomeSql.getHomeData();
+    final allFinished = homeData[0]['all_finished'] == 1;
+    final existEmptySpace = await HomeSql.existEmptySpace();
+    return !allFinished && existEmptySpace && (diaryCount > 0);
   }
 }

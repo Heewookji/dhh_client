@@ -40,12 +40,12 @@ class _CharacterHomeState extends State<CharacterHome> {
             builder: (context, charactersProvider, questionsProvider, child) {
               return Stack(
                 children: [
-                  for (int i = 0; i < charactersProvider.characters.length; i++)
+                  for (final character in charactersProvider.characters)
                     Positioned(
-                      left: _locationPoints[i].x,
-                      top: _locationPoints[i].y,
+                      left: _locationPoints[character.locationId - 1].x,
+                      top: _locationPoints[character.locationId - 1].y,
                       child: _buildCharacter(
-                        charactersProvider.characters[i],
+                        character,
                         questionsProvider,
                         constraints.biggest,
                       ),

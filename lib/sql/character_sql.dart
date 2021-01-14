@@ -24,11 +24,10 @@ class CharacterSql {
   static Future<List<Map<String, dynamic>>> getHomeCharacters() async {
     final db = await DbService.database();
     return db.rawQuery(''
-        'select c.*, s.* from home_location h '
+        'select c.*, s.*, h.id as location_id from home_location h '
         'inner join character c on c.id = h.character_id '
         'inner join status s on c.id = s.character_id '
         'where s.is_status_now = 1 '
-        'order by h.id '
         '');
   }
 
@@ -105,11 +104,13 @@ class CharacterSql {
 
   static Future<bool> getCharacterAllFinished() async {
     final db = await DbService.database();
-    return sql.Sqflite.firstIntValue(await db.rawQuery(''
-            'select count(*) from character c '
-            'inner join status s on c.id = s.character_id '
-            'where s.is_status_now = 1 and s.code != ${Constants.FINAL_STATUS} '
-            '')) ==
+    return sql.Sqflite.firstIntValue(
+          await db.rawQuery(''
+              'select count(*) from character c '
+              'inner join status s on c.id = s.character_id '
+              'where s.is_status_now = 1 and s.code != ${Constants.FINAL_STATUS} '
+              ''),
+        ) ==
         0;
   }
 

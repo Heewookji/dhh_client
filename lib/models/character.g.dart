@@ -53,6 +53,12 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
         ..add(serializers.serialize(object.isTravel,
             specifiedType: const FullType(int)));
     }
+    if (object.locationId != null) {
+      result
+        ..add('location_id')
+        ..add(serializers.serialize(object.locationId,
+            specifiedType: const FullType(int)));
+    }
     return result;
   }
 
@@ -91,6 +97,10 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           result.isTravel = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'location_id':
+          result.locationId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'code':
           result.statusCode = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
@@ -120,6 +130,8 @@ class _$Character extends Character {
   @override
   final int isTravel;
   @override
+  final int locationId;
+  @override
   final int statusCode;
   @override
   final String statusImageUrl;
@@ -134,6 +146,7 @@ class _$Character extends Character {
       this.description,
       this.isHome,
       this.isTravel,
+      this.locationId,
       this.statusCode,
       this.statusImageUrl})
       : super._() {
@@ -168,6 +181,7 @@ class _$Character extends Character {
         description == other.description &&
         isHome == other.isHome &&
         isTravel == other.isTravel &&
+        locationId == other.locationId &&
         statusCode == other.statusCode &&
         statusImageUrl == other.statusImageUrl;
   }
@@ -179,11 +193,13 @@ class _$Character extends Character {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, id.hashCode), name.hashCode),
-                            color.hashCode),
-                        description.hashCode),
-                    isHome.hashCode),
-                isTravel.hashCode),
+                        $jc(
+                            $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                color.hashCode),
+                            description.hashCode),
+                        isHome.hashCode),
+                    isTravel.hashCode),
+                locationId.hashCode),
             statusCode.hashCode),
         statusImageUrl.hashCode));
   }
@@ -197,6 +213,7 @@ class _$Character extends Character {
           ..add('description', description)
           ..add('isHome', isHome)
           ..add('isTravel', isTravel)
+          ..add('locationId', locationId)
           ..add('statusCode', statusCode)
           ..add('statusImageUrl', statusImageUrl))
         .toString();
@@ -230,6 +247,10 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   int get isTravel => _$this._isTravel;
   set isTravel(int isTravel) => _$this._isTravel = isTravel;
 
+  int _locationId;
+  int get locationId => _$this._locationId;
+  set locationId(int locationId) => _$this._locationId = locationId;
+
   int _statusCode;
   int get statusCode => _$this._statusCode;
   set statusCode(int statusCode) => _$this._statusCode = statusCode;
@@ -249,6 +270,7 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
       _description = _$v.description;
       _isHome = _$v.isHome;
       _isTravel = _$v.isTravel;
+      _locationId = _$v.locationId;
       _statusCode = _$v.statusCode;
       _statusImageUrl = _$v.statusImageUrl;
       _$v = null;
@@ -279,6 +301,7 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
             description: description,
             isHome: isHome,
             isTravel: isTravel,
+            locationId: locationId,
             statusCode: statusCode,
             statusImageUrl: statusImageUrl);
     replace(_$result);

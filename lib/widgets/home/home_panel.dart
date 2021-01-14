@@ -1,5 +1,6 @@
 import 'package:dhh_client/models/question.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePanel extends StatelessWidget {
   final Question _chosenQuestion;
@@ -9,18 +10,22 @@ class HomePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: _bodySize.height * 0.25,
-      child: false
-          ? null
-          : _chosenQuestion != null
-              ? Text(_chosenQuestion.text)
-              : Text(
-                  '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14),
-                ),
+    return SvgPicture.asset(
+      'assets/images/bubble.svg',
+      color: Colors.amber,
     );
+//    return Container(
+//      alignment: Alignment.center,
+//      height: _bodySize.height * 0.25,
+//      child: false
+//          ? null
+//          : _chosenQuestion != null
+//              ? Text(_chosenQuestion.text)
+//              : Text(
+//                  '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
+//                  textAlign: TextAlign.center,
+//                  style: TextStyle(fontSize: 14),
+//                ),
+//    );
   }
 }

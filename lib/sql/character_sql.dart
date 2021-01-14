@@ -58,18 +58,31 @@ class CharacterSql {
 
   static Future<Map<String, dynamic>> getHomeRandomCharacter() async {
     final db = await DbService.database();
-    final lastDiaryData = await db.rawQuery(''
-        'select c.id, d.created_at from diary d '
-        'inner join question q on q.id = d.question_id '
-        'inner join character c on q.character_id = c.id '
-        'order by d.created_at desc '
-        'limit 1 '
+    final lastTraveledInfo = await db.rawQuery(''
+        'select last_traveled_character_id, last_traveled_at from home '
         '');
-    final avoidCharacterId = lastDiaryData[0]['id'];
-    final lastDiaryDate = DateTime.fromMillisecondsSinceEpoch(
-        lastDiaryData[0]['created_at'],
-        isUtc: true);
-    print(lastDiaryDate);
+    final lastTraveledCharacterId =
+        lastTraveledInfo[0]['last_traveled_character_id'];
+    final lastTraveledAt = lastTraveledInfo[0]['last_traveled_at'] == null
+        ? null
+        : DateTime.parse(lastTraveledInfo[0]['last_traveled_at']);
+    final possibleCharacterCount = sql.Sqflite.firstIntValue(
+      await db.rawQuery(''
+          'select count(*) '
+          'from character c '
+          'left outer join home_location hl on c.id = hl.character_id '
+          'where hl.id is null '
+          'and ( '
+          'select count(*) from question q '
+          'left outer join diary d on q.id = d.question_id '
+          'where q.character_id = c.id and d.id is null '
+          ') > 0 '
+          ''),
+    );
+    final enableLastTraveled = lastTraveledCharacterId != null &&
+        possibleCharacterCount == 1 &&
+//        lastTraveledAt.day != DateTime.now().day
+        lastTraveledAt.second != DateTime.now().second;
     final result = await db.rawQuery(''
         'select c.*, s.*,'
         '( '
@@ -83,9 +96,8 @@ class CharacterSql {
         'where s.is_status_now = 1 '
         'and hl.id is null '
         'and not_answered > 0 '
-        'and s.code <= ${Constants.FINAL_STATUS.toString()} '
+        '${enableLastTraveled || lastTraveledCharacterId == null ? '' : 'and c.id != ${lastTraveledCharacterId.toString()}'} '
         'order by '
-        '${avoidCharacterId == null ? '' : 'c.id != ${avoidCharacterId.toString()} desc,'} '
         's.code = 1 desc, random() limit 1 '
         '');
     return result.length == 0 ? null : result[0];
@@ -127,6 +139,6 @@ class CharacterSql {
     final homeData = await HomeSql.getHomeData();
     final allFinished = homeData[0]['all_finished'] == 1;
     final existEmptySpace = await HomeSql.existEmptySpace();
-    return !allFinished && existEmptySpace && (diaryCount > 0);
+    return !allFinished && existEmptySpace && diaryCount > 0;
   }
 }

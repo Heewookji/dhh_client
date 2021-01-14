@@ -84,7 +84,10 @@ class DiarySql {
     }
     if (character.statusCode >= Constants.TRAVEL_STATUS) {
       batch.rawUpdate(''
-          'update home set last_traveled_location_id = '
+          'update home set '
+          'last_traveled_character_id = ${character.id.toString()}, '
+          'last_traveled_at = datetime(\'now\',\'localtime\'), '
+          'last_traveled_location_id = '
           '(select id from home_location where character_id = ${character.id.toString()})');
       batch.rawUpdate(''
           'update home_location set character_id = null '

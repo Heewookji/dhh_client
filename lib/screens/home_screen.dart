@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _doInitFuture() async {
-    await _newCharacterComeIfPossible();
+    Future.delayed(Duration(seconds: 1), () => _newCharacterComeIfPossible());
     await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
     setState(() {
       _isBusy = false;
@@ -100,8 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .setQuestionMapByCharacterIds(
             Provider.of<CharactersProvider>(context, listen: false)
                 .characterIds);
-    if (result != null &&
-        (result['traveled'] || result['finished'] || result['allFinished']))
+    if (result != null)
       Future.delayed(Duration(seconds: 1), () => _newCharacterComeIfPossible());
   }
 

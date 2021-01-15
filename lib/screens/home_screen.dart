@@ -4,6 +4,7 @@ import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/diary_list_screen.dart';
+import 'package:dhh_client/screens/setting_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/widgets/home/character_home.dart';
 import 'package:dhh_client/widgets/home/character_out_dialog.dart';
@@ -13,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  static final routeName = '/HomeScreen';
+  static final routeName = '/Home';
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -76,6 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _navigateSettingScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(SettingScreen.routeName);
+  }
+
   void _navigateWriteScreen(BuildContext context) async {
     final result = await Navigator.of(context).pushNamed(
       WriteScreen.routeName,
@@ -111,8 +116,12 @@ class _HomeScreenState extends State<HomeScreen> {
       centerTitle: false,
       actions: [
         IconButton(
-          icon: Icon(Icons.dynamic_feed),
+          icon: Icon(Icons.widgets),
           onPressed: () => _navigateDiaryListScreen(context),
+        ),
+        IconButton(
+          icon: Icon(Icons.circle),
+          onPressed: () => _navigateSettingScreen(context),
         ),
       ],
     );

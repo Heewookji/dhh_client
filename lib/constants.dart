@@ -4,4 +4,5 @@ class Constants {
   static const int TRAVEL_STATUS = 3;
   static const int FINAL_STATUS = 6;
   static const int DIARY_STATUS_COUNT = 5;
+  static const double BODY_WIDTH_PADDING_PERCENT = 0.0611;
 }

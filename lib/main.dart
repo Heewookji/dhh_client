@@ -2,8 +2,10 @@ import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/diary_details_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
+import 'package:dhh_client/root_theme.dart';
 import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/home_screen.dart';
+import 'package:dhh_client/screens/setting_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/services/db_service.dart';
 import 'package:dhh_client/services/notification_service.dart';
@@ -56,36 +58,32 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Colors.white,
-          canvasColor: Colors.white,
-          buttonTheme: ButtonThemeData(buttonColor: Colors.black),
-          appBarTheme: AppBarTheme(color: Colors.transparent, elevation: 0),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        theme: RootTheme.rootThemeBuilder(),
         home: FutureBuilder(
-            future: _initFuture,
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting)
-                return Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              return MultiProvider(
-                providers: [
-                  ChangeNotifierProvider.value(value: _homeCharacterProvider),
-                  ChangeNotifierProvider.value(value: _homeQuestionProvider),
-                ],
-                child: HomeScreen(),
+          future: _initFuture,
+          builder: (ctx, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting)
+              return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
-            }),
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider.value(value: _homeCharacterProvider),
+                ChangeNotifierProvider.value(value: _homeQuestionProvider),
+              ],
+              child: HomeScreen(),
+            );
+          },
+        ),
         routes: {
           WriteScreen.routeName: (ctx) => ChangeNotifierProvider.value(
                 value: _homeCharacterProvider,
                 builder: (context, child) => WriteScreen(),
               ),
           DiaryListScreen.routeName: (ctx) => DiaryListScreen(),
+          SettingScreen.routeName: (ctx) => SettingScreen(),
         },
       ),
     );

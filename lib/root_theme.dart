@@ -9,6 +9,9 @@ class RootTheme {
         buttonColor: Colors.black,
         splashColor: Colors.white,
         textTheme: ButtonTextTheme.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
       ),
       appBarTheme: AppBarTheme(
         color: Colors.transparent,

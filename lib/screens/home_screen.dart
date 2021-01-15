@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _doInitFuture() async {
-    Future.delayed(Duration(seconds: 1), () => _newCharacterComeIfPossible());
+    _newCharacterComeIfPossible();
     await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
     setState(() {
       _isBusy = false;

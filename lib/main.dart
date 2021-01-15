@@ -3,8 +3,10 @@ import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/diary_details_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/root_theme.dart';
+import 'package:dhh_client/screens/alarm_screen.dart';
 import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/home_screen.dart';
+import 'package:dhh_client/screens/info_screen.dart';
 import 'package:dhh_client/screens/setting_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/services/db_service.dart';
@@ -84,6 +86,8 @@ class _MyAppState extends State<MyApp> {
               ),
           DiaryListScreen.routeName: (ctx) => DiaryListScreen(),
           SettingScreen.routeName: (ctx) => SettingScreen(),
+          AlarmScreen.routeName: (ctx) => AlarmScreen(),
+          InfoScreen.routeName: (ctx) => InfoScreen(),
         },
       ),
     );

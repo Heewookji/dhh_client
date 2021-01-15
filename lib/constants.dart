@@ -5,4 +5,5 @@ class Constants {
   static const int FINAL_STATUS = 6;
   static const int DIARY_STATUS_COUNT = 5;
   static const double BODY_WIDTH_PADDING_PERCENT = 0.0611;
+  static const String CHARACTER_IMAGE_FORMAT = '.svg';
 }

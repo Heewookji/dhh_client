@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class CharacterHome extends StatefulWidget {
@@ -67,10 +69,12 @@ class _CharacterHomeState extends State<CharacterHome> {
         children: [
           Container(
             color: Color(character.color),
-            child: Image.asset(
-              character.statusImageUrl,
-              width: homeSize.width * 0.2,
+            child: SizedBox(
               height: homeSize.width * 0.2,
+              width: homeSize.width * 0.2,
+              child: SvgPicture.asset(
+                character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
+              ),
             ),
           ),
         ],

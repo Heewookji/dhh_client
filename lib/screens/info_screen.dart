@@ -1,6 +1,7 @@
 import 'package:dhh_client/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoScreen extends StatelessWidget {
   static final routeName = '/info';
@@ -39,7 +40,20 @@ class InfoScreen extends StatelessWidget {
                 ),
                 margin: EdgeInsets.only(
                   top: _bodySize.height * 0.03243,
-                  bottom: _bodySize.height * 0.07567,
+                  bottom: _bodySize.height * 0.03243,
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                  height: _bodySize.height * 0.13513,
+                  width: _bodySize.height * 0.13513,
+                  child: SvgPicture.asset(
+                    'assets/images/1-1.svg',
+                  ),
+                ),
+                margin: EdgeInsets.only(
+                  bottom: _bodySize.height * 0.04324,
                 ),
               ),
               for (final entry in _questionAnswerMap.entries)
@@ -63,7 +77,10 @@ class InfoScreen extends StatelessWidget {
           child: Card(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 19, vertical: 14),
-              child: Text(entry.value),
+              child: Text(
+                entry.value,
+                style: TextStyle(fontSize: 14),
+              ),
             ),
           ),
           margin: EdgeInsets.only(bottom: _bodySize.height * 0.03243),

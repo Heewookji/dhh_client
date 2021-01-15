@@ -1,3 +1,4 @@
+import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
@@ -6,6 +7,7 @@ import 'package:dhh_client/providers/diary_details_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/diary_detail_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class DiaryListScreen extends StatefulWidget {
@@ -121,7 +123,10 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
                   margin: EdgeInsets.only(right: screenSize.width * 0.05),
                   child: CircleAvatar(
                     maxRadius: screenSize.width * 0.1,
-                    child: Image.asset(character.statusImageUrl),
+                    child: SvgPicture.asset(
+                      character.statusImageUrl +
+                          Constants.CHARACTER_IMAGE_FORMAT,
+                    ),
                     backgroundColor: _chosenCharacterId == character.id
                         ? Color(character.color)
                         : Colors.black12,

@@ -2,6 +2,7 @@ import 'package:dhh_client/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AlarmScreen extends StatelessWidget {
   static final routeName = '/alarm';
@@ -38,9 +39,9 @@ class AlarmScreen extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: SizedBox(
                   height: _bodySize.height * 0.13513,
-                  child: Image.asset(
-                    'assets/images/1-1.png',
-                    fit: BoxFit.fitHeight,
+                  width: _bodySize.height * 0.13513,
+                  child: SvgPicture.asset(
+                    'assets/images/1-1.svg',
                   ),
                 ),
                 margin: EdgeInsets.only(

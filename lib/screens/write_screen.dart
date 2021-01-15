@@ -1,9 +1,11 @@
+import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/widgets/write/write_error_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -72,7 +74,9 @@ class _WriteScreenState extends State<WriteScreen> {
             children: [
               Text('질문에 답하기'),
               Container(
-                child: Image.asset(character.statusImageUrl),
+                child: SvgPicture.asset(
+                  character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
+                ),
               )
             ],
           ),

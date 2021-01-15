@@ -24,11 +24,11 @@ class NotificationService {
             iOS: initializationSettingsIOS);
     await _flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onSelectNotification: (payload) => _selectNotification(payload, context),
+      onSelectNotification: (payload) => _clickedNotification(payload, context),
     );
   }
 
-  static Future<void> _selectNotification(
+  static Future<void> _clickedNotification(
       String payload, BuildContext context) async {
     if (payload != null) debugPrint('notification payload: $payload');
     await Navigator.pushReplacementNamed(context, HomeScreen.routeName);

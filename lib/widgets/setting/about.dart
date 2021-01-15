@@ -19,7 +19,7 @@ class About extends StatelessWidget {
         children: [
           Container(
             child: Text('ABOUT'),
-            margin: EdgeInsets.only(bottom: _bodySize.height * 0.01062),
+            margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
           ),
           Container(
             child: RaisedButton(
@@ -29,7 +29,7 @@ class About extends StatelessWidget {
                 '앱에 대해 알고 싶어요.',
                 textAlign: TextAlign.end,
               ),
-              onPressed: () => _navigateAlarm(context),
+              onPressed: () => _navigateInfo(context),
             ),
             margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
           ),
@@ -40,7 +40,7 @@ class About extends StatelessWidget {
               '알람시간 바꿀래요.',
               textAlign: TextAlign.end,
             ),
-            onPressed: () => _navigateInfo(context),
+            onPressed: () => _navigateAlarm(context),
           ),
         ],
       ),

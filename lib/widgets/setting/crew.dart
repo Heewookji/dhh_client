@@ -16,7 +16,7 @@ class Crew extends StatelessWidget {
         children: [
           Container(
             child: Text('CREW'),
-            margin: EdgeInsets.only(bottom: _bodySize.height * 0.01062),
+            margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
           ),
           Container(
             child: RaisedButton(

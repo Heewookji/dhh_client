@@ -13,16 +13,27 @@ class RootTheme {
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
+      cardTheme: CardTheme(
+        elevation: 3,
+        shadowColor: Colors.black54,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
       appBarTheme: AppBarTheme(
         color: Colors.transparent,
         elevation: 0,
       ),
       fontFamily: 'NanumSquareRound',
       textTheme: TextTheme(
-        headline1: TextStyle(fontSize: 64, fontWeight: FontWeight.w900),
+        headline1: TextStyle(
+          fontSize: 64,
+          fontWeight: FontWeight.w900,
+        ),
         headline2: TextStyle(fontSize: 56, fontWeight: FontWeight.w900),
         headline3: TextStyle(fontSize: 45, fontWeight: FontWeight.w900),
-        headline6: TextStyle(fontSize: 34, fontWeight: FontWeight.w900),
+        headline6:
+            TextStyle(fontSize: 34, fontWeight: FontWeight.w900, height: 1.4),
         subtitle1: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
         subtitle2: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
         bodyText1: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),

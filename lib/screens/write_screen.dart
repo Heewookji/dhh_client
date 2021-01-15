@@ -2,6 +2,7 @@ import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
+import 'package:dhh_client/widgets/write/write_error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,7 @@ class _WriteScreenState extends State<WriteScreen> {
             alignment: Alignment.centerLeft,
             child: Text(
               question.text,
-              style: theme.textTheme.headline2,
+              style: theme.textTheme.headline3,
             ),
           ),
           Row(
@@ -112,6 +113,14 @@ class _WriteScreenState extends State<WriteScreen> {
                       charactersProvider,
                       character,
                     );
+                    if (result['error'] == true) {
+                      await showDialog(
+                        context: context,
+                        barrierColor: Colors.black54,
+                        builder: (context) => WriteErrorDialog(),
+                      );
+                      return;
+                    }
                     Navigator.of(context).pop<Map>(result);
                   },
           ),

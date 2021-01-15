@@ -43,8 +43,6 @@ class DiarySql {
     Map<String, dynamic> diary,
     Character character,
   ) async {
-    final db = await DbService.database();
-    final batch = db.batch();
     final Map<String, Object> result = {
       'submittedCharacter': character,
       'updated': false,
@@ -52,50 +50,64 @@ class DiarySql {
       'finished': false,
       'allFinished': false,
     };
-    batch.insert('diary', diary);
-    final characterDiaries = await getDiariesByCharacterId(character.id);
-    if ((characterDiaries.length + 1) % Constants.DIARY_STATUS_COUNT != 0) {
-      await batch.commit();
-      return result;
-    }
-    if (character.statusCode < Constants.FINAL_STATUS) {
-      batch.update(
-        'status',
-        {'is_status_now': 0},
-        where:
-            'character_id = ${character.id.toString()} and code = ${character.statusCode.toString()}',
-      );
-      batch.update(
-        'status',
-        {'is_status_now': 1},
-        where:
-            'character_id = ${character.id.toString()} and code = ${(character.statusCode + 1).toString()}',
-      );
-      result['updated'] = true;
-    } else {
-      final allFinished = await CharacterSql.getCharacterAllFinished();
-      if (allFinished) {
-        batch.rawUpdate(''
-            'update home set all_finished = 1'
-            '');
-        result['allFinished'] = true;
+    try {
+      final db = await DbService.database();
+      final batch = db.batch();
+      batch.insert('diary', diary);
+      final characterDiaries = await getDiariesByCharacterId(character.id);
+      if ((characterDiaries.length + 1) % Constants.DIARY_STATUS_COUNT != 0) {
+        await batch.commit();
+        return result;
       }
-      result['finished'] = true;
+      if (character.statusCode < Constants.FINAL_STATUS) {
+        batch.update(
+          'status',
+          {'is_status_now': 0},
+          where:
+              'character_id = ${character.id.toString()} and code = ${character.statusCode.toString()}',
+        );
+        batch.update(
+          'status',
+          {'is_status_now': 1},
+          where:
+              'character_id = ${character.id.toString()} and code = ${(character.statusCode + 1).toString()}',
+        );
+        result['updated'] = true;
+      } else {
+        final allFinished = await CharacterSql.getCharacterAllFinished();
+        if (allFinished) {
+          batch.rawUpdate(''
+              'update home set all_finished = 1'
+              '');
+          result['allFinished'] = true;
+        }
+        result['finished'] = true;
+      }
+      if (character.statusCode >= Constants.TRAVEL_STATUS) {
+        batch.rawUpdate(''
+            'update home set '
+            'last_traveled_character_id = ${character.id.toString()}, '
+            'last_traveled_at = datetime(\'now\',\'localtime\'), '
+            'last_traveled_location_id = '
+            '(select id from home_location where character_id = ${character.id.toString()})');
+        batch.rawUpdate(''
+            'update home_location set character_id = null '
+            'where character_id = ${character.id.toString()}'
+            '');
+        result['traveled'] = true;
+      }
+      await batch.commit();
+    } catch (e, trace) {
+      print(trace);
+      return {
+        'submittedCharacter': character,
+        'updated': false,
+        'traveled': false,
+        'finished': false,
+        'allFinished': false,
+        'error': true,
+      };
     }
-    if (character.statusCode >= Constants.TRAVEL_STATUS) {
-      batch.rawUpdate(''
-          'update home set '
-          'last_traveled_character_id = ${character.id.toString()}, '
-          'last_traveled_at = datetime(\'now\',\'localtime\'), '
-          'last_traveled_location_id = '
-          '(select id from home_location where character_id = ${character.id.toString()})');
-      batch.rawUpdate(''
-          'update home_location set character_id = null '
-          'where character_id = ${character.id.toString()}'
-          '');
-      result['traveled'] = true;
-    }
-    await batch.commit();
     return result;
   }
 }

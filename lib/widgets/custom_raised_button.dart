@@ -1,3 +1,4 @@
+import 'package:dhh_client/util/inner_shadow.dart';
 import 'package:flutter/material.dart';
 
 class CustomRaisedButton extends StatefulWidget {
@@ -20,27 +21,17 @@ class CustomRaisedButton extends StatefulWidget {
 }
 
 class _CustomRaisedButtonState extends State<CustomRaisedButton> {
+  static const Color black = Color(0xFF2B2B2B);
+  static const Offset outerShadow = Offset(3, 3);
+  static const Offset innerShadow = Offset(4, 4);
+  static final BoxBorder border = Border.all(width: 2, color: Colors.black);
   bool pressed = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
-      child: Container(
-        alignment: widget.alignment,
-        padding: widget.padding,
-        height: 44,
-        decoration:
-            pressed ? _buildPressedBoxDecoration() : _buildBoxDecoration(),
-        child: Text(
-          widget.text,
-          style: theme.textTheme.button.merge(
-            TextStyle(
-              color: widget.color == Colors.white ? Colors.black : Colors.white,
-            ),
-          ),
-        ),
-      ),
+      child: pressed ? _buildPressedButton(theme) : _buildButton(theme),
       onTap: () {
         setState(() {
           pressed = false;
@@ -60,61 +51,65 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
     );
   }
 
-  BoxDecoration _buildBoxDecoration() {
-    if (widget.color == Colors.white)
-      return BoxDecoration(
-        color: Colors.white,
+  Widget _buildButton(ThemeData theme) {
+    return Container(
+      decoration: BoxDecoration(
+        color: widget.color == Colors.white ? Colors.white : black,
         borderRadius: const BorderRadius.all(
           Radius.circular(10.0),
         ),
-        border: Border.all(width: 1, color: Colors.black),
+        border: border,
         boxShadow: [
           BoxShadow(
             color: Colors.black,
-            offset: Offset(3, 3),
+            offset: outerShadow,
           ),
         ],
-      );
-    else
-      return BoxDecoration(
-        color: Color(0xFF2B2B2B),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10.0),
+      ),
+      alignment: widget.alignment,
+      padding: widget.padding,
+      height: 44,
+      child: Text(
+        widget.text,
+        style: theme.textTheme.button.merge(
+          TextStyle(
+            color: widget.color == Colors.white ? Colors.black : Colors.white,
+          ),
         ),
-        border: Border.all(width: 1, color: Colors.black),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
-            offset: Offset(3, 3),
-          ),
-        ],
-      );
+      ),
+    );
   }
 
-  BoxDecoration _buildPressedBoxDecoration() {
-    if (widget.color == Colors.white)
-      return BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-        border: Border.all(width: 1, color: Colors.black),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
+  Widget _buildPressedButton(ThemeData theme) {
+    return InnerShadow(
+      color: widget.color == Colors.white ? Color(0xFF464646) : Colors.black,
+      offset: innerShadow,
+      blur: 0.5,
+      child: Container(
+        decoration: BoxDecoration(
+          color: widget.color == Colors.white
+              ? Color(0xFFB5B5B5)
+              : Color(0xFF464646),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10.0),
           ),
-          BoxShadow(
-            color: Colors.white,
-            offset: Offset(4, 4),
-          ),
-        ],
-      );
-    else
-      return BoxDecoration(
-        color: Color(0xFF2B2B2B),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10.0),
+          border: border,
         ),
-        border: Border.all(width: 1, color: Colors.black),
-      );
+        alignment: widget.alignment,
+        padding: EdgeInsets.only(
+            top: widget.padding.top + 4, left: widget.padding.left + 4),
+        height: 44,
+        child: Text(
+          widget.text,
+          style: theme.textTheme.button.merge(
+            TextStyle(
+              color: widget.color == Colors.white
+                  ? Color(0xFF545454)
+                  : Color(0xFF7D7D7D),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

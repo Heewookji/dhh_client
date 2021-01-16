@@ -1,3 +1,4 @@
+import 'package:dhh_client/widgets/custom_raised_button.dart';
 import 'package:flutter/material.dart';
 
 class About extends StatelessWidget {
@@ -22,25 +23,21 @@ class About extends StatelessWidget {
             margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
           ),
           Container(
-            child: RaisedButton(
-              color: Colors.white,
-              splashColor: Colors.black,
-              child: Text(
-                '앱에 대해 알고 싶어요.',
-                textAlign: TextAlign.end,
-              ),
+            child: CustomRaisedButton(
+              Colors.white,
+              text: '앱에 대해 알고 싶어요.',
               onPressed: () => _navigateInfo(context),
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(left: _bodySize.width * 0.04),
             ),
             margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
           ),
-          RaisedButton(
-            color: Colors.white,
-            splashColor: Colors.black,
-            child: Text(
-              '알람시간 바꿀래요.',
-              textAlign: TextAlign.end,
-            ),
+          CustomRaisedButton(
+            Colors.white,
+            text: '알람시간 바꿀래요.',
             onPressed: () => _navigateAlarm(context),
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: _bodySize.width * 0.04),
           ),
         ],
       ),

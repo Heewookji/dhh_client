@@ -15,18 +15,12 @@ class HomeButton extends StatelessWidget {
       alignment: Alignment.center,
       child: false
           ? null
-          : Container(
-              height: _bodySize.height * 0.075,
-              child: _chosenQuestion == null
-                  ? null
-                  : RaisedButton(
-                      onPressed: () => _navigateWriteScreen(context),
-                      child: Text(
-                        '일기쓰기',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-            ),
+          : _chosenQuestion == null
+              ? null
+              : RaisedButton(
+                  onPressed: () => _navigateWriteScreen(context),
+                  child: Text('일기쓰기'),
+                ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/util/inner_shadow.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +23,10 @@ class CustomRaisedButton extends StatefulWidget {
 
 class _CustomRaisedButtonState extends State<CustomRaisedButton> {
   static const Color black = Color(0xFF2B2B2B);
-  static const Offset outerShadow = Offset(3, 3);
-  static const Offset innerShadow = Offset(4, 4);
-  static final BoxBorder border = Border.all(width: 2, color: Colors.black);
+  static const Offset outerShadow = Constants.SHADOW_OFFSET;
+  static const Offset innerShadow = Constants.INNER_SHADOW_OFFSET;
+  static final BoxBorder border =
+      Border.all(width: Constants.BORDER_WIDTH, color: Colors.black);
   bool pressed = false;
 
   @override
@@ -56,7 +58,7 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
       decoration: BoxDecoration(
         color: widget.color == Colors.white ? Colors.white : black,
         borderRadius: const BorderRadius.all(
-          Radius.circular(10.0),
+          Radius.circular(Constants.FILLET),
         ),
         border: border,
         boxShadow: [
@@ -91,7 +93,7 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
               ? Color(0xFFB5B5B5)
               : Color(0xFF464646),
           borderRadius: const BorderRadius.all(
-            Radius.circular(10.0),
+            Radius.circular(Constants.FILLET),
           ),
           border: border,
         ),

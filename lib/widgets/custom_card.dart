@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class CustomCard extends StatelessWidget {
-  static const Offset outerShadow = Offset(3, 3);
-  static final BoxBorder border = Border.all(width: 2, color: Colors.black);
+  static const Offset outerShadow = Constants.SHADOW_OFFSET;
+  static final BoxBorder border =
+      Border.all(width: Constants.BORDER_WIDTH, color: Colors.black);
   final Widget child;
   final Function onPressed;
   final Alignment alignment;
@@ -24,7 +27,7 @@ class CustomCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: const BorderRadius.all(
-            Radius.circular(10.0),
+            Radius.circular(Constants.FILLET),
           ),
           border: border,
           boxShadow: [

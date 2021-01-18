@@ -116,7 +116,7 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
 
   Container _buildCharacterList(Size _screenSize, List<Character> characters) {
     return Container(
-      height: _screenSize.height * 0.0675 + 6,
+      height: _screenSize.height * 0.0675 + Constants.SHADOW_WIDTH * 2,
       margin: EdgeInsets.only(bottom: _screenSize.height * 0.03378),
       child: ListView.builder(
         itemCount: characters.length,
@@ -182,10 +182,10 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
           return Container(
             height: _screenSize.height * 0.135,
             padding: EdgeInsets.only(
-              top: 1,
+              top: Constants.BORDER_WIDTH,
+              left: Constants.BORDER_WIDTH,
               bottom: _screenSize.height * 0.02,
-              left: 3,
-              right: 3,
+              right: Constants.SHADOW_WIDTH,
             ),
             child: CustomBubble(
               Container(),

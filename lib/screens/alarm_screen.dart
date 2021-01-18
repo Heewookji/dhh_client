@@ -26,19 +26,15 @@ class _AlarmScreenState extends State<AlarmScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final _mediaQuery = MediaQuery.of(context);
-    final _bodySize = Size(
-      _mediaQuery.size.width,
-      _mediaQuery.size.height,
-    );
+    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(
-            left: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
-            right: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
-            top: _bodySize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
+            left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            right: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            top: _screenSize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -50,24 +46,27 @@ class _AlarmScreenState extends State<AlarmScreen> {
               Container(
                 alignment: Alignment.centerRight,
                 child: SizedBox(
-                  height: _bodySize.height *
+                  height: _screenSize.height *
                       Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
-                  width: _bodySize.height *
+                  width: _screenSize.height *
                       Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
                   child: SvgPicture.asset(
                     'assets/images/1-1.svg',
                   ),
                 ),
                 margin: EdgeInsets.only(
-                  bottom: _bodySize.height * 0.03243,
+                  bottom: _screenSize.height * 0.03243,
                 ),
               ),
               Container(
-                child: Text('알람 받고싶은 시간을 선택해주세요.'),
-                margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
+                child: Text(
+                  '알람 받고싶은 시간을 선택해주세요.',
+                  style: theme.textTheme.bodyText1,
+                ),
+                margin: EdgeInsets.only(bottom: _screenSize.height * 0.01621),
               ),
               Container(
-                height: _bodySize.height * 0.275,
+                height: _screenSize.height * 0.275,
                 child: CustomCard(
                   CupertinoTheme(
                     data: CupertinoThemeData(
@@ -92,7 +91,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                   onPressed: _setAlarmSchedule,
                   alignment: Alignment.center,
                 ),
-                margin: EdgeInsets.only(top: _bodySize.height * 0.03243),
+                margin: EdgeInsets.only(top: _screenSize.height * 0.03243),
               ),
               Container(
                 child: CustomRaisedButton(
@@ -103,7 +102,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                   },
                   alignment: Alignment.center,
                 ),
-                margin: EdgeInsets.only(top: _bodySize.height * 0.03243),
+                margin: EdgeInsets.only(top: _screenSize.height * 0.03243),
               ),
             ],
           ),

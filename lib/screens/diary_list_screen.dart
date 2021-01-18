@@ -66,7 +66,7 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    Size screenSize = MediaQuery.of(context).size;
+    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       body: _isBusy
@@ -82,9 +82,9 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
                     characters, questionMap, diaries);
                 return Column(
                   children: [
-                    _buildPanel(theme, screenSize, diaries.length),
-                    _buildCharacterList(screenSize, characters),
-                    _buildDiaryList(screenSize, diaryDetails),
+                    _buildPanel(theme, _screenSize, diaries.length),
+                    _buildCharacterList(_screenSize, characters),
+                    _buildDiaryList(_screenSize, diaryDetails),
                   ],
                 );
               },

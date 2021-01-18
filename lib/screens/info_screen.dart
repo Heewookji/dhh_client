@@ -19,19 +19,15 @@ class InfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final _mediaQuery = MediaQuery.of(context);
-    final _bodySize = Size(
-      _mediaQuery.size.width,
-      _mediaQuery.size.height,
-    );
+    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(
-            left: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
-            right: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
-            top: _bodySize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
+            left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            right: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            top: _screenSize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,20 +39,20 @@ class InfoScreen extends StatelessWidget {
               Container(
                 alignment: Alignment.centerRight,
                 child: SizedBox(
-                  height: _bodySize.height *
+                  height: _screenSize.height *
                       Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
-                  width: _bodySize.height *
+                  width: _screenSize.height *
                       Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
                   child: SvgPicture.asset(
                     'assets/images/1-1.svg',
                   ),
                 ),
                 margin: EdgeInsets.only(
-                  bottom: _bodySize.height * 0.03243,
+                  bottom: _screenSize.height * 0.03243,
                 ),
               ),
               for (final entry in _questionAnswerMap.entries)
-                _buildQuestionAnswer(_bodySize, entry, theme),
+                _buildQuestionAnswer(_screenSize, entry, theme),
             ],
           ),
         ),
@@ -64,23 +60,24 @@ class InfoScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildQuestionAnswer(Size _bodySize, MapEntry entry, ThemeData theme) {
+  Widget _buildQuestionAnswer(
+      Size _screenSize, MapEntry entry, ThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          child: Text(entry.key),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
+          child: Text(
+            entry.key,
+            style: theme.textTheme.bodyText1,
+          ),
+          margin: EdgeInsets.only(bottom: _screenSize.height * 0.01081),
         ),
         Container(
           child: CustomCard(
-            Text(
-              entry.value,
-              style: theme.textTheme.bodyText1,
-            ),
+            Text(entry.value),
             padding: EdgeInsets.symmetric(horizontal: 19, vertical: 14),
           ),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.04324),
+          margin: EdgeInsets.only(bottom: _screenSize.height * 0.04324),
         ),
       ],
     );

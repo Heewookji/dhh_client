@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../custom_raised_button.dart';
 
 class Crew extends StatelessWidget {
-  final Size _bodySize;
-  Crew(this._bodySize);
+  final Size _screenSize;
+  Crew(this._screenSize);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class Crew extends StatelessWidget {
       children: [
         Container(
           child: Text('MEMBER'),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
+          margin: EdgeInsets.only(bottom: _screenSize.height * 0.01081),
         ),
         Container(
           child: CustomRaisedButton(
@@ -21,9 +21,9 @@ class Crew extends StatelessWidget {
             color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: _bodySize.width * 0.04),
+            padding: EdgeInsets.only(left: _screenSize.width * 0.04),
           ),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
+          margin: EdgeInsets.only(bottom: _screenSize.height * 0.02162),
         ),
         Container(
           child: CustomRaisedButton(
@@ -31,9 +31,9 @@ class Crew extends StatelessWidget {
             color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: _bodySize.width * 0.04),
+            padding: EdgeInsets.only(left: _screenSize.width * 0.04),
           ),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
+          margin: EdgeInsets.only(bottom: _screenSize.height * 0.02162),
         ),
         Container(
           child: CustomRaisedButton(
@@ -41,9 +41,9 @@ class Crew extends StatelessWidget {
             color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: _bodySize.width * 0.04),
+            padding: EdgeInsets.only(left: _screenSize.width * 0.04),
           ),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
+          margin: EdgeInsets.only(bottom: _screenSize.height * 0.02162),
         ),
       ],
     );

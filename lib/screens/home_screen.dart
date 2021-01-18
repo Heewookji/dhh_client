@@ -111,50 +111,44 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      title: Text('App Name'),
-      centerTitle: false,
-      actions: [
-        IconButton(
-          icon: Icon(Icons.widgets),
-          onPressed: () => _navigateDiaryListScreen(context),
-        ),
-        IconButton(
-          icon: Icon(Icons.circle),
-          onPressed: () => _navigateSettingScreen(context),
-        ),
-      ],
-    );
-    final _mediaQuery = MediaQuery.of(context);
-    final _bodySize = Size(
-      _mediaQuery.size.width,
-      _mediaQuery.size.height -
-          appBar.preferredSize.height -
-          _mediaQuery.padding.top -
-          _mediaQuery.padding.bottom,
-    );
+    final _screenSize = MediaQuery.of(context).size;
     final topDiary = Provider.of<DiariesProvider>(context).topDiary;
     _isSubmittedToday =
         topDiary != null && topDiary.createdAt.day == DateTime.now().day;
     return Scaffold(
-      appBar: appBar,
+      appBar: AppBar(
+        title: Text('App Name'),
+        centerTitle: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.widgets),
+            onPressed: () => _navigateDiaryListScreen(context),
+          ),
+          IconButton(
+            icon: Icon(Icons.circle),
+            onPressed: () => _navigateSettingScreen(context),
+          ),
+        ],
+      ),
       body: _isBusy
           ? Center()
-          : Column(
-              children: <Widget>[
-                HomePanel(
-                  _chosenQuestion,
-                  _bodySize,
-                  _isSubmittedToday,
-                ),
-                CharacterHome(_chooseCharacter, _bodySize),
-                HomeButton(
-                  _chosenQuestion,
-                  _navigateWriteScreen,
-                  _bodySize,
-                  _isSubmittedToday,
-                ),
-              ],
+          : SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  HomePanel(
+                    _chosenQuestion,
+                    _screenSize,
+                    _isSubmittedToday,
+                  ),
+                  CharacterHome(_chooseCharacter, _screenSize),
+                  HomeButton(
+                    _chosenQuestion,
+                    _navigateWriteScreen,
+                    _screenSize,
+                    _isSubmittedToday,
+                  ),
+                ],
+              ),
             ),
     );
   }

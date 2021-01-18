@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class HomePanel extends StatelessWidget {
   final Question _chosenQuestion;
-  final Size _bodySize;
+  final Size _screenSize;
   final bool _isSubmittedToday;
-  HomePanel(this._chosenQuestion, this._bodySize, this._isSubmittedToday);
+  HomePanel(this._chosenQuestion, this._screenSize, this._isSubmittedToday);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class HomePanel extends StatelessWidget {
 //    );
     return Container(
       alignment: Alignment.center,
-      height: _bodySize.height * 0.25,
+      height: _screenSize.height * 0.25,
       child: false
           ? null
           : _chosenQuestion != null

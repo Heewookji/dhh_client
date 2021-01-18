@@ -14,14 +14,14 @@ class DiaryDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    Size screenSize = MediaQuery.of(context).size;
+    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Color(character.color),
       body: Column(
         children: [
-          _buildPanel(theme, screenSize),
-          _buildTextField(screenSize),
+          _buildPanel(theme, _screenSize),
+          _buildTextField(_screenSize),
         ],
       ),
     );

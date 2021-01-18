@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class HomeButton extends StatelessWidget {
   final Question _chosenQuestion;
   final Function(BuildContext context) _navigateWriteScreen;
-  final Size _bodySize;
+  final Size _screenSize;
   final _isSubmittedToday;
-  HomeButton(this._chosenQuestion, this._navigateWriteScreen, this._bodySize,
+  HomeButton(this._chosenQuestion, this._navigateWriteScreen, this._screenSize,
       this._isSubmittedToday);
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _bodySize.height * 0.2,
+      height: _screenSize.height * 0.2,
       alignment: Alignment.center,
       child: false
           ? null

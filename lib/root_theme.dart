@@ -15,23 +15,59 @@ class RootTheme {
           fontSize: 64,
           fontWeight: FontWeight.w900,
         ),
-        headline2:
-            TextStyle(fontSize: 56, fontWeight: FontWeight.w900, height: 1.4),
-        headline3:
-            TextStyle(fontSize: 45, fontWeight: FontWeight.w900, height: 1.4),
-        headline6:
-            TextStyle(fontSize: 34, fontWeight: FontWeight.w900, height: 1.4),
-        subtitle1:
-            TextStyle(fontSize: 24, fontWeight: FontWeight.w900, height: 1.4),
-        subtitle2:
-            TextStyle(fontSize: 20, fontWeight: FontWeight.w900, height: 1.4),
-        bodyText1:
-            TextStyle(fontSize: 14, fontWeight: FontWeight.w700, height: 1.4),
-        bodyText2:
-            TextStyle(fontSize: 16, fontWeight: FontWeight.w900, height: 1.4),
-        caption:
-            TextStyle(fontSize: 12, fontWeight: FontWeight.w700, height: 1.4),
-        button: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
+        headline2: TextStyle(
+          fontSize: 56,
+          fontWeight: FontWeight.w900,
+          height: 1.4,
+          color: Colors.black,
+        ),
+        headline3: TextStyle(
+          fontSize: 45,
+          fontWeight: FontWeight.w900,
+          height: 1.4,
+          color: Colors.black,
+        ),
+        headline6: TextStyle(
+          fontSize: 34,
+          fontWeight: FontWeight.w900,
+          height: 1.4,
+          color: Colors.black,
+        ),
+        subtitle1: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w900,
+          height: 1.4,
+          color: Colors.black,
+        ),
+        subtitle2: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w900,
+          height: 1.4,
+          color: Colors.black,
+        ),
+        bodyText1: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w900,
+          height: 1.4,
+          color: Colors.black,
+        ),
+        bodyText2: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w700,
+          height: 1.4,
+          color: Colors.black,
+        ),
+        caption: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          height: 1.4,
+          color: Colors.black,
+        ),
+        button: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w900,
+          color: Colors.black,
+        ),
       ),
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );

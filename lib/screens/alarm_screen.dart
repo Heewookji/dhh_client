@@ -1,11 +1,26 @@
 import 'package:dhh_client/constants.dart';
+import 'package:dhh_client/services/notification_service.dart';
+import 'package:dhh_client/widgets/custom_raised_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 
-class AlarmScreen extends StatelessWidget {
+class AlarmScreen extends StatefulWidget {
   static final routeName = '/alarm';
+
+  @override
+  _AlarmScreenState createState() => _AlarmScreenState();
+}
+
+class _AlarmScreenState extends State<AlarmScreen> {
+  DateTime _initialDateTime = DateTime.now();
+  DateTime _scheduleDateTime;
+
+  void _setAlarmSchedule() async {
+    if (_scheduleDateTime == null) _scheduleDateTime = _initialDateTime;
+    await NotificationService.setScheduledNotification(_scheduleDateTime);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +77,33 @@ class AlarmScreen extends StatelessWidget {
                       ),
                     ),
                     child: CupertinoDatePicker(
-                      onDateTimeChanged: (dateTime) {},
+                      initialDateTime: _initialDateTime,
+                      onDateTimeChanged: (dateTime) {
+                        _scheduleDateTime = dateTime;
+                      },
                       mode: CupertinoDatePickerMode.time,
                     ),
                   ),
                 ),
+              ),
+              Container(
+                child: CustomRaisedButton(
+                  '설정',
+                  onPressed: _setAlarmSchedule,
+                  alignment: Alignment.center,
+                ),
+                margin: EdgeInsets.only(top: _bodySize.height * 0.03243),
+              ),
+              Container(
+                child: CustomRaisedButton(
+                  '알람보기',
+                  color: Colors.black,
+                  onPressed: () {
+                    NotificationService.getCurrentNotification();
+                  },
+                  alignment: Alignment.center,
+                ),
+                margin: EdgeInsets.only(top: _bodySize.height * 0.03243),
               ),
             ],
           ),

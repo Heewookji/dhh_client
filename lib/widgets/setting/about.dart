@@ -24,8 +24,7 @@ class About extends StatelessWidget {
           ),
           Container(
             child: CustomRaisedButton(
-              Colors.white,
-              text: '앱에 대해 알고 싶어요.',
+              '앱에 대해 알고 싶어요.',
               onPressed: () => _navigateInfo(context),
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: _bodySize.width * 0.04),
@@ -33,8 +32,7 @@ class About extends StatelessWidget {
             margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
           ),
           CustomRaisedButton(
-            Colors.white,
-            text: '알람시간 바꿀래요.',
+            '알람시간 바꿀래요.',
             onPressed: () => _navigateAlarm(context),
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: _bodySize.width * 0.04),

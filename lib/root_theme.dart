@@ -35,7 +35,7 @@ class RootTheme {
         bodyText1:
             TextStyle(fontSize: 14, fontWeight: FontWeight.w700, height: 1.4),
         bodyText2:
-            TextStyle(fontSize: 16, fontWeight: FontWeight.w700, height: 1.4),
+            TextStyle(fontSize: 16, fontWeight: FontWeight.w900, height: 1.4),
         caption:
             TextStyle(fontSize: 12, fontWeight: FontWeight.w700, height: 1.4),
         button: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),

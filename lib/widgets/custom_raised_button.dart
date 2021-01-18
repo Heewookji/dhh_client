@@ -9,8 +9,8 @@ class CustomRaisedButton extends StatefulWidget {
   final EdgeInsets padding;
 
   CustomRaisedButton(
-    this.color, {
-    this.text,
+    this.text, {
+    this.color = Colors.white,
     this.onPressed,
     this.padding,
     this.alignment,
@@ -36,7 +36,7 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
         setState(() {
           pressed = false;
         });
-        widget.onPressed();
+        if (widget.onPressed != null) widget.onPressed();
       },
       onTapCancel: () {
         setState(() {
@@ -96,8 +96,10 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
           border: border,
         ),
         alignment: widget.alignment,
-        padding: EdgeInsets.only(
-            top: widget.padding.top + 4, left: widget.padding.left + 4),
+        padding: widget.padding == null
+            ? EdgeInsets.only(top: 4, left: 4)
+            : EdgeInsets.only(
+                top: widget.padding.top + 4, left: widget.padding.left + 4),
         height: 44,
         child: Text(
           widget.text,

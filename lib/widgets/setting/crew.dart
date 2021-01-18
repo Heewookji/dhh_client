@@ -12,13 +12,13 @@ class Crew extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          child: Text('CREW'),
+          child: Text('MEMBER'),
           margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
         ),
         Container(
           child: CustomRaisedButton(
-            Colors.black,
-            text: '전다영',
+            '이현지 : UX/UI Designer',
+            color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: _bodySize.width * 0.04),
@@ -27,8 +27,8 @@ class Crew extends StatelessWidget {
         ),
         Container(
           child: CustomRaisedButton(
-            Colors.black,
-            text: '이현지',
+            '전다영 : UX/UI Designer',
+            color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: _bodySize.width * 0.04),
@@ -37,8 +37,8 @@ class Crew extends StatelessWidget {
         ),
         Container(
           child: CustomRaisedButton(
-            Colors.black,
-            text: '지희욱',
+            '지희욱 : Planer, Developer',
+            color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: _bodySize.width * 0.04),

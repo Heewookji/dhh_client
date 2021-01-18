@@ -1,5 +1,6 @@
 import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/services/notification_service.dart';
+import 'package:dhh_client/widgets/custom_card.dart';
 import 'package:dhh_client/widgets/custom_raised_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +70,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
               ),
               Container(
                 height: _bodySize.height * 0.3,
-                child: Card(
-                  child: CupertinoTheme(
+                child: CustomCard(
+                  CupertinoTheme(
                     data: CupertinoThemeData(
                       textTheme: CupertinoTextThemeData(
                         dateTimePickerTextStyle: theme.textTheme.subtitle1,
@@ -89,6 +90,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
               Container(
                 child: CustomRaisedButton(
                   '설정',
+                  color: Colors.black,
                   onPressed: _setAlarmSchedule,
                   alignment: Alignment.center,
                 ),

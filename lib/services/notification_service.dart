@@ -33,13 +33,12 @@ class NotificationService {
 
   static Future<void> setScheduledNotification(
       DateTime scheduleDateTime) async {
-    final targetDateTime = _nextInstanceOfScheduledTime(
-        scheduleDateTime.hour, scheduleDateTime.minute);
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       0,
       'MONGLE',
       '오늘의 추억을 쌓을 시간이 됐어요!',
-      targetDateTime,
+      _nextInstanceOfScheduledTime(
+          scheduleDateTime.hour, scheduleDateTime.minute),
       const NotificationDetails(
         android: AndroidNotificationDetails(
             'MONGLEID', 'MONGLE', 'MONGLE app notification'),
@@ -49,7 +48,9 @@ class NotificationService {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
-      payload: targetDateTime.toString(),
+      payload: _nextInstanceOfScheduledTime(
+              scheduleDateTime.hour, scheduleDateTime.minute)
+          .toString(),
     );
   }
 

@@ -5,13 +5,6 @@ class RootTheme {
     return ThemeData(
       primaryColor: Colors.white,
       canvasColor: Colors.white,
-      cardTheme: CardTheme(
-        elevation: 3,
-        shadowColor: Colors.black54,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
       appBarTheme: AppBarTheme(
         color: Colors.transparent,
         elevation: 0,

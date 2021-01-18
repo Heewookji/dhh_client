@@ -1,4 +1,5 @@
 import 'package:dhh_client/constants.dart';
+import 'package:dhh_client/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -57,7 +58,7 @@ class InfoScreen extends StatelessWidget {
                 ),
               ),
               for (final entry in _questionAnswerMap.entries)
-                _buildQuestionAnswer(_bodySize, entry),
+                _buildQuestionAnswer(_bodySize, entry, theme),
             ],
           ),
         ),
@@ -65,7 +66,7 @@ class InfoScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildQuestionAnswer(Size _bodySize, MapEntry entry) {
+  Widget _buildQuestionAnswer(Size _bodySize, MapEntry entry, ThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -74,14 +75,12 @@ class InfoScreen extends StatelessWidget {
           margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
         ),
         Container(
-          child: Card(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 19, vertical: 14),
-              child: Text(
-                entry.value,
-                style: TextStyle(fontSize: 14),
-              ),
+          child: CustomCard(
+            Text(
+              entry.value,
+              style: theme.textTheme.bodyText1,
             ),
+            padding: EdgeInsets.symmetric(horizontal: 19, vertical: 14),
           ),
           margin: EdgeInsets.only(bottom: _bodySize.height * 0.03243),
         ),

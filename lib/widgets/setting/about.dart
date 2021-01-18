@@ -12,15 +12,14 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top: _bodySize.height * 0.03243,
-        bottom: _bodySize.height * 0.05405,
+        bottom: _bodySize.height * 0.08108,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             child: Text('ABOUT'),
-            margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
+            margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
           ),
           Container(
             child: CustomRaisedButton(
@@ -32,7 +31,7 @@ class About extends StatelessWidget {
             margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
           ),
           CustomRaisedButton(
-            '알람시간 바꿀래요.',
+            '알람시간 설정할래요.',
             onPressed: () => _navigateAlarm(context),
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: _bodySize.width * 0.04),

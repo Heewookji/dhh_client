@@ -13,7 +13,7 @@ class Crew extends StatelessWidget {
       children: [
         Container(
           child: Text('MEMBER'),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
+          margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
         ),
         Container(
           child: CustomRaisedButton(

@@ -35,41 +35,39 @@ class _AlarmScreenState extends State<AlarmScreen> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal:
-                  _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT),
+          padding: EdgeInsets.only(
+            left: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            right: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            top: _bodySize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                child: Text(
-                  '알람시간\n바꿀래요.',
-                  style: theme.textTheme.headline6,
-                ),
-                margin: EdgeInsets.only(
-                  top: _bodySize.height * 0.03243,
-                  bottom: _bodySize.height * 0.03243,
-                ),
+              Text(
+                '알람시간\n설정할래요.',
+                style: theme.textTheme.headline6,
               ),
               Container(
                 alignment: Alignment.centerRight,
                 child: SizedBox(
-                  height: _bodySize.height * 0.13513,
-                  width: _bodySize.height * 0.13513,
+                  height: _bodySize.height *
+                      Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
+                  width: _bodySize.height *
+                      Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
                   child: SvgPicture.asset(
                     'assets/images/1-1.svg',
                   ),
                 ),
                 margin: EdgeInsets.only(
-                  bottom: _bodySize.height * 0.04324,
+                  bottom: _bodySize.height * 0.03243,
                 ),
               ),
               Container(
                 child: Text('알람 받고싶은 시간을 선택해주세요.'),
-                margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
+                margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
               ),
               Container(
-                height: _bodySize.height * 0.3,
+                height: _bodySize.height * 0.275,
                 child: CustomCard(
                   CupertinoTheme(
                     data: CupertinoThemeData(
@@ -98,7 +96,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
               ),
               Container(
                 child: CustomRaisedButton(
-                  '알람보기',
+                  '알람출력',
                   color: Colors.black,
                   onPressed: () {
                     NotificationService.getCurrentNotification();

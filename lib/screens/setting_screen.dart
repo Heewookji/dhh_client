@@ -26,14 +26,19 @@ class SettingScreen extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT),
-        child: Column(
-          children: [
-            About(_bodySize, _navigateAlarmScreen, _navigateInfoScreen),
-            Crew(_bodySize),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            left: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            right: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            top: _bodySize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
+          ),
+          child: Column(
+            children: [
+              About(_bodySize, _navigateAlarmScreen, _navigateInfoScreen),
+              Crew(_bodySize),
+            ],
+          ),
         ),
       ),
     );

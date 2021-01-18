@@ -28,33 +28,31 @@ class InfoScreen extends StatelessWidget {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal:
-                  _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT),
+          padding: EdgeInsets.only(
+            left: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            right: _bodySize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            top: _bodySize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                child: Text(
-                  '앱에 대해\n알고 싶어요.',
-                  style: theme.textTheme.headline6,
-                ),
-                margin: EdgeInsets.only(
-                  top: _bodySize.height * 0.03243,
-                  bottom: _bodySize.height * 0.03243,
-                ),
+              Text(
+                '앱에 대해\n알고 싶어요.',
+                style: theme.textTheme.headline6,
               ),
               Container(
                 alignment: Alignment.centerRight,
                 child: SizedBox(
-                  height: _bodySize.height * 0.13513,
-                  width: _bodySize.height * 0.13513,
+                  height: _bodySize.height *
+                      Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
+                  width: _bodySize.height *
+                      Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
                   child: SvgPicture.asset(
                     'assets/images/1-1.svg',
                   ),
                 ),
                 margin: EdgeInsets.only(
-                  bottom: _bodySize.height * 0.04324,
+                  bottom: _bodySize.height * 0.03243,
                 ),
               ),
               for (final entry in _questionAnswerMap.entries)
@@ -72,7 +70,7 @@ class InfoScreen extends StatelessWidget {
       children: [
         Container(
           child: Text(entry.key),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.01082),
+          margin: EdgeInsets.only(bottom: _bodySize.height * 0.02162),
         ),
         Container(
           child: CustomCard(
@@ -82,7 +80,7 @@ class InfoScreen extends StatelessWidget {
             ),
             padding: EdgeInsets.symmetric(horizontal: 19, vertical: 14),
           ),
-          margin: EdgeInsets.only(bottom: _bodySize.height * 0.03243),
+          margin: EdgeInsets.only(bottom: _bodySize.height * 0.04324),
         ),
       ],
     );

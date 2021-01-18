@@ -52,7 +52,7 @@ class RootTheme {
           color: Colors.black,
         ),
         bodyText2: TextStyle(
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: FontWeight.w700,
           height: 1.4,
           color: Colors.black,

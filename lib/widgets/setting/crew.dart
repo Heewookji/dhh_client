@@ -8,11 +8,15 @@ class Crew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          child: Text('MEMBER'),
+          child: Text(
+            'MEMBER',
+            style: theme.textTheme.bodyText1,
+          ),
           margin: EdgeInsets.only(bottom: _screenSize.height * 0.01081),
         ),
         Container(

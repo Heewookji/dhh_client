@@ -10,6 +10,7 @@ class About extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.only(
         bottom: _screenSize.height * 0.08108,
@@ -18,7 +19,10 @@ class About extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            child: Text('ABOUT'),
+            child: Text(
+              'ABOUT',
+              style: theme.textTheme.bodyText1,
+            ),
             margin: EdgeInsets.only(bottom: _screenSize.height * 0.01081),
           ),
           Container(

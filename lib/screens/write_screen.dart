@@ -58,7 +58,7 @@ class _WriteScreenState extends State<WriteScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                DateFormat.yMd().format(DateTime.now()),
+                DateFormat('y년 M월 d일').format(DateTime.now()),
                 style: theme.textTheme.caption,
               ),
               Text(

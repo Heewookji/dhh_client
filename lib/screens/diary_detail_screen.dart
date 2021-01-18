@@ -1,8 +1,11 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/diary.dart';
 import 'package:dhh_client/models/question.dart';
+import 'package:dhh_client/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../constants.dart';
 
 class DiaryDetailScreen extends StatelessWidget {
   final Character character;
@@ -18,43 +21,60 @@ class DiaryDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Color(character.color),
-      body: Column(
-        children: [
-          _buildPanel(theme, _screenSize),
-          _buildTextField(_screenSize),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPanel(ThemeData theme, Size screenSize) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(DateFormat.yMd().format(diary.createdAt)),
-            Text(character.name),
-          ],
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            question.text,
-            style: theme.textTheme.headline2,
-            textAlign: TextAlign.left,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            right: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+            top: _screenSize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
+          ),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          DateFormat('y년 M월 d일').format(diary.createdAt),
+                          style: theme.textTheme.caption,
+                        ),
+                        Text(
+                          character.name,
+                          style: theme.textTheme.caption,
+                        ),
+                      ],
+                    ),
+                    margin:
+                        EdgeInsets.only(bottom: _screenSize.height * 0.01351),
+                  ),
+                  Container(
+                    child: CustomCard(
+                      Text(
+                        question.text,
+                        style: theme.textTheme.subtitle1,
+                      ),
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.all(_screenSize.width * 0.0444),
+                    ),
+                    margin:
+                        EdgeInsets.only(bottom: _screenSize.height * 0.02162),
+                  ),
+                ],
+              ),
+              CustomCard(
+                Text(diary.text),
+                padding: EdgeInsets.symmetric(
+                  vertical: _screenSize.height * 0.02162,
+                  horizontal: _screenSize.width * 0.0444,
+                ),
+                alignment: Alignment.topLeft,
+              ),
+            ],
           ),
         ),
-        Container(height: screenSize.height * 0.2),
-      ],
-    );
-  }
-
-  Container _buildTextField(Size screenSize) {
-    return Container(
-      alignment: Alignment.topLeft,
-      height: screenSize.height * 0.5,
-      child: Text(diary.text),
+      ),
     );
   }
 }

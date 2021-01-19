@@ -83,10 +83,6 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
                     characters, questionMap, diaries);
                 return Container(
                   padding: EdgeInsets.only(
-                    left: _screenSize.width *
-                        Constants.BODY_WIDTH_PADDING_PERCENT,
-                    right: _screenSize.width *
-                        Constants.BODY_WIDTH_PADDING_PERCENT,
                     top: _screenSize.height *
                         Constants.BODY_HEIGHT_PADDING_PERCENT,
                   ),
@@ -105,6 +101,9 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
 
   Widget _buildPanel(ThemeData theme, Size _screenSize, int allDiariesCount) {
     return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+      ),
       alignment: Alignment.topLeft,
       child: Text(
         '${allDiariesCount.toString()}개 \n추억이\n쌓였어요',
@@ -150,53 +149,66 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
     );
   }
 
-  _buildAllCharacterButton(Size _screenSize) {
-    return Container(
-      margin: EdgeInsets.only(right: _screenSize.width * 0.05),
-      child: CustomCard(
+  Widget _buildAllCharacterButton(Size _screenSize) {
+    return Row(
+      children: [
         SizedBox(
-          width: _screenSize.width * 0.138,
-          height: _screenSize.width * 0.138,
-          child: Text(
-            'ALL',
-            style: TextStyle(
-              color: _chosenCharacterId == null ? Colors.white : Colors.black,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          width: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
         ),
+        Container(
+          margin: EdgeInsets.only(right: _screenSize.width * 0.05),
+          child: CustomCard(
+            SizedBox(
+              width: _screenSize.width * 0.138,
+              height: _screenSize.width * 0.138,
+              child: Text(
+                'ALL',
+                style: TextStyle(
+                  color:
+                      _chosenCharacterId == null ? Colors.white : Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
 //          backgroundColor:
 //              _chosenCharacterId == null ? Colors.black : Colors.black12,
-        onPressed: () => _setDiariesAndQuestions(null),
-      ),
+            onPressed: () => _setDiariesAndQuestions(null),
+          ),
+        )
+      ],
     );
   }
 
   Expanded _buildDiaryList(
       Size _screenSize, List<Map<Type, Object>> diaryDetails) {
     return Expanded(
-      child: ListView.builder(
-        itemCount: diaryDetails.length,
-        itemBuilder: (context, i) {
-          final character = diaryDetails[i][Character] as Character;
-          return Container(
-            height: _screenSize.height * 0.135,
-            padding: EdgeInsets.only(
-              top: Constants.BORDER_WIDTH,
-              left: Constants.BORDER_WIDTH,
-              bottom: _screenSize.height * 0.02,
-              right: Constants.SHADOW_WIDTH,
-            ),
-            child: CustomBubble(
-              Container(),
-              onPressed: () => _navigateDiaryDetailScreen(
-                context,
-                diaryDetails,
-                i,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+        ),
+        child: ListView.builder(
+          itemCount: diaryDetails.length,
+          itemBuilder: (context, i) {
+            final character = diaryDetails[i][Character] as Character;
+            return Container(
+              height: _screenSize.height * 0.135,
+              padding: EdgeInsets.only(
+                top: Constants.BORDER_WIDTH,
+                left: Constants.BORDER_WIDTH,
+                bottom: _screenSize.height * 0.02,
+                right: Constants.SHADOW_WIDTH,
               ),
-            ),
-          );
-        },
+              child: CustomBubble(
+                Container(),
+                onPressed: () => _navigateDiaryDetailScreen(
+                  context,
+                  diaryDetails,
+                  i,
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -37,9 +37,7 @@ class CharacterList extends StatelessWidget {
                       character.statusImageUrl +
                           Constants.CHARACTER_IMAGE_FORMAT,
                     ),
-                    _chosenCharacterId == character.id
-                        ? Color(character.color)
-                        : Colors.black12,
+                    Color(character.color),
                     onPressed: () => _setDiariesAndQuestions(character.id),
                   ),
                 ),
@@ -66,12 +64,11 @@ class CharacterList extends StatelessWidget {
               Text(
                 'ALL',
                 style: TextStyle(
-                  color:
-                      _chosenCharacterId == null ? Colors.white : Colors.black,
+                  color: Colors.white,
                 ),
                 textAlign: TextAlign.center,
               ),
-              _chosenCharacterId == null ? Colors.black : Colors.black12,
+              Colors.black,
               onPressed: () => _setDiariesAndQuestions(null),
             ),
           ),

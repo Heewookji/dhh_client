@@ -65,7 +65,6 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),

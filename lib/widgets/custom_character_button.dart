@@ -1,4 +1,5 @@
 import 'package:dhh_client/constants.dart';
+import 'package:dhh_client/util/color_transformer.dart';
 import 'package:dhh_client/util/inner_shadow.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,7 @@ class _CustomCharacterButtonState extends State<CustomCharacterButton> {
   Widget _buildButton(ThemeData theme) {
     return Container(
       decoration: BoxDecoration(
-        color: widget.color == Colors.white ? Colors.white : black,
+        color: widget.color == Colors.black ? black : widget.color,
         borderRadius: const BorderRadius.all(
           Radius.circular(Constants.FILLET),
         ),
@@ -67,21 +68,20 @@ class _CustomCharacterButtonState extends State<CustomCharacterButton> {
       ),
       alignment: widget.alignment,
       padding: widget.padding,
-      height: 44,
       child: widget.child,
     );
   }
 
   Widget _buildPressedButton(ThemeData theme) {
     return InnerShadow(
-      color: widget.color == Colors.white ? Color(0xFF464646) : Colors.black,
+      color: Colors.black,
       offset: innerShadow,
       blur: 0.5,
       child: Container(
         decoration: BoxDecoration(
-          color: widget.color == Colors.white
-              ? Color(0xFFB5B5B5)
-              : Color(0xFF464646),
+          color: widget.color == Colors.black
+              ? Color(0xFF464646)
+              : ColorTransformer.darken(widget.color, 0.125),
           borderRadius: const BorderRadius.all(
             Radius.circular(Constants.FILLET),
           ),
@@ -92,7 +92,6 @@ class _CustomCharacterButtonState extends State<CustomCharacterButton> {
             ? EdgeInsets.only(top: 4, left: 4)
             : EdgeInsets.only(
                 top: widget.padding.top + 4, left: widget.padding.left + 4),
-        height: 44,
         child: widget.child,
       ),
     );

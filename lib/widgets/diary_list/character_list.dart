@@ -7,12 +7,12 @@ import '../custom_character_button.dart';
 
 class CharacterList extends StatelessWidget {
   final List<Character> _characters;
-  final int _chosenCharacterId;
-  final Function(int) _setDiariesAndQuestions;
+  final Character _chosenCharacter;
+  final Function(Character) _setDiariesAndQuestions;
 
   CharacterList(
     this._characters,
-    this._chosenCharacterId,
+    this._chosenCharacter,
     this._setDiariesAndQuestions,
   );
 
@@ -31,19 +31,18 @@ class CharacterList extends StatelessWidget {
             children: [
               if (i == 0) _buildAllCharacterButton(_screenSize),
               Container(
+                width: _screenSize.width * 0.138,
+                height: _screenSize.width * 0.138,
                 margin: EdgeInsets.only(right: _screenSize.width * 0.044),
-                child: SizedBox(
-                  width: _screenSize.width * 0.138,
-                  height: _screenSize.width * 0.138,
-                  child: CustomCharacterButton(
-                    SvgPicture.asset(
-                      character.statusImageUrl +
-                          Constants.CHARACTER_IMAGE_FORMAT,
-                    ),
-                    Color(character.color),
-                    _chosenCharacterId == character.id,
-                    onPressed: () => _setDiariesAndQuestions(character.id),
+                child: CustomCharacterButton(
+                  SvgPicture.asset(
+                    character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
                   ),
+                  Color(character.color),
+                  _chosenCharacter != null &&
+                      _chosenCharacter.id == character.id,
+                  onPressed: () => _setDiariesAndQuestions(character),
+                  padding: EdgeInsets.all(_screenSize.width * 0.022),
                 ),
               ),
             ],
@@ -60,24 +59,24 @@ class CharacterList extends StatelessWidget {
           width: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
         ),
         Container(
+          width: _screenSize.width * 0.138,
+          height: _screenSize.width * 0.138,
           margin: EdgeInsets.only(right: _screenSize.width * 0.05),
-          child: SizedBox(
-            width: _screenSize.width * 0.138,
-            height: _screenSize.width * 0.138,
-            child: CustomCharacterButton(
-              Text(
+          child: CustomCharacterButton(
+            Container(
+              alignment: Alignment.center,
+              child: Text(
                 'ALL',
                 style: TextStyle(
                   color: Colors.white,
                 ),
-                textAlign: TextAlign.center,
               ),
-              Colors.black,
-              _chosenCharacterId == null,
-              onPressed: () => _setDiariesAndQuestions(null),
             ),
+            Colors.black,
+            _chosenCharacter == null,
+            onPressed: () => _setDiariesAndQuestions(null),
           ),
-        )
+        ),
       ],
     );
   }

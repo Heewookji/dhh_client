@@ -30,25 +30,16 @@ class _CustomCharacterButtonState extends State<CustomCharacterButton> {
   static const Offset innerShadow = Constants.INNER_SHADOW_OFFSET;
   static final BoxBorder border =
       Border.all(width: Constants.BORDER_WIDTH, color: Colors.black);
+  bool shortPressed = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    bool pressed = widget.isPressed;
     return GestureDetector(
-      child: pressed ? _buildPressedButton(theme) : _buildButton(theme),
-      onTap: () {
-        if (widget.onPressed != null) widget.onPressed();
-      },
-      onTapCancel: () {
-        setState(() {
-          pressed = false;
-        });
-      },
+      child:
+          widget.isPressed ? _buildPressedButton(theme) : _buildButton(theme),
       onTapDown: (detail) {
-        setState(() {
-          pressed = true;
-        });
+        if (widget.onPressed != null) widget.onPressed();
       },
     );
   }
@@ -91,9 +82,13 @@ class _CustomCharacterButtonState extends State<CustomCharacterButton> {
         ),
         alignment: widget.alignment,
         padding: widget.padding == null
-            ? EdgeInsets.only(top: 4, left: 4)
+            ? EdgeInsets.only(top: 3, left: 3)
             : EdgeInsets.only(
-                top: widget.padding.top + 4, left: widget.padding.left + 4),
+                top: widget.padding.top + 3,
+                left: widget.padding.left + 3,
+                right: widget.padding.right,
+                bottom: widget.padding.bottom,
+              ),
         child: widget.child,
       ),
     );

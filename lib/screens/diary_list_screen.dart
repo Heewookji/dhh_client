@@ -1,4 +1,5 @@
 import 'package:dhh_client/constants.dart';
+import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/diary_details_provider.dart';
@@ -20,7 +21,7 @@ class DiaryListScreen extends StatefulWidget {
 class _DiaryListScreenState extends State<DiaryListScreen> {
   final _diaryScroll = ScrollController();
   bool _isBusy = true;
-  int _chosenCharacterId;
+  Character _chosenCharacter;
 
   @override
   void initState() {
@@ -37,8 +38,9 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
     });
   }
 
-  Future<void> _setDiariesAndQuestions(int id, {init = false}) async {
-    if (id == null) {
+  Future<void> _setDiariesAndQuestions(Character character,
+      {init = false}) async {
+    if (character == null) {
       await Provider.of<DiariesProvider>(context, listen: false)
           .setAllDiaries();
       await Provider.of<QuestionsProvider>(context, listen: false)
@@ -46,12 +48,12 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
               Provider.of<DiariesProvider>(context, listen: false).diaryIds);
     } else {
       await Provider.of<DiariesProvider>(context, listen: false)
-          .setDiariesByCharacterId(id);
+          .setDiariesByCharacterId(character.id);
       await Provider.of<QuestionsProvider>(context, listen: false)
           .setQuestionMapByDiaryIds(
               Provider.of<DiariesProvider>(context, listen: false).diaryIds);
     }
-    _chosenCharacterId = id;
+    _chosenCharacter = character;
     if (!init) {
       _diaryScroll.animateTo(
         0,
@@ -74,20 +76,22 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(),
-      body: _isBusy
-          ? Center(child: CircularProgressIndicator())
-          : Consumer4<CharactersProvider, DiariesProvider, QuestionsProvider,
-              DiaryDetailProvider>(
-              builder: (context, charactersProvider, diariesProvider,
-                  questionProvider, diaryDetailProvider, child) {
-                final characters = charactersProvider.characters;
-                final diaries = diariesProvider.diaries;
-                final questionMap = questionProvider.questionMap;
-                final diaryDetails = diaryDetailProvider.setDiaryDetails(
-                    characters, questionMap, diaries);
-                return Container(
+    return Consumer4<CharactersProvider, DiariesProvider, QuestionsProvider,
+        DiaryDetailProvider>(
+      builder: (context, charactersProvider, diariesProvider, questionProvider,
+          diaryDetailProvider, child) {
+        final characters = charactersProvider.characters;
+        final diaries = diariesProvider.diaries;
+        final questionMap = questionProvider.questionMap;
+        final diaryDetails = diaryDetailProvider.setDiaryDetails(
+            characters, questionMap, diaries);
+        return Scaffold(
+          appBar: AppBar(),
+          backgroundColor:
+              _chosenCharacter != null ? Color(_chosenCharacter.color) : null,
+          body: _isBusy
+              ? Center(child: CircularProgressIndicator())
+              : Container(
                   padding: EdgeInsets.only(
                     top: _screenSize.height *
                         Constants.BODY_HEIGHT_PADDING_PERCENT,
@@ -97,7 +101,7 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
                       DiaryListPanel(diaries.length),
                       CharacterList(
                         characters,
-                        _chosenCharacterId,
+                        _chosenCharacter,
                         _setDiariesAndQuestions,
                       ),
                       DiaryList(
@@ -107,9 +111,9 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
                       ),
                     ],
                   ),
-                );
-              },
-            ),
+                ),
+        );
+      },
     );
   }
 }

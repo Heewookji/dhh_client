@@ -1,6 +1,7 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/diary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants.dart';
 import '../custom_bubble.dart';
@@ -31,9 +32,13 @@ class DiaryList extends StatelessWidget {
           itemBuilder: (context, i) {
             final character = _diaryDetails[i][Character] as Character;
             final diary = _diaryDetails[i][Diary] as Diary;
+            final evenList = [0, 2];
+            final oddList = [1, 3];
+            final bubbleNumber = i % 2 == 1
+                ? (oddList..shuffle()).first
+                : (evenList..shuffle()).first;
             return Container(
               key: Key(diary.id.toString()),
-              height: _screenSize.height * 0.135,
               padding: EdgeInsets.only(
                 top: Constants.BORDER_WIDTH,
                 left: Constants.BORDER_WIDTH,
@@ -41,8 +46,15 @@ class DiaryList extends StatelessWidget {
                 right: Constants.SHADOW_WIDTH,
               ),
               child: CustomBubble(
-                Container(),
-                color: character.color,
+                SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: SvgPicture.asset(
+                    character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
+                  ),
+                ),
+                Size(double.infinity, _screenSize.height * 0.135),
+                color: Colors.white,
                 onPressed: () {
                   _navigateDiaryDetailScreen(
                     context,
@@ -50,6 +62,7 @@ class DiaryList extends StatelessWidget {
                     i,
                   );
                 },
+                bubbleNumber: bubbleNumber,
               ),
             );
           },

@@ -1,4 +1,5 @@
 import 'package:dhh_client/models/character.dart';
+import 'package:dhh_client/models/diary.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -8,8 +9,13 @@ class DiaryList extends StatelessWidget {
   final List<Map<Type, Object>> _diaryDetails;
   final Function(BuildContext, List<Map<Type, Object>>, int)
       _navigateDiaryDetailScreen;
+  final _scrollController;
 
-  DiaryList(this._diaryDetails, this._navigateDiaryDetailScreen);
+  DiaryList(
+    this._diaryDetails,
+    this._navigateDiaryDetailScreen,
+    this._scrollController,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +26,13 @@ class DiaryList extends StatelessWidget {
           horizontal: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
         ),
         child: ListView.builder(
+          controller: _scrollController,
           itemCount: _diaryDetails.length,
           itemBuilder: (context, i) {
             final character = _diaryDetails[i][Character] as Character;
+            final diary = _diaryDetails[i][Diary] as Diary;
             return Container(
+              key: Key(diary.id.toString()),
               height: _screenSize.height * 0.135,
               padding: EdgeInsets.only(
                 top: Constants.BORDER_WIDTH,
@@ -34,11 +43,13 @@ class DiaryList extends StatelessWidget {
               child: CustomBubble(
                 Container(),
                 color: character.color,
-                onPressed: () => _navigateDiaryDetailScreen(
-                  context,
-                  _diaryDetails,
-                  i,
-                ),
+                onPressed: () {
+                  _navigateDiaryDetailScreen(
+                    context,
+                    _diaryDetails,
+                    i,
+                  );
+                },
               ),
             );
           },

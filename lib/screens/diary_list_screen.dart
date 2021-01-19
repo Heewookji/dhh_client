@@ -18,6 +18,7 @@ class DiaryListScreen extends StatefulWidget {
 }
 
 class _DiaryListScreenState extends State<DiaryListScreen> {
+  final _diaryScroll = ScrollController();
   bool _isBusy = true;
   int _chosenCharacterId;
 
@@ -30,13 +31,13 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
   void _doFuture() async {
     await Provider.of<CharactersProvider>(context, listen: false)
         .setAllCharacters();
-    await _setDiariesAndQuestions(null);
+    await _setDiariesAndQuestions(null, init: true);
     setState(() {
       _isBusy = false;
     });
   }
 
-  Future<void> _setDiariesAndQuestions(int id) async {
+  Future<void> _setDiariesAndQuestions(int id, {init = false}) async {
     if (id == null) {
       await Provider.of<DiariesProvider>(context, listen: false)
           .setAllDiaries();
@@ -51,6 +52,13 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
               Provider.of<DiariesProvider>(context, listen: false).diaryIds);
     }
     _chosenCharacterId = id;
+    if (!init) {
+      _diaryScroll.animateTo(
+        0,
+        duration: Duration(milliseconds: 600),
+        curve: Curves.easeOutCirc,
+      );
+    }
   }
 
   void _navigateDiaryDetailScreen(BuildContext context,
@@ -95,6 +103,7 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
                       DiaryList(
                         diaryDetails,
                         _navigateDiaryDetailScreen,
+                        _diaryScroll,
                       ),
                     ],
                   ),

@@ -9,10 +9,12 @@ class CustomCharacterButton extends StatefulWidget {
   final Function onPressed;
   final Alignment alignment;
   final EdgeInsets padding;
+  final bool isPressed;
 
   CustomCharacterButton(
     this.child,
-    this.color, {
+    this.color,
+    this.isPressed, {
     this.onPressed,
     this.padding,
     this.alignment,
@@ -28,11 +30,11 @@ class _CustomCharacterButtonState extends State<CustomCharacterButton> {
   static const Offset innerShadow = Constants.INNER_SHADOW_OFFSET;
   static final BoxBorder border =
       Border.all(width: Constants.BORDER_WIDTH, color: Colors.black);
-  bool pressed = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    bool pressed = widget.isPressed;
     return GestureDetector(
       child: pressed ? _buildPressedButton(theme) : _buildButton(theme),
       onTap: () {

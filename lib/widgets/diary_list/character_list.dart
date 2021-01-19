@@ -11,7 +11,10 @@ class CharacterList extends StatelessWidget {
   final Function(int) _setDiariesAndQuestions;
 
   CharacterList(
-      this._characters, this._chosenCharacterId, this._setDiariesAndQuestions);
+    this._characters,
+    this._chosenCharacterId,
+    this._setDiariesAndQuestions,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,7 @@ class CharacterList extends StatelessWidget {
                           Constants.CHARACTER_IMAGE_FORMAT,
                     ),
                     Color(character.color),
+                    _chosenCharacterId == character.id,
                     onPressed: () => _setDiariesAndQuestions(character.id),
                   ),
                 ),
@@ -69,6 +73,7 @@ class CharacterList extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Colors.black,
+              _chosenCharacterId == null,
               onPressed: () => _setDiariesAndQuestions(null),
             ),
           ),

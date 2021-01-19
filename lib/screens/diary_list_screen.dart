@@ -76,44 +76,47 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    return Consumer4<CharactersProvider, DiariesProvider, QuestionsProvider,
-        DiaryDetailProvider>(
-      builder: (context, charactersProvider, diariesProvider, questionProvider,
-          diaryDetailProvider, child) {
-        final characters = charactersProvider.characters;
-        final diaries = diariesProvider.diaries;
-        final questionMap = questionProvider.questionMap;
-        final diaryDetails = diaryDetailProvider.setDiaryDetails(
-            characters, questionMap, diaries);
-        return Scaffold(
-          appBar: AppBar(),
-          backgroundColor:
-              _chosenCharacter != null ? Color(_chosenCharacter.color) : null,
-          body: _isBusy
-              ? Center(child: CircularProgressIndicator())
-              : Container(
-                  padding: EdgeInsets.only(
-                    top: _screenSize.height *
-                        Constants.BODY_HEIGHT_PADDING_PERCENT,
-                  ),
-                  child: Column(
-                    children: [
-                      DiaryListPanel(diaries.length),
-                      CharacterList(
-                        characters,
-                        _chosenCharacter,
-                        _setDiariesAndQuestions,
+    return _isBusy
+        ? Scaffold(appBar: AppBar())
+        : Consumer4<CharactersProvider, DiariesProvider, QuestionsProvider,
+            DiaryDetailProvider>(
+            builder: (context, charactersProvider, diariesProvider,
+                questionProvider, diaryDetailProvider, child) {
+              final characters = charactersProvider.characters;
+              final diaries = diariesProvider.diaries;
+              final questionMap = questionProvider.questionMap;
+              final diaryDetails = diaryDetailProvider.setDiaryDetails(
+                  characters, questionMap, diaries);
+              return Scaffold(
+                appBar: AppBar(),
+                backgroundColor: _chosenCharacter != null
+                    ? Color(_chosenCharacter.color)
+                    : null,
+                body: _isBusy
+                    ? Center(child: CircularProgressIndicator())
+                    : Container(
+                        padding: EdgeInsets.only(
+                          top: _screenSize.height *
+                              Constants.BODY_HEIGHT_PADDING_PERCENT,
+                        ),
+                        child: Column(
+                          children: [
+                            DiaryListPanel(diaries.length),
+                            CharacterList(
+                              characters,
+                              _chosenCharacter,
+                              _setDiariesAndQuestions,
+                            ),
+                            DiaryList(
+                              diaryDetails,
+                              _navigateDiaryDetailScreen,
+                              _diaryScroll,
+                            ),
+                          ],
+                        ),
                       ),
-                      DiaryList(
-                        diaryDetails,
-                        _navigateDiaryDetailScreen,
-                        _diaryScroll,
-                      ),
-                    ],
-                  ),
-                ),
-        );
-      },
-    );
+              );
+            },
+          );
   }
 }

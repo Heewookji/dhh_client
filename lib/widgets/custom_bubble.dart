@@ -7,12 +7,14 @@ class CustomBubble extends StatelessWidget {
   final Function onPressed;
   final Alignment alignment;
   final EdgeInsets padding;
+  final int color;
 
   CustomBubble(
     this.child, {
     this.onPressed,
     this.padding,
     this.alignment,
+    this.color,
   });
 
   @override
@@ -23,7 +25,7 @@ class CustomBubble extends StatelessWidget {
         padding: padding,
         child: SizedBox(
           child: CustomPaint(
-            painter: MyPainter(),
+            painter: MyPainter(Color(color)),
           ),
         ),
       ),
@@ -35,10 +37,14 @@ class CustomBubble extends StatelessWidget {
 }
 
 class MyPainter extends CustomPainter {
+  final Color color;
+
+  MyPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.amber
+      ..color = color
       ..style = PaintingStyle.fill;
     final outLinePaint = Paint()
       ..color = Colors.black

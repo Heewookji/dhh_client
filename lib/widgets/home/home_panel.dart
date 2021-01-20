@@ -1,30 +1,43 @@
+import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
+import 'package:dhh_client/widgets/custom_bubble.dart';
 import 'package:flutter/material.dart';
 
 class HomePanel extends StatelessWidget {
   final Question _chosenQuestion;
-  final Size _screenSize;
+  final Character _chosenCharacter;
   final bool _isSubmittedToday;
-  HomePanel(this._chosenQuestion, this._screenSize, this._isSubmittedToday);
+  HomePanel(
+      this._chosenQuestion, this._chosenCharacter, this._isSubmittedToday);
 
   @override
   Widget build(BuildContext context) {
-//    return SvgPicture.asset(
-//      'assets/images/bubble.svg',
-//      color: Colors.amber,
-//    );
+    final _screenSize = MediaQuery.of(context).size;
+    final _theme = Theme.of(context);
     return Container(
-      alignment: Alignment.center,
-      height: _screenSize.height * 0.25,
+      padding: EdgeInsets.only(top: _screenSize.height * 0.04324),
+      alignment: Alignment.topCenter,
       child: false
           ? null
-          : _chosenQuestion != null
-              ? Text(_chosenQuestion.text)
-              : Text(
-                  '푸쉬 알림을 통해\n 규칙적인 일기 습관을 만들어요.',
+          : CustomBubble(
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  _chosenQuestion != null
+                      ? _chosenQuestion.text
+                      : '푸쉬 알림을 통해\n규칙적인 일기 습관을 만들어요.',
+                  style: _theme.textTheme.bodyText1,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14),
                 ),
+              ),
+              _chosenCharacter == null
+                  ? Colors.white
+                  : Color(_chosenCharacter.color),
+              Size(double.infinity, _screenSize.height * 0.167),
+              padding: EdgeInsets.only(
+                bottom: _screenSize.height * 0.03,
+              ),
+            ),
     );
   }
 }

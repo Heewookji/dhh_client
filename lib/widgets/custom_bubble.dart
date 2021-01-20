@@ -12,11 +12,11 @@ class CustomBubble extends StatelessWidget {
 
   CustomBubble(
     this.child,
+    this.color,
     this.size, {
     this.onPressed,
     this.padding,
     this.alignment,
-    this.color,
     this.bubbleNumber,
   });
 

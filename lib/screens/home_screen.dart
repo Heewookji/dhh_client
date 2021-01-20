@@ -13,6 +13,8 @@ import 'package:dhh_client/widgets/home/home_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
+
 class HomeScreen extends StatefulWidget {
   static final routeName = '/Home';
 
@@ -111,7 +113,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
+    final _mediaQuery = MediaQuery.of(context);
+    final appBar = AppBar(
+      title: Text('App Name'),
+      centerTitle: false,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.widgets),
+          onPressed: () => _navigateDiaryListScreen(context),
+        ),
+        IconButton(
+          icon: Icon(Icons.circle),
+          onPressed: () => _navigateSettingScreen(context),
+        ),
+      ],
+    );
+    final _screenSize = Size(
+      _mediaQuery.size.width,
+      _mediaQuery.size.height -
+          _mediaQuery.padding.top -
+          _mediaQuery.padding.bottom -
+          appBar.preferredSize.height,
+    );
     final topDiary = Provider.of<DiariesProvider>(context).topDiary;
     _isSubmittedToday =
         topDiary != null && topDiary.createdAt.day == DateTime.now().day;
@@ -132,20 +155,32 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: _isBusy
           ? Center()
-          : SingleChildScrollView(
-              child: Column(
+          : Container(
+              padding: EdgeInsets.only(
+                left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+                right: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+              ),
+              child: Stack(
                 children: <Widget>[
-                  HomePanel(
-                    _chosenQuestion,
-                    _screenSize,
-                    _isSubmittedToday,
+                  Container(
+                    height: _screenSize.height,
+                    width: _screenSize.width,
                   ),
-                  CharacterHome(_chooseCharacter, _screenSize),
-                  HomeButton(
-                    _chosenQuestion,
-                    _navigateWriteScreen,
-                    _screenSize,
-                    _isSubmittedToday,
+                  CharacterHome(_chooseCharacter),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      HomePanel(
+                        _chosenQuestion,
+                        _chosenCharacter,
+                        _isSubmittedToday,
+                      ),
+                      HomeButton(
+                        _chosenQuestion,
+                        _navigateWriteScreen,
+                        _isSubmittedToday,
+                      ),
+                    ],
                   ),
                 ],
               ),

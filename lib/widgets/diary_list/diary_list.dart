@@ -53,8 +53,8 @@ class DiaryList extends StatelessWidget {
                     character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
                   ),
                 ),
+                Colors.white,
                 Size(double.infinity, _screenSize.height * 0.135),
-                color: Colors.white,
                 onPressed: () {
                   _navigateDiaryDetailScreen(
                     context,

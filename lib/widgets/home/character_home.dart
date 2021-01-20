@@ -10,8 +10,7 @@ import 'package:provider/provider.dart';
 
 class CharacterHome extends StatefulWidget {
   final Function(Character, QuestionsProvider) _chooseCharacter;
-  final Size _screenSize;
-  CharacterHome(this._chooseCharacter, this._screenSize);
+  CharacterHome(this._chooseCharacter);
   @override
   _CharacterHomeState createState() => _CharacterHomeState();
 }
@@ -32,9 +31,11 @@ class _CharacterHomeState extends State<CharacterHome> {
 
   @override
   Widget build(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.black12,
-      height: widget._screenSize.height * 0.55,
+      margin: EdgeInsets.only(top: _screenSize.height * 0.232),
+      height: _screenSize.height * 0.5,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           _locationPoints = getLocationPoints(constraints.biggest);

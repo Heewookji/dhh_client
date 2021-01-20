@@ -57,9 +57,9 @@ class NotificationService {
   static tz.TZDateTime _nextInstanceOfScheduledTime(int hour, int minute) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, now.hour, minute);
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
     if (scheduledDate.isBefore(now))
-      scheduledDate = scheduledDate.add(const Duration(hours: 1));
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
     return scheduledDate;
   }
 
@@ -67,6 +67,5 @@ class NotificationService {
     final list =
         await _flutterLocalNotificationsPlugin.pendingNotificationRequests();
     print(list[0].id.toString() + '\n' + list[0].payload);
-    return tz.TZDateTime.parse(tz.local, list[0].payload);
   }
 }

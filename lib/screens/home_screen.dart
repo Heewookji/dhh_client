@@ -6,8 +6,8 @@ import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/setting_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
+import 'package:dhh_client/widgets/custom_dialog.dart';
 import 'package:dhh_client/widgets/home/character_home.dart';
-import 'package:dhh_client/widgets/home/character_out_dialog.dart';
 import 'package:dhh_client/widgets/home/home_button.dart';
 import 'package:dhh_client/widgets/home/home_panel.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       await showDialog(
         context: context,
         barrierColor: Colors.black54,
-        builder: (context) => CharacterOutDialog(result),
+        builder: (context) => CustomDialog(result),
       );
     }
     await Provider.of<CharactersProvider>(context, listen: false)
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
       await showDialog(
         context: context,
         barrierColor: Colors.black54,
-        builder: (context) => CharacterOutDialog(result),
+        builder: (context) => CustomDialog(result),
       );
     }
     setState(() {

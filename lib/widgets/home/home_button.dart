@@ -24,6 +24,7 @@ class HomeButton extends StatelessWidget {
                 '일기쓰기',
                 onPressed: () => _navigateWriteScreen(context),
                 alignment: Alignment.center,
+                color: Colors.black,
               ),
             ),
           );

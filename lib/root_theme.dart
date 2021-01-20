@@ -11,22 +11,6 @@ class RootTheme {
       ),
       fontFamily: 'NanumSquareRound',
       textTheme: TextTheme(
-        headline1: TextStyle(
-          fontSize: 64,
-          fontWeight: FontWeight.w900,
-        ),
-        headline2: TextStyle(
-          fontSize: 56,
-          fontWeight: FontWeight.w900,
-          height: 1.4,
-          color: Colors.black,
-        ),
-        headline3: TextStyle(
-          fontSize: 45,
-          fontWeight: FontWeight.w900,
-          height: 1.4,
-          color: Colors.black,
-        ),
         headline6: TextStyle(
           fontSize: 34,
           fontWeight: FontWeight.w900,

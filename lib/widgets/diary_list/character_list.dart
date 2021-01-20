@@ -20,7 +20,7 @@ class CharacterList extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: _screenSize.height * 0.0675 + Constants.SHADOW_WIDTH * 2,
+      height: _screenSize.height * 0.0675 + Constants.SHADOW_WIDTH * 4,
       margin: EdgeInsets.only(bottom: _screenSize.height * 0.03378),
       child: ListView.builder(
         itemCount: _characters.length,

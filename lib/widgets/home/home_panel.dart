@@ -21,6 +21,7 @@ class HomePanel extends StatelessWidget {
           ? null
           : CustomBubble(
               Container(
+                margin: EdgeInsets.all(10),
                 alignment: Alignment.center,
                 child: Text(
                   _chosenQuestion != null

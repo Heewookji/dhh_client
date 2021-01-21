@@ -15,7 +15,7 @@ class AlarmScreen extends StatefulWidget {
 }
 
 class _AlarmScreenState extends State<AlarmScreen> {
-  DateTime _initialDateTime = DateTime.now();
+  DateTime _initialDateTime;
   DateTime _scheduleDateTime;
 
   void _setAlarmSchedule() async {
@@ -68,19 +68,27 @@ class _AlarmScreenState extends State<AlarmScreen> {
               Container(
                 height: _screenSize.height * 0.275,
                 child: CustomCard(
-                  CupertinoTheme(
-                    data: CupertinoThemeData(
-                      textTheme: CupertinoTextThemeData(
-                        dateTimePickerTextStyle: theme.textTheme.subtitle1,
-                      ),
-                    ),
-                    child: CupertinoDatePicker(
-                      initialDateTime: _initialDateTime,
-                      onDateTimeChanged: (dateTime) {
-                        _scheduleDateTime = dateTime;
-                      },
-                      mode: CupertinoDatePickerMode.time,
-                    ),
+                  FutureBuilder<DateTime>(
+                    future: NotificationService.getCurrentNotification(),
+                    builder: (ctx, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting)
+                        return Container();
+                      _initialDateTime = snapshot.data ?? DateTime.now();
+                      return CupertinoTheme(
+                        data: CupertinoThemeData(
+                          textTheme: CupertinoTextThemeData(
+                            dateTimePickerTextStyle: theme.textTheme.subtitle1,
+                          ),
+                        ),
+                        child: CupertinoDatePicker(
+                          initialDateTime: _initialDateTime,
+                          onDateTimeChanged: (dateTime) {
+                            _scheduleDateTime = dateTime;
+                          },
+                          mode: CupertinoDatePickerMode.time,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -89,17 +97,6 @@ class _AlarmScreenState extends State<AlarmScreen> {
                   '설정',
                   color: Colors.black,
                   onPressed: _setAlarmSchedule,
-                  alignment: Alignment.center,
-                ),
-                margin: EdgeInsets.only(top: _screenSize.height * 0.03243),
-              ),
-              Container(
-                child: CustomRaisedButton(
-                  '알람출력',
-                  color: Colors.black,
-                  onPressed: () {
-                    NotificationService.getCurrentNotification();
-                  },
                   alignment: Alignment.center,
                 ),
                 margin: EdgeInsets.only(top: _screenSize.height * 0.03243),

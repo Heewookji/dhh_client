@@ -28,6 +28,7 @@ class DiaryList extends StatelessWidget {
         ),
         child: ListView.builder(
           controller: _scrollController,
+          physics: const BouncingScrollPhysics(),
           itemCount: _diaryDetails.length,
           itemBuilder: (context, i) {
             final character = _diaryDetails[i][Character] as Character;

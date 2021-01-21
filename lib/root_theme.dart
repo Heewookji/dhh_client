@@ -9,6 +9,12 @@ class RootTheme {
         color: Colors.transparent,
         elevation: 0,
       ),
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
       fontFamily: 'NanumSquareRound',
       textTheme: TextTheme(
         headline6: TextStyle(

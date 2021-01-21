@@ -25,6 +25,7 @@ class CharacterList extends StatelessWidget {
       child: ListView.builder(
         itemCount: _characters.length,
         scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, i) {
           final character = _characters[i];
           return Row(

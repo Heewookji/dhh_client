@@ -1,6 +1,7 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/serializers.dart';
 import 'package:dhh_client/services/db_service.dart';
+import 'package:dhh_client/widgets/custom_dialog.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 import '../constants.dart';
@@ -118,6 +119,7 @@ class CharacterSql {
       int diaryCount) async {
     final db = await DbService.database();
     final Map<String, Object> result = {
+      'status': Status.CharacterIn,
       'newCharacter': null,
       'firstSubmitted': diaryCount == 1,
     };

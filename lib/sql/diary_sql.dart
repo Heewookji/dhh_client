@@ -1,6 +1,7 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/services/db_service.dart';
 import 'package:dhh_client/sql/character_sql.dart';
+import 'package:dhh_client/widgets/custom_dialog.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 import '../constants.dart';
@@ -44,6 +45,7 @@ class DiarySql {
     Character character,
   ) async {
     final Map<String, Object> result = {
+      'status': Status.CharacterOut,
       'submittedCharacter': character,
       'updated': false,
       'traveled': false,
@@ -100,12 +102,12 @@ class DiarySql {
     } catch (e, trace) {
       print(trace);
       return {
+        'status': Status.Error,
         'submittedCharacter': character,
         'updated': false,
         'traveled': false,
         'finished': false,
         'allFinished': false,
-        'error': true,
       };
     }
     return result;

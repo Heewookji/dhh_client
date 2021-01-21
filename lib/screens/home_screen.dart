@@ -91,6 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
         'question': _chosenQuestion,
       },
     ) as Map;
+    setState(() {
+      _chosenCharacter = _chosenQuestion = null;
+    });
     print(result);
     if (result != null &&
         (result['traveled'] || result['finished'] || result['allFinished'])) {
@@ -100,9 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context) => CustomDialog(result),
       );
     }
-    setState(() {
-      _chosenCharacter = _chosenQuestion = null;
-    });
     await Provider.of<QuestionsProvider>(context, listen: false)
         .setQuestionMapByCharacterIds(
             Provider.of<CharactersProvider>(context, listen: false)

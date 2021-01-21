@@ -4,8 +4,8 @@ import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/widgets/custom_card.dart';
+import 'package:dhh_client/widgets/custom_dialog.dart';
 import 'package:dhh_client/widgets/custom_raised_button.dart';
-import 'package:dhh_client/widgets/write/write_error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -158,11 +158,11 @@ class _WriteScreenState extends State<WriteScreen> {
                 charactersProvider,
                 character,
               );
-              if (result['error'] == true) {
+              if (result['status'] == Status.Error) {
                 await showDialog(
                   context: context,
                   barrierColor: Colors.black54,
-                  builder: (context) => WriteErrorDialog(),
+                  builder: (context) => CustomDialog(result),
                 );
                 return;
               }

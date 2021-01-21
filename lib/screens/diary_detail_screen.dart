@@ -22,6 +22,7 @@ class DiaryDetailScreen extends StatelessWidget {
       appBar: AppBar(),
       backgroundColor: Color(character.color),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           padding: EdgeInsets.only(
             left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,

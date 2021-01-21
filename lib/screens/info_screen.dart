@@ -23,6 +23,7 @@ class InfoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           padding: EdgeInsets.only(
             left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,

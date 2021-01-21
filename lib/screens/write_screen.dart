@@ -19,8 +19,16 @@ class WriteScreen extends StatefulWidget {
 
 class _WriteScreenState extends State<WriteScreen> {
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focus = FocusNode();
   Character character;
   Question question;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +39,23 @@ class _WriteScreenState extends State<WriteScreen> {
     question = arguments['question'];
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
-            right: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
-            top: _screenSize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
-          ),
-          child: Column(
-            children: [
-              _buildPanel(theme, _screenSize),
-              _buildTextField(theme, _screenSize),
-              _buildSubmitButton(context, _screenSize),
-            ],
+      body: GestureDetector(
+        onTap: () => _focus.unfocus(),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Container(
+            padding: EdgeInsets.only(
+              left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+              right: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
+              top: _screenSize.height * Constants.BODY_HEIGHT_PADDING_PERCENT,
+            ),
+            child: Column(
+              children: [
+                _buildPanel(theme, _screenSize),
+                _buildTextField(theme, _screenSize),
+                _buildSubmitButton(context, _screenSize),
+              ],
+            ),
           ),
         ),
       ),
@@ -108,10 +120,12 @@ class _WriteScreenState extends State<WriteScreen> {
           height: _screenSize.height * 0.3,
           child: TextFormField(
             controller: _controller,
-            onChanged: (value) {
-              setState(() {});
-            },
+            focusNode: _focus,
             style: theme.textTheme.bodyText2,
+            autocorrect: false,
+            enableSuggestions: false,
+            scrollPhysics: BouncingScrollPhysics(),
+            keyboardType: TextInputType.text,
             decoration: InputDecoration(
               border: InputBorder.none,
               helperStyle: TextStyle(height: 0),
@@ -133,30 +147,31 @@ class _WriteScreenState extends State<WriteScreen> {
   Widget _buildSubmitButton(BuildContext context, Size _screenSize) {
     return Consumer2<DiariesProvider, CharactersProvider>(
       builder: (context, diariesProvider, charactersProvider, child) {
-        return CustomRaisedButton(
-          '저장하기',
-          onPressed: _controller.text.length == 0
-              ? null
-              : () async {
-                  final result =
-                      await diariesProvider.addDiaryAndUpdateCharacter(
-                    question.id,
-                    _controller.text,
-                    charactersProvider,
-                    character,
-                  );
-                  if (result['error'] == true) {
-                    await showDialog(
-                      context: context,
-                      barrierColor: Colors.black54,
-                      builder: (context) => WriteErrorDialog(),
-                    );
-                    return;
-                  }
-                  Navigator.of(context).pop<Map>(result);
-                },
-          color: Colors.black,
-          alignment: Alignment.center,
+        return Container(
+          child: CustomRaisedButton(
+            '저장하기',
+            onPressed: () async {
+              if (_controller.text.length == 0) return;
+              final result = await diariesProvider.addDiaryAndUpdateCharacter(
+                question.id,
+                _controller.text,
+                charactersProvider,
+                character,
+              );
+              if (result['error'] == true) {
+                await showDialog(
+                  context: context,
+                  barrierColor: Colors.black54,
+                  builder: (context) => WriteErrorDialog(),
+                );
+                return;
+              }
+              Navigator.of(context).pop<Map>(result);
+            },
+            color: Colors.black,
+            alignment: Alignment.center,
+          ),
+          margin: EdgeInsets.only(bottom: _screenSize.height * 0.02702),
         );
       },
     );

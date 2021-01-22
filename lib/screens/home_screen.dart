@@ -37,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _doInitFuture() async {
+    await Provider.of<HomeProvider>(context, listen: false).setAllFinished();
     await _newCharacterComeIfPossible();
     await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
-    await Provider.of<HomeProvider>(context, listen: false).setAllFinished();
     setState(() {
       _isBusy = false;
     });
@@ -58,6 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
         barrierColor: Colors.black54,
         builder: (context) => CustomDialog(result),
       );
+    }
+    if (Provider.of<HomeProvider>(context, listen: false).allFinished != null &&
+        Provider.of<HomeProvider>(context, listen: false).allFinished) {
+      await Provider.of<CharactersProvider>(context, listen: false)
+          .setAllCharacters();
+      return;
     }
     await Provider.of<CharactersProvider>(context, listen: false)
         .setHomeCharacters();
@@ -155,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Stack(
                 children: <Widget>[
                   _allFinished
-                      ? CharacterFinishedHome(_chooseCharacter)
+                      ? CharacterFinishedHome()
                       : CharacterHome(
                           _chooseCharacter,
                         ),

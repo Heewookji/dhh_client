@@ -1,6 +1,7 @@
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/diary_details_provider.dart';
+import 'package:dhh_client/providers/home_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/root_theme.dart';
 import 'package:dhh_client/screens/alarm_screen.dart';
@@ -52,6 +53,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider.value(value: _allCharacterProvider),
         ChangeNotifierProvider.value(value: _allQuestionProvider),
         ChangeNotifierProvider(create: (_) => DiariesProvider()),

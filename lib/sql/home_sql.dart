@@ -12,11 +12,11 @@ class HomeSql {
   static Future<bool> existEmptySpace() async {
     final db = await DbService.database();
     return sql.Sqflite.firstIntValue(
-          await db.rawQuery(''
-              'select count(*) from home_location '
-              'where character_id is null '
-              ''),
-        ) !=
+      await db.rawQuery(''
+          'select count(*) from home_location '
+          'where character_id is null '
+          ''),
+    ) !=
         0;
   }
 

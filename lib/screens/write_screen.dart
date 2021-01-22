@@ -3,6 +3,7 @@ import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
+import 'package:dhh_client/providers/home_provider.dart';
 import 'package:dhh_client/widgets/custom_card.dart';
 import 'package:dhh_client/widgets/custom_dialog.dart';
 import 'package:dhh_client/widgets/custom_raised_button.dart';
@@ -145,8 +146,9 @@ class _WriteScreenState extends State<WriteScreen> {
   }
 
   Widget _buildSubmitButton(BuildContext context, Size _screenSize) {
-    return Consumer2<DiariesProvider, CharactersProvider>(
-      builder: (context, diariesProvider, charactersProvider, child) {
+    return Consumer3<DiariesProvider, CharactersProvider, HomeProvider>(
+      builder:
+          (context, diariesProvider, charactersProvider, homeProvider, child) {
         return Container(
           child: CustomRaisedButton(
             '저장하기',
@@ -157,6 +159,7 @@ class _WriteScreenState extends State<WriteScreen> {
                 _controller.text,
                 charactersProvider,
                 character,
+                homeProvider,
               );
               if (result['status'] == Status.Error) {
                 await showDialog(

@@ -5,6 +5,8 @@ import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/sql/diary_sql.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'home_provider.dart';
+
 class DiariesProvider with ChangeNotifier {
   List<Diary> _diaries = [];
   Diary topDiary;
@@ -47,6 +49,7 @@ class DiariesProvider with ChangeNotifier {
     String text,
     CharactersProvider characterProvider,
     Character character,
+    HomeProvider homeProvider,
   ) async {
     final result = await DiarySql.addDiaryAndUpdateCharacter(
       standardSerializers.serializeWith(
@@ -58,8 +61,9 @@ class DiariesProvider with ChangeNotifier {
       ),
       character,
     );
-    setTopDiary();
-    characterProvider.setHomeCharacters();
+    await setTopDiary();
+    await homeProvider.setAllFinished();
+    await characterProvider.setHomeCharacters();
     return result;
   }
 }

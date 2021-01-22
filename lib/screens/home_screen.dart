@@ -2,11 +2,13 @@ import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/providers/diaries_provider.dart';
+import 'package:dhh_client/providers/home_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/diary_list_screen.dart';
 import 'package:dhh_client/screens/setting_screen.dart';
 import 'package:dhh_client/screens/write_screen.dart';
 import 'package:dhh_client/widgets/custom_dialog.dart';
+import 'package:dhh_client/widgets/home/character_finished_home.dart';
 import 'package:dhh_client/widgets/home/character_home.dart';
 import 'package:dhh_client/widgets/home/home_button.dart';
 import 'package:dhh_client/widgets/home/home_panel.dart';
@@ -35,8 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _doInitFuture() async {
-    _newCharacterComeIfPossible();
+    await _newCharacterComeIfPossible();
     await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
+    await Provider.of<HomeProvider>(context, listen: false).setAllFinished();
     setState(() {
       _isBusy = false;
     });
@@ -97,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print(result);
     if (result != null &&
         (result['traveled'] || result['finished'] || result['allFinished'])) {
-      await showDialog(
+      showDialog(
         context: context,
         barrierColor: Colors.black54,
         builder: (context) => CustomDialog(result),
@@ -114,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final _mediaQuery = MediaQuery.of(context);
-    final appBar = AppBar(
+    final _appBar = AppBar(
       title: Text('App Name'),
       centerTitle: false,
       actions: [
@@ -133,26 +136,15 @@ class _HomeScreenState extends State<HomeScreen> {
       _mediaQuery.size.height -
           _mediaQuery.padding.top -
           _mediaQuery.padding.bottom -
-          appBar.preferredSize.height,
+          _appBar.preferredSize.height,
     );
     final topDiary = Provider.of<DiariesProvider>(context).topDiary;
     _isSubmittedToday =
         topDiary != null && topDiary.createdAt.day == DateTime.now().day;
+    final _allFinished =
+        Provider.of<HomeProvider>(context, listen: false).allFinished;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('App Name'),
-        centerTitle: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.widgets),
-            onPressed: () => _navigateDiaryListScreen(context),
-          ),
-          IconButton(
-            icon: Icon(Icons.circle),
-            onPressed: () => _navigateSettingScreen(context),
-          ),
-        ],
-      ),
+      appBar: _appBar,
       body: _isBusy
           ? Center()
           : Container(
@@ -162,24 +154,28 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Stack(
                 children: <Widget>[
-                  Container(
-                    height: _screenSize.height,
-                    width: _screenSize.width,
-                  ),
-                  CharacterHome(_chooseCharacter),
+                  _allFinished
+                      ? CharacterFinishedHome(_chooseCharacter)
+                      : CharacterHome(
+                          _chooseCharacter,
+                        ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      HomePanel(
-                        _chosenQuestion,
-                        _chosenCharacter,
-                        _isSubmittedToday,
-                      ),
-                      HomeButton(
-                        _chosenQuestion,
-                        _navigateWriteScreen,
-                        _isSubmittedToday,
-                      ),
+                      _allFinished
+                          ? Container()
+                          : HomePanel(
+                              _chosenQuestion,
+                              _chosenCharacter,
+                              _isSubmittedToday,
+                            ),
+                      _allFinished
+                          ? Container()
+                          : HomeButton(
+                              _chosenQuestion,
+                              _navigateWriteScreen,
+                              _isSubmittedToday,
+                            ),
                     ],
                   ),
                 ],

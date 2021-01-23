@@ -92,20 +92,20 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
       children: [
         AnimatedContainer(
           duration: Duration(milliseconds: 300),
-          curve: Curves.easeInOutCirc,
+          curve: Curves.linear,
           width: character.id != chosenId ? homeSize.width * 0.2 : 0,
           height: character.id != chosenId ? homeSize.width * 0.1 : 0,
           margin: EdgeInsets.only(bottom: homeSize.height * 0.01),
         ),
         AnimatedContainer(
           duration: Duration(milliseconds: 300),
-          curve: Curves.easeInOutCirc,
+          curve: Curves.linear,
           width: character.id == chosenId ? homeSize.width * 0.2 : 0,
           height: character.id == chosenId ? homeSize.width * 0.1 : 0,
           child: character.id == chosenId
               ? CustomBubble(
                   FlatButton(
-                    child: Text('쓰기'),
+                    child: Text(''),
                     onPressed: () => _navigateFreeWriteScreen(character),
                   ),
                   Colors.white,

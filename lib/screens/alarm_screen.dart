@@ -67,7 +67,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                 margin: EdgeInsets.only(bottom: _screenSize.height * 0.01621),
               ),
               Container(
-                height: _screenSize.height * 0.275,
+                height: _screenSize.height * 0.4,
                 child: CustomCard(
                   FutureBuilder<DateTime>(
                     future: NotificationService.getCurrentNotification(),
@@ -95,12 +95,15 @@ class _AlarmScreenState extends State<AlarmScreen> {
               ),
               Container(
                 child: CustomRaisedButton(
-                  '설정',
+                  '설정하기',
                   color: Colors.black,
                   onPressed: _setAlarmSchedule,
                   alignment: Alignment.center,
                 ),
-                margin: EdgeInsets.only(top: _screenSize.height * 0.03243),
+                margin: EdgeInsets.only(
+                  top: _screenSize.height * 0.03243,
+                  bottom: _screenSize.height * 0.03243,
+                ),
               ),
             ],
           ),

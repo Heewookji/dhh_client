@@ -111,6 +111,7 @@ class _DiaryListScreenState extends State<DiaryListScreen> {
                               diaryDetails,
                               _navigateDiaryDetailScreen,
                               _diaryScroll,
+                              _chosenCharacter,
                             ),
                           ],
                         ),

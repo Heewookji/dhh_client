@@ -10,12 +10,14 @@ class DiaryList extends StatelessWidget {
   final List<Map<Type, Object>> _diaryDetails;
   final Function(BuildContext, List<Map<Type, Object>>, int)
       _navigateDiaryDetailScreen;
-  final _scrollController;
+  final ScrollController _scrollController;
+  final Character _chosenCharacter;
 
   DiaryList(
     this._diaryDetails,
     this._navigateDiaryDetailScreen,
     this._scrollController,
+    this._chosenCharacter,
   );
 
   @override
@@ -39,7 +41,12 @@ class DiaryList extends StatelessWidget {
                 ? (oddList..shuffle()).first
                 : (evenList..shuffle()).first;
             return Container(
-              key: Key(diary.id.toString()),
+              key: Key(
+                (_chosenCharacter == null
+                        ? 'all'
+                        : _chosenCharacter.id.toString()) +
+                    diary.id.toString(),
+              ),
               padding: EdgeInsets.only(
                 top: Constants.BORDER_WIDTH,
                 left: Constants.BORDER_WIDTH,
@@ -54,7 +61,9 @@ class DiaryList extends StatelessWidget {
                     character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
                   ),
                 ),
-                Colors.white,
+                _chosenCharacter == null
+                    ? Color(character.color)
+                    : Colors.white,
                 Size(double.infinity, _screenSize.height * 0.135),
                 onPressed: () {
                   _navigateDiaryDetailScreen(

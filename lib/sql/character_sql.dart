@@ -103,16 +103,18 @@ class CharacterSql {
     return result.length == 0 ? null : result[0];
   }
 
-  static Future<bool> getCharacterAllFinished() async {
+  static Future<int> getNotFinishedCharacterCount() async {
     final db = await DbService.database();
-    return sql.Sqflite.firstIntValue(
-          await db.rawQuery(''
-              'select count(*) from character c '
-              'inner join status s on c.id = s.character_id '
-              'where s.is_status_now = 1 and s.code != ${Constants.FINAL_STATUS} '
-              ''),
-        ) ==
-        0;
+    return sql.Sqflite.firstIntValue(await db.rawQuery(''
+        'select count(*) '
+        'from character c '
+        'where '
+        '( '
+        'select count(*) from question q '
+        'left outer join diary d on q.id = d.question_id '
+        'where q.character_id = c.id and d.id is null '
+        ') > 0 '
+        ''));
   }
 
   static Future<Map<String, Object>> setNewCharacterIfPossible(

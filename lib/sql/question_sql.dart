@@ -1,4 +1,5 @@
 import 'package:dhh_client/services/db_service.dart';
+import 'package:sqflite/sqflite.dart' as sql;
 
 class QuestionSql {
   static Future<List<Map<String, dynamic>>> getQuestionsByCharacterIds(
@@ -13,6 +14,15 @@ class QuestionSql {
         'group by q.character_id '
         'having q.id = min(q.id) '
         '');
+  }
+
+  static Future<int> getNotAnsweredCountByCharacterId(int characterId) async {
+    final db = await DbService.database();
+    return sql.Sqflite.firstIntValue(await db.rawQuery(''
+        'select count(*) from question q '
+        'left outer join diary d on q.id = d.question_id '
+        'where q.character_id = $characterId and d.id is null '
+        ''));
   }
 
   static Future<List<Map<String, dynamic>>> getQuestionsByDiaryIds(

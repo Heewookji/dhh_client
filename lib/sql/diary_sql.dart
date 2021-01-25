@@ -1,6 +1,7 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/services/db_service.dart';
 import 'package:dhh_client/sql/character_sql.dart';
+import 'package:dhh_client/sql/question_sql.dart';
 import 'package:dhh_client/widgets/custom_dialog.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
@@ -76,7 +77,12 @@ class DiarySql {
         );
         result['updated'] = true;
       } else {
-        final allFinished = await CharacterSql.getCharacterAllFinished();
+        final notFinishedCharacterCount =
+            await CharacterSql.getNotFinishedCharacterCount();
+        final notAnsweredCount =
+            await QuestionSql.getNotAnsweredCountByCharacterId(character.id);
+        final allFinished =
+            notFinishedCharacterCount == 1 && notAnsweredCount == 1;
         if (allFinished) {
           batch.rawUpdate(''
               'update home set all_finished = 1'

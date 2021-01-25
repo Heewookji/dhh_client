@@ -106,11 +106,19 @@ class _HomeScreenState extends State<HomeScreen> {
     print(result);
     if (result != null &&
         (result['traveled'] || result['finished'] || result['allFinished'])) {
-      showDialog(
-        context: context,
-        barrierColor: Colors.black54,
-        builder: (context) => CustomDialog(result),
-      );
+      if (result['allFinished']) {
+        showDialog(
+          context: context,
+          barrierColor: Colors.black54,
+          builder: (context) => CustomDialog(result),
+        );
+      } else {
+        await showDialog(
+          context: context,
+          barrierColor: Colors.black54,
+          builder: (context) => CustomDialog(result),
+        );
+      }
     }
     await Provider.of<QuestionsProvider>(context, listen: false)
         .setQuestionMapByCharacterIds(

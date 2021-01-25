@@ -10,6 +10,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class CharacterFinishedHome extends StatefulWidget {
+  final _isSubmittedToday;
+
+  CharacterFinishedHome(this._isSubmittedToday);
+
   @override
   _CharacterHomeState createState() => _CharacterHomeState();
 }
@@ -102,7 +106,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
           curve: Curves.easeOutCirc,
           width: character.id == chosenId ? homeSize.width * 0.2 : 0,
           height: character.id == chosenId ? homeSize.width * 0.1 : 0,
-          child: character.id == chosenId
+          child: character.id == chosenId && !widget._isSubmittedToday
               ? CustomBubble(
                   FlatButton(
                     child: Text('ㅇㅇㅇ'),

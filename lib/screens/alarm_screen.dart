@@ -74,7 +74,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
                     builder: (ctx, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting)
                         return Container();
-                      _initialDateTime = snapshot.data ?? DateTime.now();
+                      _initialDateTime =
+                          snapshot.data ?? DateTime.now().toLocal();
                       return CupertinoTheme(
                         data: CupertinoThemeData(
                           textTheme: CupertinoTextThemeData(

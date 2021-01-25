@@ -1,3 +1,4 @@
+import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -23,6 +24,13 @@ class NotificationService {
       initializationSettings,
       onSelectNotification: (payload) => _clickedNotification(payload, context),
     );
+    final nowNotification = await getCurrentNotification();
+    if (nowNotification == null) {
+      final now = DateTime.now().toLocal();
+      setScheduledNotification(
+          DateTime(now.year, now.month, now.day, Constants.ALARM_INIT_HOUR));
+      print('notification init!');
+    }
   }
 
   static Future<void> _clickedNotification(

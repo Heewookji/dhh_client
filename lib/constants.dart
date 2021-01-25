@@ -2,6 +2,7 @@ import 'dart:ui';
 
 class Constants {
   Constants._();
+  static const int ALARM_INIT_HOUR = 21;
   static const int HOME_CHARACTER_COUNT = 5;
   static const int TRAVEL_STATUS = 3;
   static const int FINAL_STATUS = 6;

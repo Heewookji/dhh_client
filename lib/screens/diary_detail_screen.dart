@@ -38,7 +38,8 @@ class DiaryDetailScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          DateFormat('y년 M월 d일').format(diary.createdAt),
+                          DateFormat('y년 M월 d일')
+                              .format(diary.createdAt.toLocal()),
                           style: theme.textTheme.caption,
                         ),
                         Text(

@@ -112,4 +112,18 @@ class DiarySql {
     }
     return result;
   }
+
+  static Future<void> addQuestionAndDiary(
+    Character character,
+    String question,
+    String diary,
+  ) async {
+    final db = await DbService.database();
+    await db.transaction((txn) async {
+      final questionId = await txn.rawInsert(
+          'insert into question(character_id, text) values(${character.id.toString()}, \'$question\') ');
+      await txn.rawInsert(
+          'insert into diary(question_id, text, created_at) values(${questionId.toString()}, \'${diary.toString()}\', ${DateTime.now().toUtc().microsecondsSinceEpoch}) ');
+    });
+  }
 }

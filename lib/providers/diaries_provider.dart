@@ -3,6 +3,7 @@ import 'package:dhh_client/models/diary.dart';
 import 'package:dhh_client/models/serializers.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/sql/diary_sql.dart';
+import 'package:dhh_client/widgets/custom_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'home_provider.dart';
@@ -64,6 +65,21 @@ class DiariesProvider with ChangeNotifier {
     await setTopDiary();
     await homeProvider.setAllFinished();
     await characterProvider.setHomeCharacters();
+    return result;
+  }
+
+  Future<Map<String, dynamic>> addFreeDiary(
+    Character character,
+    String question,
+    String diary,
+  ) async {
+    Map<String, dynamic> result = {'status': null};
+    try {
+      await DiarySql.addQuestionAndDiary(character, question, diary);
+      await setTopDiary();
+    } catch (e) {
+      result = {'status': Status.Error};
+    }
     return result;
   }
 }

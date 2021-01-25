@@ -52,13 +52,13 @@ class WriteFreePanel extends StatelessWidget {
                 autocorrect: false,
                 enableSuggestions: false,
                 scrollPhysics: BouncingScrollPhysics(),
-                keyboardType: TextInputType.text,
+//                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   helperStyle: TextStyle(height: 0),
                 ),
                 maxLength: 50,
-                maxLines: 100,
+                maxLines: 5,
               ),
               padding: EdgeInsets.only(
                 left: _screenSize.width * 0.0444,
@@ -68,14 +68,6 @@ class WriteFreePanel extends StatelessWidget {
             ),
           ),
           margin: EdgeInsets.only(bottom: _screenSize.height * 0.04864),
-        ),
-        Container(
-          alignment: Alignment.topLeft,
-          child: Text(
-            '내용',
-            style: theme.textTheme.bodyText1,
-          ),
-          margin: EdgeInsets.only(bottom: _screenSize.height * 0.01351),
         ),
       ],
     );

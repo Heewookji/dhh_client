@@ -54,14 +54,6 @@ class WritePanel extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          alignment: Alignment.topLeft,
-          child: Text(
-            '질문에 답하기',
-            style: theme.textTheme.bodyText1,
-          ),
-          margin: EdgeInsets.only(bottom: _screenSize.height * 0.01351),
-        ),
       ],
     );
   }

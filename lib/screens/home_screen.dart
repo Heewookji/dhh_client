@@ -81,18 +81,18 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _navigateDiaryListScreen(BuildContext context) async {
+  void _navigateDiaryListScreen() async {
     await Navigator.of(context).pushNamed(DiaryListScreen.routeName);
     setState(() {
       _chosenCharacter = _chosenQuestion = null;
     });
   }
 
-  void _navigateSettingScreen(BuildContext context) async {
+  void _navigateSettingScreen() async {
     await Navigator.of(context).pushNamed(SettingScreen.routeName);
   }
 
-  void _navigateWriteScreen(BuildContext context) async {
+  void _navigateWriteScreen() async {
     final result = await Navigator.of(context).pushNamed(
       WriteScreen.routeName,
       arguments: {
@@ -137,11 +137,11 @@ class _HomeScreenState extends State<HomeScreen> {
       actions: [
         IconButton(
           icon: Icon(Icons.widgets),
-          onPressed: () => _navigateDiaryListScreen(context),
+          onPressed: () => _navigateDiaryListScreen(),
         ),
         IconButton(
           icon: Icon(Icons.circle),
-          onPressed: () => _navigateSettingScreen(context),
+          onPressed: () => _navigateSettingScreen(),
         ),
       ],
     );

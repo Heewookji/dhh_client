@@ -111,7 +111,8 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
           curve: Curves.easeOutCirc,
           width: character.id == chosenId ? homeSize.width * 0.25 : 0,
           height: character.id == chosenId ? homeSize.width * 0.1 : 0,
-          child: character.id == chosenId && widget._isSubmittedToday
+          child: character.id == chosenId && true
+//              !widget._isSubmittedToday
               ? CustomBubble(
                   FlatButton(
                     child: Text(

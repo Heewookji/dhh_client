@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class HomeButton extends StatelessWidget {
   final Question _chosenQuestion;
-  final Function(BuildContext context) _navigateWriteScreen;
+  final Function() _navigateWriteScreen;
   final _isSubmittedToday;
   HomeButton(
     this._chosenQuestion,
@@ -22,7 +22,7 @@ class HomeButton extends StatelessWidget {
                   EdgeInsets.symmetric(vertical: _screenSize.height * 0.02162),
               child: CustomRaisedButton(
                 '일기쓰기',
-                onPressed: () => _navigateWriteScreen(context),
+                onPressed: () => _navigateWriteScreen(),
                 alignment: Alignment.center,
                 color: Colors.black,
               ),

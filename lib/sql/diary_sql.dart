@@ -95,12 +95,11 @@ class DiarySql {
         batch.rawUpdate(''
             'update home set '
             'last_traveled_character_id = ${character.id.toString()}, '
-            'last_traveled_at = datetime(\'now\',\'localtime\'), '
-            'last_traveled_location_id = '
-            '(select id from home_location where character_id = ${character.id.toString()})');
+            'last_traveled_at = datetime(\'now\',\'localtime\') '
+            '');
         batch.rawUpdate(''
             'update home_location set character_id = null '
-            'where character_id = ${character.id.toString()}'
+            'where character_id = ${character.id.toString()} '
             '');
         result['traveled'] = true;
       }

@@ -123,6 +123,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
                   ),
                   Colors.white,
                   Size(homeSize.width * 0.25, homeSize.width * 0.1),
+                  padding: EdgeInsets.only(bottom: homeSize.height * 0.005),
                 )
               : Container(),
           margin: EdgeInsets.only(bottom: homeSize.height * 0.01),

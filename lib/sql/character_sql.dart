@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/serializers.dart';
 import 'package:dhh_client/services/db_service.dart';
@@ -14,12 +16,19 @@ class CharacterSql {
     if (init)
       return db.rawQuery(
           'select id from character order by random() limit ${(Constants.HOME_CHARACTER_COUNT - 1).toString()} ');
-    return db.rawQuery(''
+    List<Map<String, dynamic>> idMapList = await db.rawQuery(''
         'select c.id from character c '
         'inner join home_location hl on c.id = hl.character_id '
         'order by '
         'random() '
         '');
+    if (idMapList.length < Constants.HOME_CHARACTER_COUNT) {
+      final newMapList = List<Map<String, dynamic>>.from(idMapList);
+      int requireCount = Constants.HOME_CHARACTER_COUNT - newMapList.length;
+      for (int i = 0; i < requireCount; i++) newMapList.add({'id': null});
+      idMapList = newMapList..shuffle(Random());
+    }
+    return idMapList;
   }
 
   static Future<List<Map<String, dynamic>>> getHomeCharacters() async {
@@ -130,11 +139,9 @@ class CharacterSql {
     if (dataMap == null) return result;
     final newCharacter =
         standardSerializers.deserializeWith(Character.serializer, dataMap);
-    final emptyLocationId = sql.Sqflite.firstIntValue(
-        await db.rawQuery('select last_traveled_location_id from home'));
     await db.rawUpdate(''
         'update home_location set character_id = ${newCharacter.id.toString()} '
-        'where ${emptyLocationId == null ? 'character_id is null' : 'id = $emptyLocationId'} '
+        'where character_id is null '
         '');
     result['newCharacter'] = newCharacter;
     return result;

@@ -12,11 +12,11 @@ class HomeSql {
   static Future<bool> existEmptySpace() async {
     final db = await DbService.database();
     return sql.Sqflite.firstIntValue(
-      await db.rawQuery(''
-          'select count(*) from home_location '
-          'where character_id is null '
-          ''),
-    ) !=
+          await db.rawQuery(''
+              'select count(*) from home_location '
+              'where character_id is null '
+              ''),
+        ) !=
         0;
   }
 
@@ -28,6 +28,7 @@ class HomeSql {
       for (int i = 1; i <= Constants.HOME_CHARACTER_COUNT; i++)
         batch.insert('home_location', {'id': i});
     }
+    batch.rawUpdate('update home_location set character_id = null ');
     for (int i = 1; i <= idMapList.length; i++) {
       batch.rawUpdate(
           'update home_location set character_id = ${idMapList[i - 1]['id']} where id = $i');

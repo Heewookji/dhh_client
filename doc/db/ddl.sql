@@ -46,7 +46,6 @@ CREATE TABLE `status` (
 CREATE TABLE `home` (
                          `modified_at`	datetime	NULL,
                          `all_finished`	bit(1)	NOT NULL	DEFAULT false,
-                         `last_traveled_location_id` INTEGER NULL,
                          `last_traveled_character_id` INTEGER NULL,
                          `last_traveled_at` datetime NULL
 );

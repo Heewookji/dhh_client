@@ -14,7 +14,9 @@ class CharactersProvider with ChangeNotifier {
     final modifiedAt = homeData[0]['modified_at'] == null
         ? null
         : DateTime.parse(homeData[0]['modified_at']);
-    if (modifiedAt.day != DateTime.now().day) {
+    if (true
+//    modifiedAt.day != DateTime.now().day
+        ) {
       final idMapList = await CharacterSql.getHomeRandomIds();
       await HomeSql.updateHomeLocation(idMapList);
     }

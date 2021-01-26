@@ -19,13 +19,18 @@ class DbService {
   }
 
   static Future _dbInit(String dbPath) async {
-    ByteData data = await rootBundle.load("assets/db/data.db");
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    await File('$dbPath/data.db').writeAsBytes(bytes);
-    final idMapList = await CharacterSql.getHomeRandomIds(init: true);
-    await HomeSql.updateHomeLocation(idMapList, init: true);
-    print('DB Init!');
+    try {
+      ByteData data = await rootBundle.load("assets/db/data.db");
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      await File('$dbPath/data.db').writeAsBytes(bytes);
+      final idMapList = await CharacterSql.getHomeRandomIds(init: true);
+      await HomeSql.updateHomeLocation(idMapList, init: true);
+      print('DB Init!');
+    } catch (e, trace) {
+      print(e);
+      print(trace);
+    }
   }
 
   static void printPath() async {

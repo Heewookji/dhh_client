@@ -34,7 +34,7 @@ insert into character(id, name, color, description) values (9,'뭉그리'  , 0xF
 insert into character(id, name, color, description) values (10,'똘똘이', 0xFFD62246, '안녕? 내 이름은 똘똘이!\n미래를 어떻게 계획하면 좋을까?\n나랑 같이 이야기해보자.');
 
 -- 홈
-insert into home(modified_at, all_finished, last_traveled_location_id, last_traveled_character_id, last_traveled_at) values (null, false, null, null, null);
+insert into home(modified_at, all_finished, last_traveled_character_id, last_traveled_at) values (null, false, null, null);
 
 --캐릭터 스테이터스 (캐릭터당 6개)
 insert into status (code, character_id, image_url, is_status_now) values (1,1,'assets/images/1-1', true);

@@ -56,6 +56,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
+    final _theme = Theme.of(context);
     return SafeArea(
       child: Container(
         color: Colors.black12,
@@ -76,6 +77,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
                         left: _locationPoints[character.id - 1].x,
                         top: _locationPoints[character.id - 1].y,
                         child: _buildCharacter(
+                          _theme,
                           character,
                           constraints.biggest,
                           chosenId,
@@ -91,44 +93,59 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
     );
   }
 
-  Column _buildCharacter(Character character, Size homeSize, int chosenId) {
+  Column _buildCharacter(
+      ThemeData theme, Character character, Size homeSize, int chosenId) {
     return Column(
       children: [
         AnimatedContainer(
           duration: Duration(milliseconds: 300),
           curve: Curves.easeOutCirc,
-          width: character.id != chosenId ? homeSize.width * 0.2 : 0,
+          width: character.id != chosenId ? homeSize.width * 0.25 : 0,
           height: character.id != chosenId ? homeSize.width * 0.1 : 0,
-          margin: EdgeInsets.only(bottom: homeSize.height * 0.01),
+          margin: character.id != chosenId
+              ? EdgeInsets.only(bottom: homeSize.height * 0.01)
+              : EdgeInsets.zero,
         ),
         AnimatedContainer(
           duration: Duration(milliseconds: 300),
           curve: Curves.easeOutCirc,
-          width: character.id == chosenId ? homeSize.width * 0.2 : 0,
+          width: character.id == chosenId ? homeSize.width * 0.25 : 0,
           height: character.id == chosenId ? homeSize.width * 0.1 : 0,
-          child: character.id == chosenId && !widget._isSubmittedToday
+          child: character.id == chosenId && widget._isSubmittedToday
               ? CustomBubble(
                   FlatButton(
-                    child: Text('ㅇㅇㅇ'),
+                    child: Text(
+                      '일기쓰기 >',
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                    ),
                     onPressed: () => _navigateFreeWriteScreen(character),
                   ),
                   Colors.white,
-                  Size(homeSize.width * 0.2, homeSize.width * 0.1),
+                  Size(homeSize.width * 0.25, homeSize.width * 0.1),
                 )
               : Container(),
           margin: EdgeInsets.only(bottom: homeSize.height * 0.01),
         ),
         GestureDetector(
           onTap: () => chooseCharacter(character),
-          child: Container(
-            color: Color(character.color),
-            child: SizedBox(
-              height: homeSize.width * 0.2,
-              width: homeSize.width * 0.2,
-              child: SvgPicture.asset(
-                character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                width: homeSize.width * 0.25,
               ),
-            ),
+              Container(
+                color: Color(character.color),
+                child: SizedBox(
+                  height: homeSize.width * 0.2,
+                  width: homeSize.width * 0.2,
+                  child: SvgPicture.asset(
+                    character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

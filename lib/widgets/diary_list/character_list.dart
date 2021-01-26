@@ -9,11 +9,13 @@ class CharacterList extends StatelessWidget {
   final List<Character> _characters;
   final Character _chosenCharacter;
   final Function(Character) _setDiariesAndQuestions;
+  final Function() _playAnimation;
 
   CharacterList(
     this._characters,
     this._chosenCharacter,
     this._setDiariesAndQuestions,
+    this._playAnimation,
   );
 
   @override
@@ -42,7 +44,12 @@ class CharacterList extends StatelessWidget {
                   Color(character.color),
                   _chosenCharacter != null &&
                       _chosenCharacter.id == character.id,
-                  onPressed: () => _setDiariesAndQuestions(character),
+                  onPressed: () {
+                    if (_chosenCharacter != null &&
+                        character.id == _chosenCharacter.id) return;
+                    _setDiariesAndQuestions(character);
+                    _playAnimation();
+                  },
                   padding: EdgeInsets.all(_screenSize.width * 0.022),
                 ),
               ),
@@ -75,7 +82,11 @@ class CharacterList extends StatelessWidget {
             ),
             Colors.black,
             _chosenCharacter == null,
-            onPressed: () => _setDiariesAndQuestions(null),
+            onPressed: () {
+              if (_chosenCharacter == null) return;
+              _setDiariesAndQuestions(null);
+              _playAnimation();
+            },
           ),
         ),
       ],

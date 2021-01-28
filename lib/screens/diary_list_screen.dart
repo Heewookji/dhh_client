@@ -5,7 +5,7 @@ import 'package:dhh_client/providers/diaries_provider.dart';
 import 'package:dhh_client/providers/diary_details_provider.dart';
 import 'package:dhh_client/providers/questions_provider.dart';
 import 'package:dhh_client/screens/diary_detail_controller.dart';
-import 'package:dhh_client/util/stagger_animation.dart';
+import 'package:dhh_client/widgets/custom_fill_animation.dart';
 import 'package:dhh_client/widgets/diary_list/character_list.dart';
 import 'package:dhh_client/widgets/diary_list/diary_list.dart';
 import 'package:dhh_client/widgets/diary_list/diary_list_panel.dart';
@@ -23,9 +23,11 @@ class _DiaryListScreenState extends State<DiaryListScreen>
     with TickerProviderStateMixin {
   final _diaryScroll = ScrollController();
   AnimationController _animationController;
+  Animation<double> _animation;
   bool _isBusy = true;
   Character _chosenCharacter;
-  Color _backgroundColor = Colors.white;
+  Offset _pickedLocation;
+  Color _pastColor;
 
   @override
   void initState() {
@@ -33,9 +35,24 @@ class _DiaryListScreenState extends State<DiaryListScreen>
     _doFuture();
   }
 
+  @override
+  void dispose() {
+    _diaryScroll.dispose();
+    _animationController.dispose();
+    super.dispose();
+  }
+
   void _doFuture() async {
-    _animationController =
-        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
+    _animationController = AnimationController(
+      duration: Duration(milliseconds: 600),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOutQuart,
+      ),
+    );
     await Provider.of<CharactersProvider>(context, listen: false)
         .setAllCharacters();
     await _setDiariesAndQuestions(null, init: true);
@@ -69,18 +86,19 @@ class _DiaryListScreenState extends State<DiaryListScreen>
     }
   }
 
-  Future<Null> _playAnimation() async {
-    try {
-      _animationController.reset();
-      await _animationController.forward();
-      if (_animationController.isCompleted) {
-        setState(() {
-          _backgroundColor = _chosenCharacter != null
-              ? Color(_chosenCharacter.color)
-              : Colors.white;
-        });
-      }
-    } on TickerCanceled {}
+  Future<void> _setDiariesAndQuestionsPlayAnimation(
+      Character character, Offset pickedLocation) async {
+    if ((_chosenCharacter != null &&
+            character != null &&
+            character.id == _chosenCharacter.id) ||
+        _animationController.isAnimating) return;
+    _setDiariesAndQuestions(character);
+    _animationController.reset();
+    _pickedLocation = pickedLocation;
+    await _animationController.forward();
+    _pastColor =
+        _chosenCharacter != null ? Color(_chosenCharacter.color) : Colors.white;
+    return true;
   }
 
   void _navigateDiaryDetailScreen(BuildContext context,
@@ -120,16 +138,15 @@ class _DiaryListScreenState extends State<DiaryListScreen>
                     : Stack(
                         children: [
                           Container(
-                            height: _screenSize.height,
-                            width: _screenSize.width,
-                            color: _backgroundColor,
+                            color: _pastColor,
                           ),
-                          StaggerAnimation(
-                            controller: _animationController.view,
-                            color: _chosenCharacter != null
+                          CustomFillAnimation(
+                            _screenSize,
+                            _animation,
+                            _chosenCharacter != null
                                 ? Color(_chosenCharacter.color)
                                 : Colors.white,
-                            screenSize: _screenSize,
+                            _pickedLocation,
                           ),
                           Container(
 //                        color: _chosenCharacter != null
@@ -142,8 +159,7 @@ class _DiaryListScreenState extends State<DiaryListScreen>
                                 CharacterList(
                                   characters,
                                   _chosenCharacter,
-                                  _setDiariesAndQuestions,
-                                  _playAnimation,
+                                  _setDiariesAndQuestionsPlayAnimation,
                                 ),
                                 DiaryList(
                                   diaryDetails,

@@ -8,14 +8,12 @@ import '../custom_character_button.dart';
 class CharacterList extends StatelessWidget {
   final List<Character> _characters;
   final Character _chosenCharacter;
-  final Function(Character) _setDiariesAndQuestions;
-  final Function() _playAnimation;
+  final Function(Character, Offset) _setDiariesAndQuestionsPlayAnimation;
 
   CharacterList(
     this._characters,
     this._chosenCharacter,
-    this._setDiariesAndQuestions,
-    this._playAnimation,
+    this._setDiariesAndQuestionsPlayAnimation,
   );
 
   @override
@@ -44,12 +42,8 @@ class CharacterList extends StatelessWidget {
                   Color(character.color),
                   _chosenCharacter != null &&
                       _chosenCharacter.id == character.id,
-                  onPressed: () {
-                    if (_chosenCharacter != null &&
-                        character.id == _chosenCharacter.id) return;
-                    _setDiariesAndQuestions(character);
-                    _playAnimation();
-                  },
+                  onTapDown: (location) =>
+                      _setDiariesAndQuestionsPlayAnimation(character, location),
                   padding: EdgeInsets.all(_screenSize.width * 0.022),
                 ),
               ),
@@ -82,10 +76,9 @@ class CharacterList extends StatelessWidget {
             ),
             Colors.black,
             _chosenCharacter == null,
-            onPressed: () {
+            onTapDown: (location) async {
               if (_chosenCharacter == null) return;
-              _setDiariesAndQuestions(null);
-              _playAnimation();
+              await _setDiariesAndQuestionsPlayAnimation(null, location);
             },
           ),
         ),

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class CustomCharacterButton extends StatefulWidget {
   final Color color;
   final Widget child;
-  final Function onPressed;
+  final Function(Offset) onTapDown;
   final Alignment alignment;
   final EdgeInsets padding;
   final bool isPressed;
@@ -15,7 +15,7 @@ class CustomCharacterButton extends StatefulWidget {
     this.child,
     this.color,
     this.isPressed, {
-    this.onPressed,
+    this.onTapDown,
     this.padding,
     this.alignment,
   });
@@ -30,7 +30,6 @@ class _CustomCharacterButtonState extends State<CustomCharacterButton> {
   static const Offset innerShadow = Constants.INNER_SHADOW_OFFSET;
   static final BoxBorder border =
       Border.all(width: Constants.BORDER_WIDTH, color: Colors.black);
-  bool shortPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class _CustomCharacterButtonState extends State<CustomCharacterButton> {
       child:
           widget.isPressed ? _buildPressedButton(theme) : _buildButton(theme),
       onTapDown: (detail) {
-        if (widget.onPressed != null) widget.onPressed();
+        if (widget.onTapDown != null) widget.onTapDown(detail.globalPosition);
       },
     );
   }

@@ -92,13 +92,13 @@ class _DiaryListScreenState extends State<DiaryListScreen>
             character != null &&
             character.id == _chosenCharacter.id) ||
         _animationController.isAnimating) return;
-    _setDiariesAndQuestions(character);
+    await _setDiariesAndQuestions(character);
     _animationController.reset();
     _pickedLocation = pickedLocation;
     await _animationController.forward();
     _pastColor =
         _chosenCharacter != null ? Color(_chosenCharacter.color) : Colors.white;
-    return true;
+    return;
   }
 
   void _navigateDiaryDetailScreen(BuildContext context,

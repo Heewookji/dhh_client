@@ -33,7 +33,6 @@ class WriteTextField extends StatelessWidget {
                 autocorrect: false,
                 enableSuggestions: false,
                 scrollPhysics: BouncingScrollPhysics(),
-                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   helperStyle: TextStyle(height: 0),

@@ -168,7 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Stack(
                 children: <Widget>[
-                  _allFinished
+//                  _allFinished
+                  true
                       ? CharacterFinishedHome(_isSubmittedToday)
                       : CharacterHome(
                           _chooseCharacter,

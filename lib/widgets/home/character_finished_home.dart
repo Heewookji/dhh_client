@@ -76,7 +76,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
                       Positioned(
                         left: _locationPoints[character.id - 1].x,
                         top: _locationPoints[character.id - 1].y,
-                        child: _buildCharacter(
+                        child: _buildCharacterAndBubble(
                           _theme,
                           character,
                           constraints.biggest,
@@ -93,49 +93,20 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
     );
   }
 
-  Column _buildCharacter(
+  Column _buildCharacterAndBubble(
       ThemeData theme, Character character, Size homeSize, int chosenId) {
+    final double bubbleWidth = 100;
+    final double bubbleHeight = 35;
     return Column(
       children: [
-        AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeOutCirc,
-          width: character.id != chosenId ? homeSize.width * 0.25 : 0,
-          height: character.id != chosenId ? homeSize.width * 0.1 : 0,
-          margin: character.id != chosenId
-              ? EdgeInsets.only(bottom: homeSize.height * 0.01)
-              : EdgeInsets.zero,
-        ),
-        AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeOutCirc,
-          width: character.id == chosenId ? homeSize.width * 0.25 : 0,
-          height: character.id == chosenId ? homeSize.width * 0.1 : 0,
-          child: character.id == chosenId && true
-//              !widget._isSubmittedToday
-              ? CustomBubble(
-                  FlatButton(
-                    child: Text(
-                      '일기쓰기 >',
-                      softWrap: false,
-                      textAlign: TextAlign.center,
-                    ),
-                    onPressed: () => _navigateFreeWriteScreen(character),
-                  ),
-                  Colors.white,
-                  Size(homeSize.width * 0.25, homeSize.width * 0.1),
-                  padding: EdgeInsets.only(bottom: homeSize.height * 0.005),
-                )
-              : Container(),
-          margin: EdgeInsets.only(bottom: homeSize.height * 0.01),
-        ),
+        _buildBubble(character, chosenId, bubbleWidth, bubbleHeight, homeSize),
         GestureDetector(
           onTap: () => chooseCharacter(character),
           child: Stack(
             alignment: Alignment.center,
             children: [
               SizedBox(
-                width: homeSize.width * 0.25,
+                width: bubbleWidth,
               ),
               Container(
                 color: Color(character.color),
@@ -149,6 +120,47 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
               ),
             ],
           ),
+        ),
+      ],
+    );
+  }
+
+  Column _buildBubble(Character character, int chosenId, double bubbleWidth,
+      double bubbleHeight, Size homeSize) {
+    return Column(
+      children: [
+        AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOutCirc,
+          width: character.id != chosenId ? bubbleWidth : 0,
+          height: character.id != chosenId ? bubbleHeight : 0,
+          margin: character.id != chosenId
+              ? EdgeInsets.only(bottom: homeSize.height * 0.01)
+              : EdgeInsets.zero,
+        ),
+        AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOutCirc,
+          width: character.id == chosenId ? bubbleWidth : 0,
+          height: character.id == chosenId ? bubbleHeight : 0,
+          child: character.id == chosenId &&
+//              !widget._isSubmittedToday
+                  true
+              ? CustomBubble(
+                  FlatButton(
+                    child: Text(
+                      '일기쓰기 >',
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () => _navigateFreeWriteScreen(character),
+                  ),
+                  Colors.white,
+                  Size(bubbleWidth, bubbleHeight),
+                  padding: EdgeInsets.only(bottom: 4),
+                )
+              : Container(),
+          margin: EdgeInsets.only(bottom: 5),
         ),
       ],
     );

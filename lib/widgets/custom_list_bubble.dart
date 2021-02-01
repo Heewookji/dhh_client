@@ -1,7 +1,7 @@
 import 'package:dhh_client/widgets/Bubbles.dart';
 import 'package:flutter/material.dart';
 
-class CustomBubble extends StatelessWidget {
+class CustomListBubble extends StatelessWidget {
   final Widget child;
   final Function onPressed;
   final Size size;
@@ -10,7 +10,7 @@ class CustomBubble extends StatelessWidget {
   final Color color;
   final int bubbleNumber;
 
-  CustomBubble(
+  CustomListBubble(
     this.child,
     this.color,
     this.size, {
@@ -37,22 +37,18 @@ class CustomBubble extends StatelessWidget {
             height: size.height,
             width: size.width,
             child: child,
-            alignment: bubbleNumber == null
-                ? alignment
-                : bubbleNumber % 2 == 0
-                    ? Alignment.centerLeft
-                    : Alignment.centerRight,
-            padding: bubbleNumber == null
-                ? padding
-                : bubbleNumber % 2 == 0
-                    ? EdgeInsets.only(
-                        bottom: _screenSize.height * 0.02,
-                        left: _screenSize.width * 0.1,
-                      )
-                    : EdgeInsets.only(
-                        bottom: _screenSize.height * 0.02,
-                        right: _screenSize.width * 0.1,
-                      ),
+            alignment: bubbleNumber % 2 == 0
+                ? Alignment.centerLeft
+                : Alignment.centerRight,
+            padding: bubbleNumber % 2 == 0
+                ? EdgeInsets.only(
+                    bottom: _screenSize.height * 0.02,
+                    left: _screenSize.width * 0.1,
+                  )
+                : EdgeInsets.only(
+                    bottom: _screenSize.height * 0.02,
+                    right: _screenSize.width * 0.1,
+                  ),
           ),
         ],
       ),
@@ -72,14 +68,6 @@ class CustomBubble extends StatelessWidget {
         return ListBubble2(color);
       case 3:
         return ListBubble3(color);
-      case 4:
-        return MainBubble0(color);
-      case 5:
-        return MainBubble1(color);
-      case 6:
-        return MainBubble2(color);
-      default:
-        return MainSmallBubble();
     }
   }
 }

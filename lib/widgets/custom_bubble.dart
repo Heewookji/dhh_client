@@ -79,7 +79,7 @@ class CustomBubble extends StatelessWidget {
       case 6:
         return MainBubble2(color);
       default:
-        return ListBubble2(color);
+        return MainSmallBubble();
     }
   }
 }

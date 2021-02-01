@@ -96,7 +96,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
   Column _buildCharacterAndBubble(
       ThemeData theme, Character character, Size homeSize, int chosenId) {
     final double bubbleWidth = 100;
-    final double bubbleHeight = 40;
+    final double bubbleHeight = 48;
     return Column(
       children: [
         _buildBubble(character, chosenId, bubbleWidth, bubbleHeight, homeSize),
@@ -157,7 +157,8 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
                   ),
                   Colors.white,
                   Size(bubbleWidth, bubbleHeight),
-                  padding: EdgeInsets.only(bottom: 4),
+                  padding: EdgeInsets.only(bottom: 2),
+                  alignment: Alignment.center,
                 )
               : Container(),
           margin: EdgeInsets.only(bottom: 5),

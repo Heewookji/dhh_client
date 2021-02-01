@@ -38,6 +38,7 @@ class HomePanel extends StatelessWidget {
               padding: EdgeInsets.only(
                 bottom: _screenSize.height * 0.03,
               ),
+              bubbleNumber: 4,
             ),
     );
   }

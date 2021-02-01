@@ -36,11 +36,6 @@ class DiaryList extends StatelessWidget {
           itemBuilder: (context, i) {
             final character = _diaryDetails[i][Character] as Character;
             final diary = _diaryDetails[i][Diary] as Diary;
-            final evenList = [0, 2];
-            final oddList = [1, 3];
-            final bubbleNumber = i % 2 == 1
-                ? (oddList..shuffle()).first
-                : (evenList..shuffle()).first;
             return Container(
               key: Key(
                 (_chosenCharacter == null
@@ -73,7 +68,7 @@ class DiaryList extends StatelessWidget {
                     i,
                   );
                 },
-                bubbleNumber: bubbleNumber,
+                bubbleNumber: i % 4,
               ),
             );
           },

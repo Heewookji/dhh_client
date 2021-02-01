@@ -13,6 +13,7 @@ import 'package:dhh_client/widgets/home/character_home.dart';
 import 'package:dhh_client/widgets/home/home_button.dart';
 import 'package:dhh_client/widgets/home/home_panel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -132,8 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final _mediaQuery = MediaQuery.of(context);
     final _appBar = AppBar(
-      title: Text('App Name'),
-      centerTitle: false,
+      title: SvgPicture.asset(
+        'assets/images/logo.svg',
+      ),
       actions: [
         IconButton(
           icon: Icon(Icons.widgets),

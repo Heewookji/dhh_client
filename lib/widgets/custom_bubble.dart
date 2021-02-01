@@ -65,15 +65,21 @@ class CustomBubble extends StatelessWidget {
   CustomPainter _buildBubble(Color color) {
     switch (bubbleNumber) {
       case 0:
-        return Bubble0(color);
+        return ListBubble0(color);
       case 1:
-        return Bubble1(color);
+        return ListBubble1(color);
       case 2:
-        return Bubble2(color);
+        return ListBubble2(color);
       case 3:
-        return Bubble3(color);
+        return ListBubble3(color);
+      case 4:
+        return MainBubble0(color);
+      case 5:
+        return MainBubble1(color);
+      case 6:
+        return MainBubble2(color);
       default:
-        return Bubble0(color);
+        return ListBubble2(color);
     }
   }
 }

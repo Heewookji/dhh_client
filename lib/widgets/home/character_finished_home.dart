@@ -96,7 +96,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
   Column _buildCharacterAndBubble(
       ThemeData theme, Character character, Size homeSize, int chosenId) {
     final double bubbleWidth = 100;
-    final double bubbleHeight = 35;
+    final double bubbleHeight = 40;
     return Column(
       children: [
         _buildBubble(character, chosenId, bubbleWidth, bubbleHeight, homeSize),

@@ -12,6 +12,7 @@ CREATE TABLE `character` (
                              `id` INTEGER	NOT NULL primary key autoincrement ,
                              `name`	varchar(15)	NOT NULL,
                              `color` INTEGER NOT NULL DEFAULT 0xFF14213D,
+                             `face_url`	longtext	NOT NULL,
                              `description`	longtext 	NULL
 );
 

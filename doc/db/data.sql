@@ -22,16 +22,16 @@
 
 
 -- 캐릭터
-insert into character(id, name, color, description) values (1,'보사리'  , 0xFF11C3FC, '안녕? 내 이름은 보사리!\n인간관계란 누구라도 어려운 문제지.\n하.하.하.하.하');
-insert into character(id, name, color, description) values (2,'달콩이'  , 0xFFFCA311, '안녕? 내 이름은 달콩이!\n난 다른 사람들의 사랑 이야기를\n엄청! 엄청! 좋아해');
-insert into character(id, name, color, description) values (3,'룰루'  , 0xFF14213D, '안녕? 내 이름은 룰루!\n나는 엄청 다양한 취미를 가지고 있어!\n넌 어떤 취미가 있니?');
-insert into character(id, name, color, description) values (4,'부우'  , 0xFF4059AD, '안녕? 내 이름은 부우!\n세상에는 왜 이렇게 화날 일들이 많은지!\n내가 화나는 이야기 다 들어줄게!');
-insert into character(id, name, color, description) values (5,'식타미'  , 0xFF6B9AC4, '안녕? 내 이름은 식타미!\n나는 음식 이야기를 엄청 좋아해!\n너도 먹는 거 좋아하니?');
-insert into character(id, name, color, description) values (6,'하차니'  , 0xFF97D8C4, '안녕? 내 이름은 하차니!\n작지만 소중한 일상 이야기는\n삶의 원동력이지~!');
-insert into character(id, name, color, description) values (7,'상상이'  , 0xFFF4B942, '안녕? 내 이름은 상상이!\n나와 함께라면 되고 싶은 것 무엇이든\n상상해 볼 수 있다구!');
-insert into character(id, name, color, description) values (8,'폭폭이'  , 0xFF4DAA57, '안녕? 내 이름은 폭폭이!\n인생의 쓴맛을 과감없이 알려줄께!\n자아성찰은 중요하다고!');
-insert into character(id, name, color, description) values (9,'뭉그리'  , 0xFF754668, '안녕? 내 이름은 뭉그리!\n질척질척 남겨두고 있던 과거의\n미련은 나에게 버려줘!');
-insert into character(id, name, color, description) values (10,'똘똘이', 0xFFD62246, '안녕? 내 이름은 똘똘이!\n미래를 어떻게 계획하면 좋을까?\n나랑 같이 이야기해보자.');
+insert into character(id, name, color, face_url, description) values (1,'보사리' ,  0xFF11C3FC, 'assets/images/face_people'  , '안녕? 내 이름은 보사리!\n인간관계란 누구라도 어려운 문제지.\n하.하.하.하.하');
+insert into character(id, name, color, face_url, description) values (2,'달콩이' ,  0xFFFCA311, 'assets/images/face_love'  , '안녕? 내 이름은 달콩이!\n난 다른 사람들의 사랑 이야기를\n엄청! 엄청! 좋아해');
+insert into character(id, name, color, face_url, description) values (3,'룰루'  ,  0xFF14213D, 'assets/images/face_hobby'  , '안녕? 내 이름은 룰루!\n나는 엄청 다양한 취미를 가지고 있어!\n넌 어떤 취미가 있니?');
+insert into character(id, name, color, face_url, description) values (4,'부우'  ,  0xFF4059AD, 'assets/images/face_angry'  , '안녕? 내 이름은 부우!\n세상에는 왜 이렇게 화날 일들이 많은지!\n내가 화나는 이야기 다 들어줄게!');
+insert into character(id, name, color, face_url, description) values (5,'식타미' ,  0xFF6B9AC4, 'assets/images/face_food'  , '안녕? 내 이름은 식타미!\n나는 음식 이야기를 엄청 좋아해!\n너도 먹는 거 좋아하니?');
+insert into character(id, name, color, face_url, description) values (6,'하차니' ,  0xFF97D8C4, 'assets/images/face_hachani'  , '안녕? 내 이름은 하차니!\n작지만 소중한 일상 이야기는\n삶의 원동력이지~!');
+insert into character(id, name, color, face_url, description) values (7,'상상이' ,  0xFFF4B942, 'assets/images/face_imagine'  , '안녕? 내 이름은 상상이!\n나와 함께라면 되고 싶은 것 무엇이든\n상상해 볼 수 있다구!');
+insert into character(id, name, color, face_url, description) values (8,'폭폭이' ,  0xFF4DAA57, 'assets/images/face_fact'  , '안녕? 내 이름은 폭폭이!\n인생의 쓴맛을 과감없이 알려줄께!\n자아성찰은 중요하다고!');
+insert into character(id, name, color, face_url, description) values (9,'뭉그리' ,  0xFF754668, 'assets/images/face_worry'  , '안녕? 내 이름은 뭉그리!\n질척질척 남겨두고 있던 과거의\n미련은 나에게 버려줘!');
+insert into character(id, name, color, face_url, description) values (10,'똘똘이',  0xFFD62246,  'assets/images/face_future'  ,'안녕? 내 이름은 똘똘이!\n미래를 어떻게 계획하면 좋을까?\n나랑 같이 이야기해보자.');
 
 -- 홈
 insert into home(modified_at, all_finished, last_traveled_character_id, last_traveled_at) values (null, false, null, null);

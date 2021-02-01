@@ -11,6 +11,8 @@ abstract class Character implements Built<Character, CharacterBuilder> {
   int get color;
   @nullable
   String get description;
+  @BuiltValueField(wireName: 'face_url')
+  String get faceUrl;
   @nullable
   @BuiltValueField(wireName: 'is_home')
   int get isHome;

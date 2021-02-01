@@ -37,7 +37,7 @@ class CharacterList extends StatelessWidget {
                 margin: EdgeInsets.only(right: _screenSize.width * 0.044),
                 child: CustomCharacterButton(
                   SvgPicture.asset(
-                    character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
+                    character.faceUrl + Constants.CHARACTER_IMAGE_FORMAT,
                   ),
                   Color(character.color),
                   _chosenCharacter != null &&

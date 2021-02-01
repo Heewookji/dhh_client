@@ -22,6 +22,9 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'color',
       serializers.serialize(object.color, specifiedType: const FullType(int)),
+      'face_url',
+      serializers.serialize(object.faceUrl,
+          specifiedType: const FullType(String)),
       'code',
       serializers.serialize(object.statusCode,
           specifiedType: const FullType(int)),
@@ -89,6 +92,10 @@ class _$CharacterSerializer implements StructuredSerializer<Character> {
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'face_url':
+          result.faceUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'is_home':
           result.isHome = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
@@ -126,6 +133,8 @@ class _$Character extends Character {
   @override
   final String description;
   @override
+  final String faceUrl;
+  @override
   final int isHome;
   @override
   final int isTravel;
@@ -144,6 +153,7 @@ class _$Character extends Character {
       this.name,
       this.color,
       this.description,
+      this.faceUrl,
       this.isHome,
       this.isTravel,
       this.locationId,
@@ -155,6 +165,9 @@ class _$Character extends Character {
     }
     if (color == null) {
       throw new BuiltValueNullFieldError('Character', 'color');
+    }
+    if (faceUrl == null) {
+      throw new BuiltValueNullFieldError('Character', 'faceUrl');
     }
     if (statusCode == null) {
       throw new BuiltValueNullFieldError('Character', 'statusCode');
@@ -179,6 +192,7 @@ class _$Character extends Character {
         name == other.name &&
         color == other.color &&
         description == other.description &&
+        faceUrl == other.faceUrl &&
         isHome == other.isHome &&
         isTravel == other.isTravel &&
         locationId == other.locationId &&
@@ -194,9 +208,11 @@ class _$Character extends Character {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                color.hashCode),
-                            description.hashCode),
+                            $jc(
+                                $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                    color.hashCode),
+                                description.hashCode),
+                            faceUrl.hashCode),
                         isHome.hashCode),
                     isTravel.hashCode),
                 locationId.hashCode),
@@ -211,6 +227,7 @@ class _$Character extends Character {
           ..add('name', name)
           ..add('color', color)
           ..add('description', description)
+          ..add('faceUrl', faceUrl)
           ..add('isHome', isHome)
           ..add('isTravel', isTravel)
           ..add('locationId', locationId)
@@ -238,6 +255,10 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
   String _description;
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
+
+  String _faceUrl;
+  String get faceUrl => _$this._faceUrl;
+  set faceUrl(String faceUrl) => _$this._faceUrl = faceUrl;
 
   int _isHome;
   int get isHome => _$this._isHome;
@@ -268,6 +289,7 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
       _name = _$v.name;
       _color = _$v.color;
       _description = _$v.description;
+      _faceUrl = _$v.faceUrl;
       _isHome = _$v.isHome;
       _isTravel = _$v.isTravel;
       _locationId = _$v.locationId;
@@ -299,6 +321,7 @@ class CharacterBuilder implements Builder<Character, CharacterBuilder> {
             name: name,
             color: color,
             description: description,
+            faceUrl: faceUrl,
             isHome: isHome,
             isTravel: isTravel,
             locationId: locationId,

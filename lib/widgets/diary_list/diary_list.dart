@@ -59,7 +59,7 @@ class DiaryList extends StatelessWidget {
                   height: 50,
                   width: 50,
                   child: SvgPicture.asset(
-                    character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
+                    character.faceUrl + Constants.CHARACTER_IMAGE_FORMAT,
                   ),
                 ),
                 _chosenCharacter == null

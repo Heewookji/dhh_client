@@ -19,22 +19,24 @@ class CharacterFinishedHome extends StatefulWidget {
 }
 
 class _CharacterHomeState extends State<CharacterFinishedHome> {
+  static const double bubbleWidth = 100;
+  static const double bubbleHeight = 48;
   List<Point<double>> _locationPoints;
   int chosenId;
 
   static List<Point<double>> getLocationPoints(Size homeSize) {
     return [
       //character
-      Point(homeSize.width * 0.1, homeSize.height * 0.05),
-      Point(homeSize.width * 0.4, homeSize.height * 0.05),
-      Point(homeSize.width * 0.7, homeSize.height * 0.05),
-      Point(homeSize.width * 0.1, homeSize.height * 0.25),
-      Point(homeSize.width * 0.4, homeSize.height * 0.25),
-      Point(homeSize.width * 0.7, homeSize.height * 0.25),
-      Point(homeSize.width * 0.1, homeSize.height * 0.45),
-      Point(homeSize.width * 0.4, homeSize.height * 0.45),
-      Point(homeSize.width * 0.7, homeSize.height * 0.45),
-      Point(homeSize.width * 0.7, homeSize.height * 0.65),
+      Point(homeSize.width * 0.18, homeSize.height * 0.78),
+      Point(homeSize.width * 0.47, homeSize.height * 0.75),
+      Point(homeSize.width * 0.7, homeSize.height * 0.623),
+      Point(homeSize.width * 0.13, homeSize.height * 0.543),
+      Point(homeSize.width * 0.43, homeSize.height * 0.543),
+      Point(homeSize.width * 0.55, homeSize.height * 0.33),
+      Point(homeSize.width * 0.12, homeSize.height * 0.25),
+      Point(homeSize.width * 0.4, homeSize.height * 0.09),
+      Point(homeSize.width * 0.72, homeSize.height * 0.09),
+      Point(homeSize.width * 0.1, homeSize.height * 0.02),
     ];
   }
 
@@ -60,34 +62,47 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
     return SafeArea(
       child: Container(
         margin: EdgeInsets.only(
-          top: _screenSize.height * 0.01621,
           bottom: _screenSize.height * 0.02162,
         ),
-        height: _screenSize.height,
+        height: _screenSize.height * 0.85,
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             _locationPoints = getLocationPoints(constraints.biggest);
+            final characterWidth = constraints.biggest.height * 0.1;
             return Consumer<CharactersProvider>(
               builder: (context, charactersProvider, child) {
                 return Stack(
                   children: [
                     SizedBox(
                       width: _screenSize.width,
-                      height: _screenSize.height,
+                      height: _screenSize.height * 0.85,
                       child: SvgPicture.asset(
                           'assets/images/finished_background.svg'),
                     ),
-                    for (final character in charactersProvider.characters)
-                      Positioned(
-                        left: _locationPoints[character.id - 1].x,
-                        top: _locationPoints[character.id - 1].y,
-                        child: _buildCharacterAndBubble(
-                          _theme,
-                          character,
-                          constraints.biggest,
-                          chosenId,
-                        ),
-                      ),
+                    for (int i = 0; i < Constants.ALL_CHARACTER_COUNT; i++)
+                      charactersProvider.characters.length <= i
+                          ? Positioned(
+                              left: _locationPoints[i].x,
+                              bottom: _locationPoints[i].y,
+                              child: Container(
+                                color: Colors.black26,
+                                child: SizedBox(
+                                  height: constraints.biggest.height * 0.1,
+                                  width: constraints.biggest.height * 0.1,
+                                ),
+                              ),
+                            )
+                          : Positioned(
+                              left: _locationPoints[i].x -
+                                  ((bubbleWidth - characterWidth) / 2),
+                              bottom: _locationPoints[i].y,
+                              child: _buildCharacterAndBubble(
+                                _theme,
+                                charactersProvider.characters[i],
+                                characterWidth,
+                                chosenId,
+                              ),
+                            ),
                   ],
                 );
               },
@@ -98,13 +113,11 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
     );
   }
 
-  Column _buildCharacterAndBubble(
-      ThemeData theme, Character character, Size homeSize, int chosenId) {
-    final double bubbleWidth = 100;
-    final double bubbleHeight = 48;
+  Column _buildCharacterAndBubble(ThemeData theme, Character character,
+      double characterWidth, int chosenId) {
     return Column(
       children: [
-        _buildBubble(character, chosenId, bubbleWidth, bubbleHeight, homeSize),
+        _buildBubble(character, chosenId),
         GestureDetector(
           onTap: () => chooseCharacter(character),
           child: Stack(
@@ -116,8 +129,8 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
               Container(
                 color: Color(character.color),
                 child: SizedBox(
-                  height: homeSize.width * 0.2,
-                  width: homeSize.width * 0.2,
+                  height: characterWidth,
+                  width: characterWidth,
                   child: SvgPicture.asset(
                     character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
                   ),
@@ -130,45 +143,31 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
     );
   }
 
-  Column _buildBubble(Character character, int chosenId, double bubbleWidth,
-      double bubbleHeight, Size homeSize) {
-    return Column(
-      children: [
-        AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeOutCirc,
-          width: character.id != chosenId ? bubbleWidth : 0,
-          height: character.id != chosenId ? bubbleHeight : 0,
-          margin: character.id != chosenId
-              ? EdgeInsets.only(bottom: homeSize.height * 0.01)
-              : EdgeInsets.zero,
-        ),
-        AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeOutCirc,
-          width: character.id == chosenId ? bubbleWidth : 0,
-          height: character.id == chosenId ? bubbleHeight : 0,
-          child: character.id == chosenId &&
+  Widget _buildBubble(Character character, int chosenId) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeOutCirc,
+      width: character.id == chosenId ? bubbleWidth : 0,
+      height: character.id == chosenId ? bubbleHeight : 0,
+      child: character.id == chosenId &&
 //              !widget._isSubmittedToday
-                  true
-              ? CustomHomeBubble(
-                  FlatButton(
-                    child: Text(
-                      '일기쓰기 >',
-                      softWrap: false,
-                      textAlign: TextAlign.center,
-                    ),
-                    onPressed: () => _navigateFreeWriteScreen(character),
-                  ),
-                  Colors.white,
-                  Size(bubbleWidth, bubbleHeight),
-                  padding: EdgeInsets.only(bottom: 2),
-                  alignment: Alignment.center,
-                )
-              : Container(),
-          margin: EdgeInsets.only(bottom: 5),
-        ),
-      ],
+              true
+          ? CustomHomeBubble(
+              FlatButton(
+                child: Text(
+                  '일기쓰기 >',
+                  softWrap: false,
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () => _navigateFreeWriteScreen(character),
+              ),
+              Colors.white,
+              Size(bubbleWidth, bubbleHeight),
+              padding: EdgeInsets.only(bottom: 2),
+              alignment: Alignment.center,
+            )
+          : Container(),
+      margin: EdgeInsets.only(bottom: 5),
     );
   }
 }

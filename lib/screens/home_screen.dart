@@ -166,8 +166,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ? Center()
           : Stack(
               children: <Widget>[
-                _allFinished
-//                  true
+//                _allFinished
+                true
                     ? CharacterFinishedHome(_isSubmittedToday)
                     : CharacterHome(
                         _chooseCharacter,
@@ -182,7 +182,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _allFinished
+                      //                _allFinished
+                      true
                           ? Container()
                           : HomePanel(
                               _chosenQuestion,
@@ -190,7 +191,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               _isSubmittedToday,
                               _pressedLocation,
                             ),
-                      _allFinished
+                      //                _allFinished
+                      true
                           ? Container()
                           : HomeButton(
                               _chosenQuestion,

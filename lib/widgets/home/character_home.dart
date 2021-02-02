@@ -33,9 +33,7 @@ class _CharacterHomeState extends State<CharacterHome> {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     return Container(
-      color: Colors.black12,
       margin: EdgeInsets.only(top: _screenSize.height * 0.232),
-      height: _screenSize.height * 0.5,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           _locationPoints = getLocationPoints(constraints.biggest);
@@ -43,6 +41,11 @@ class _CharacterHomeState extends State<CharacterHome> {
             builder: (context, charactersProvider, questionsProvider, child) {
               return Stack(
                 children: [
+                  SizedBox(
+                    width: _screenSize.width,
+                    height: _screenSize.height * 0.5,
+                    child: SvgPicture.asset('assets/images/background.svg'),
+                  ),
                   for (final character in charactersProvider.characters)
                     Positioned(
                       left: _locationPoints[character.locationId - 1].x,

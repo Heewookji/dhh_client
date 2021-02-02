@@ -59,7 +59,6 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
     final _theme = Theme.of(context);
     return SafeArea(
       child: Container(
-        color: Colors.black12,
         margin: EdgeInsets.only(
           top: _screenSize.height * 0.01621,
           bottom: _screenSize.height * 0.02162,
@@ -72,6 +71,12 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
               builder: (context, charactersProvider, child) {
                 return Stack(
                   children: [
+                    SizedBox(
+                      width: _screenSize.width,
+                      height: _screenSize.height,
+                      child: SvgPicture.asset(
+                          'assets/images/finished_background.svg'),
+                    ),
                     for (final character in charactersProvider.characters)
                       Positioned(
                         left: _locationPoints[character.id - 1].x,

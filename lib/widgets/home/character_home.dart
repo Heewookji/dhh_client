@@ -21,11 +21,11 @@ class _CharacterHomeState extends State<CharacterHome> {
   static List<Point<double>> getLocationPoints(Size homeSize) {
     return [
       //character
-      Point(homeSize.width * 0.4, homeSize.height * 0.05),
-      Point(homeSize.width * 0.7, homeSize.height * 0.05),
-      Point(homeSize.width * 0.3, homeSize.height * 0.35),
-      Point(homeSize.width * 0.4, homeSize.height * 0.65),
-      Point(homeSize.width * 0.7, homeSize.height * 0.65),
+      Point(homeSize.width * 0.1, homeSize.height * 0.69),
+      Point(homeSize.width * 0.7, homeSize.height * 0.55),
+      Point(homeSize.width * 0.3, homeSize.height * 0.38),
+      Point(homeSize.width * 0.2, homeSize.height * 0.04),
+      Point(homeSize.width * 0.55, homeSize.height * 0.04),
     ];
   }
 
@@ -34,22 +34,27 @@ class _CharacterHomeState extends State<CharacterHome> {
     final _screenSize = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(top: _screenSize.height * 0.232),
+      height: _screenSize.height * 0.5,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           _locationPoints = getLocationPoints(constraints.biggest);
           return Consumer2<CharactersProvider, QuestionsProvider>(
             builder: (context, charactersProvider, questionsProvider, child) {
               return Stack(
+                overflow: Overflow.visible,
                 children: [
                   SizedBox(
                     width: _screenSize.width,
                     height: _screenSize.height * 0.5,
-                    child: SvgPicture.asset('assets/images/background.svg'),
+                    child: SvgPicture.asset(
+                      'assets/images/background.svg',
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
                   for (final character in charactersProvider.characters)
                     Positioned(
                       left: _locationPoints[character.locationId - 1].x,
-                      top: _locationPoints[character.locationId - 1].y,
+                      bottom: _locationPoints[character.locationId - 1].y,
                       child: _buildCharacter(
                         character,
                         questionsProvider,
@@ -75,8 +80,8 @@ class _CharacterHomeState extends State<CharacterHome> {
           Container(
             color: Color(character.color),
             child: SizedBox(
-              height: homeSize.width * 0.2,
-              width: homeSize.width * 0.2,
+              height: homeSize.height * 0.19,
+              width: homeSize.height * 0.19,
               child: SvgPicture.asset(
                 character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
               ),

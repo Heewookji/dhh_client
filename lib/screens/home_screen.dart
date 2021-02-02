@@ -1,3 +1,4 @@
+import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
@@ -15,8 +16,6 @@ import 'package:dhh_client/widgets/home/home_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
-import '../constants.dart';
 
 class HomeScreen extends StatefulWidget {
   static final routeName = '/Home';
@@ -165,20 +164,22 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: _appBar,
       body: _isBusy
           ? Center()
-          : Container(
-              padding: EdgeInsets.only(
-                left: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
-                right: _screenSize.width * Constants.BODY_WIDTH_PADDING_PERCENT,
-              ),
-              child: Stack(
-                children: <Widget>[
-                  _allFinished
+          : Stack(
+              children: <Widget>[
+                _allFinished
 //                  true
-                      ? CharacterFinishedHome(_isSubmittedToday)
-                      : CharacterHome(
-                          _chooseCharacter,
-                        ),
-                  Column(
+                    ? CharacterFinishedHome(_isSubmittedToday)
+                    : CharacterHome(
+                        _chooseCharacter,
+                      ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: _screenSize.width *
+                        Constants.BODY_WIDTH_PADDING_PERCENT,
+                    right: _screenSize.width *
+                        Constants.BODY_WIDTH_PADDING_PERCENT,
+                  ),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _allFinished
@@ -198,8 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
     );
   }

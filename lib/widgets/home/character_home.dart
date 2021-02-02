@@ -9,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class CharacterHome extends StatefulWidget {
-  final Function(Character, QuestionsProvider) _chooseCharacter;
+  final Function(Character, QuestionsProvider, Offset) _chooseCharacter;
   CharacterHome(this._chooseCharacter);
   @override
   _CharacterHomeState createState() => _CharacterHomeState();
@@ -68,7 +68,8 @@ class _CharacterHomeState extends State<CharacterHome> {
   GestureDetector _buildCharacter(
       Character character, QuestionsProvider questionsProvider, Size homeSize) {
     return GestureDetector(
-      onTap: () => widget._chooseCharacter(character, questionsProvider),
+      onTapDown: (detail) => widget._chooseCharacter(
+          character, questionsProvider, detail.globalPosition),
       child: Column(
         children: [
           Container(

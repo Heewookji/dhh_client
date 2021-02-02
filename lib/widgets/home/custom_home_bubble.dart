@@ -1,6 +1,12 @@
 import 'package:dhh_client/widgets/Bubbles.dart';
 import 'package:flutter/material.dart';
 
+enum Tail {
+  Left,
+  Center,
+  Right,
+}
+
 class CustomHomeBubble extends StatelessWidget {
   final Widget child;
   final Function onPressed;
@@ -8,7 +14,7 @@ class CustomHomeBubble extends StatelessWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final Color color;
-  final int bubbleNumber;
+  final Tail tail;
 
   CustomHomeBubble(
     this.child,
@@ -17,7 +23,7 @@ class CustomHomeBubble extends StatelessWidget {
     this.onPressed,
     this.padding,
     this.alignment,
-    this.bubbleNumber,
+    this.tail,
   });
 
   @override
@@ -48,12 +54,12 @@ class CustomHomeBubble extends StatelessWidget {
   }
 
   CustomPainter _buildBubble(Color color) {
-    switch (bubbleNumber) {
-      case 0:
+    switch (tail) {
+      case Tail.Right:
         return MainBubble0(color);
-      case 1:
+      case Tail.Center:
         return MainBubble1(color);
-      case 2:
+      case Tail.Left:
         return MainBubble2(color);
       default:
         return MainSmallBubble();

@@ -6,9 +6,22 @@ import 'package:flutter/material.dart';
 class HomePanel extends StatelessWidget {
   final Question _chosenQuestion;
   final Character _chosenCharacter;
+  final Offset _pressedLocation;
   final bool _isSubmittedToday;
-  HomePanel(
-      this._chosenQuestion, this._chosenCharacter, this._isSubmittedToday);
+  HomePanel(this._chosenQuestion, this._chosenCharacter, this._isSubmittedToday,
+      this._pressedLocation);
+
+  Tail _getTailByPressedLocation(Size _screenSize) {
+    if (_pressedLocation == null) return Tail.Right;
+    double x = _pressedLocation.dx;
+    double width = _screenSize.width;
+    if (x <= width / 3)
+      return Tail.Left;
+    else if (x <= 2 * (width / 3))
+      return Tail.Center;
+    else
+      return Tail.Right;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +51,7 @@ class HomePanel extends StatelessWidget {
               padding: EdgeInsets.only(
                 bottom: _screenSize.height * 0.03,
               ),
-              bubbleNumber: 0,
+              tail: _getTailByPressedLocation(_screenSize),
             ),
     );
   }

@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isSubmittedToday;
   Character _chosenCharacter;
   Question _chosenQuestion;
+  Offset _pressedLocation;
 
   @override
   void initState() {
@@ -74,11 +75,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 .characterIds);
   }
 
-  void _chooseCharacter(
-      Character character, QuestionsProvider questionsProvider) {
+  void _chooseCharacter(Character character,
+      QuestionsProvider questionsProvider, Offset pressedLocation) {
     setState(() {
       _chosenCharacter = character;
       _chosenQuestion = questionsProvider.questionMap[character.id.toString()];
+      _pressedLocation = pressedLocation;
     });
   }
 
@@ -185,6 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               _chosenQuestion,
                               _chosenCharacter,
                               _isSubmittedToday,
+                              _pressedLocation,
                             ),
                       _allFinished
                           ? Container()

@@ -4,7 +4,7 @@ import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
 import 'package:dhh_client/screens/write_screen.dart';
-import 'package:dhh_client/widgets/custom_main_bubble.dart';
+import 'package:dhh_client/widgets/home/custom_home_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -151,7 +151,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
           child: character.id == chosenId &&
 //              !widget._isSubmittedToday
                   true
-              ? CustomMainBubble(
+              ? CustomHomeBubble(
                   FlatButton(
                     child: Text(
                       '일기쓰기 >',

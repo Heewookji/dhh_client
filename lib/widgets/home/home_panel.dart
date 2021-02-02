@@ -1,6 +1,6 @@
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
-import 'package:dhh_client/widgets/custom_main_bubble.dart';
+import 'package:dhh_client/widgets/home/custom_home_bubble.dart';
 import 'package:flutter/material.dart';
 
 class HomePanel extends StatelessWidget {
@@ -19,7 +19,7 @@ class HomePanel extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: false
           ? null
-          : CustomMainBubble(
+          : CustomHomeBubble(
               Container(
                 margin: EdgeInsets.all(10),
                 alignment: Alignment.center,

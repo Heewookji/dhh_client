@@ -1,7 +1,7 @@
 import 'package:dhh_client/widgets/Bubbles.dart';
 import 'package:flutter/material.dart';
 
-class CustomMainBubble extends StatelessWidget {
+class CustomHomeBubble extends StatelessWidget {
   final Widget child;
   final Function onPressed;
   final Size size;
@@ -10,7 +10,7 @@ class CustomMainBubble extends StatelessWidget {
   final Color color;
   final int bubbleNumber;
 
-  CustomMainBubble(
+  CustomHomeBubble(
     this.child,
     this.color,
     this.size, {

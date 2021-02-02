@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants.dart';
-import '../custom_list_bubble.dart';
+import 'custom_list_bubble.dart';
 
 class DiaryList extends StatelessWidget {
   final List<Map<Type, Object>> _diaryDetails;

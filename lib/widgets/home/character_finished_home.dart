@@ -27,7 +27,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
   static List<Point<double>> getLocationPoints(Size homeSize) {
     return [
       //character
-      Point(homeSize.width * 0.18, homeSize.height * 0.78),
+      Point(homeSize.width * 0.2, homeSize.height * 0.78),
       Point(homeSize.width * 0.47, homeSize.height * 0.75),
       Point(homeSize.width * 0.7, homeSize.height * 0.623),
       Point(homeSize.width * 0.13, homeSize.height * 0.543),
@@ -79,30 +79,20 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
                       child: SvgPicture.asset(
                           'assets/images/finished_background.svg'),
                     ),
-                    for (int i = 0; i < Constants.ALL_CHARACTER_COUNT; i++)
-                      charactersProvider.characters.length <= i
-                          ? Positioned(
-                              left: _locationPoints[i].x,
-                              bottom: _locationPoints[i].y,
-                              child: Container(
-                                color: Colors.black26,
-                                child: SizedBox(
-                                  height: constraints.biggest.height * 0.1,
-                                  width: constraints.biggest.height * 0.1,
-                                ),
-                              ),
-                            )
-                          : Positioned(
-                              left: _locationPoints[i].x -
-                                  ((bubbleWidth - characterWidth) / 2),
-                              bottom: _locationPoints[i].y,
-                              child: _buildCharacterAndBubble(
-                                _theme,
-                                charactersProvider.characters[i],
-                                characterWidth,
-                                chosenId,
-                              ),
-                            ),
+                    for (int i = 0;
+                        i < charactersProvider.characters.length;
+                        i++)
+                      Positioned(
+                        left: _locationPoints[i].x -
+                            ((bubbleWidth - characterWidth) / 2),
+                        bottom: _locationPoints[i].y,
+                        child: _buildCharacterAndBubble(
+                          _theme,
+                          charactersProvider.characters[i],
+                          characterWidth,
+                          chosenId,
+                        ),
+                      ),
                   ],
                 );
               },

@@ -24,12 +24,14 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool _isBusy = true;
   bool _isSubmittedToday;
   Character _chosenCharacter;
   Question _chosenQuestion;
   Offset _pressedLocation;
+  AnimationController _panelAnimationController;
+  Animation<double> _panelAnimation;
 
   @override
   void initState() {
@@ -37,7 +39,23 @@ class _HomeScreenState extends State<HomeScreen> {
     _doInitFuture();
   }
 
+  @override
+  void dispose() {
+    _panelAnimationController.dispose();
+    super.dispose();
+  }
+
   void _doInitFuture() async {
+    _panelAnimationController = AnimationController(
+      duration: Duration(milliseconds: 800),
+      vsync: this,
+    );
+    _panelAnimation = Tween<double>(begin: 0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _panelAnimationController,
+        curve: Curves.easeOutCirc,
+      ),
+    );
     await Provider.of<HomeProvider>(context, listen: false).setAllFinished();
     await _newCharacterComeIfPossible();
     await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
@@ -76,6 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _chooseCharacter(Character character,
       QuestionsProvider questionsProvider, Offset pressedLocation) {
+    _panelAnimationController.reset();
+    _panelAnimationController.forward();
     setState(() {
       _chosenCharacter = character;
       _chosenQuestion = questionsProvider.questionMap[character.id.toString()];
@@ -186,8 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           : HomePanel(
                               _chosenQuestion,
                               _chosenCharacter,
-                              _isSubmittedToday,
                               _pressedLocation,
+                              _panelAnimation,
                             ),
                       _allFinished
                           ? Container()

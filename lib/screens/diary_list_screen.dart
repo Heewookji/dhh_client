@@ -149,9 +149,6 @@ class _DiaryListScreenState extends State<DiaryListScreen>
                             _pickedLocation,
                           ),
                           Container(
-//                        color: _chosenCharacter != null
-//                            ? Color(_chosenCharacter.color)
-//                            : Colors.white,
                             padding: EdgeInsets.only(top: _topPadding),
                             child: Column(
                               children: [

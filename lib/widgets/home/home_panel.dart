@@ -7,9 +7,13 @@ class HomePanel extends StatelessWidget {
   final Question _chosenQuestion;
   final Character _chosenCharacter;
   final Offset _pressedLocation;
-  final bool _isSubmittedToday;
-  HomePanel(this._chosenQuestion, this._chosenCharacter, this._isSubmittedToday,
-      this._pressedLocation);
+  final Animation<double> _panelAnimation;
+  HomePanel(
+    this._chosenQuestion,
+    this._chosenCharacter,
+    this._pressedLocation,
+    this._panelAnimation,
+  );
 
   Tail _getTailByPressedLocation(Size _screenSize) {
     if (_pressedLocation == null) return Tail.Right;
@@ -29,30 +33,42 @@ class HomePanel extends StatelessWidget {
     final _theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.only(top: _screenSize.height * 0.04324),
-      alignment: Alignment.topCenter,
-      child: false
-          ? null
-          : CustomHomeBubble(
-              Container(
-                margin: EdgeInsets.all(10),
-                alignment: Alignment.center,
-                child: Text(
-                  _chosenQuestion != null
-                      ? _chosenQuestion.text
-                      : '푸쉬 알림을 통해\n규칙적인 일기 습관을 만들어요.',
-                  style: _theme.textTheme.bodyText1,
-                  textAlign: TextAlign.center,
-                ),
+      child: AnimatedBuilder(
+        animation: _panelAnimation,
+        builder: (ctx, child) => Opacity(
+          opacity: _chosenCharacter == null ? 1.0 : _panelAnimation.value,
+          child: CustomHomeBubble(
+            Container(
+              margin: EdgeInsets.all(10),
+              alignment: Alignment.center,
+              child: Text(
+                _chosenQuestion != null
+                    ? _chosenQuestion.text
+                    : '푸쉬 알림을 통해\n규칙적인 일기 습관을 만들어요.',
+                style: _theme.textTheme.bodyText1,
+                textAlign: TextAlign.center,
+                softWrap: false,
               ),
-              _chosenCharacter == null
-                  ? Colors.white
-                  : Color(_chosenCharacter.color),
-              Size(double.infinity, _screenSize.height * 0.167),
-              padding: EdgeInsets.only(
-                bottom: _screenSize.height * 0.03,
-              ),
-              tail: _getTailByPressedLocation(_screenSize),
             ),
+            _chosenCharacter == null
+                ? Colors.white
+                : Color(_chosenCharacter.color),
+            _chosenCharacter == null
+                ? Size(
+                    _screenSize.width,
+                    _screenSize.height * 0.167,
+                  )
+                : Size(
+                    _panelAnimation.value * _screenSize.width,
+                    _panelAnimation.value * _screenSize.height * 0.167,
+                  ),
+            padding: EdgeInsets.only(
+              bottom: _screenSize.height * 0.03,
+            ),
+            tail: _getTailByPressedLocation(_screenSize),
+          ),
+        ),
+      ),
     );
   }
 }

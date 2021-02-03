@@ -77,7 +77,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
                       width: _screenSize.width,
                       height: _screenSize.height * 0.85,
                       child: SvgPicture.asset(
-                          'assets/images/finished_background.svg'),
+                          'assets/images/background_finished.svg'),
                     ),
                     for (int i = 0;
                         i < charactersProvider.characters.length;

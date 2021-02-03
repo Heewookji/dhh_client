@@ -1,4 +1,4 @@
-import 'package:dhh_client/widgets/Bubbles.dart';
+import 'package:dhh_client/widgets/bubbles.dart';
 import 'package:flutter/material.dart';
 
 enum Tail {

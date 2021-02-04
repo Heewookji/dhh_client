@@ -21,33 +21,41 @@ class ListBubble0 extends CustomPainter {
       ..style = PaintingStyle.fill;
     Path path = Path();
     path = Path();
-    path.moveTo(size.width * 0.97, size.height * 0.07);
-    path.cubicTo(size.width, size.height * 0.14, size.width, size.height * 0.22,
-        size.width, size.height * 0.43);
-    path.cubicTo(size.width, size.height * 0.77, size.width, size.height * 0.74,
-        size.width, size.height * 0.7);
-    path.cubicTo(size.width, size.height * 0.8, size.width * 0.95,
-        size.height * 0.83, size.width * 0.93, size.height * 0.85);
-    path.cubicTo(size.width * 0.92, size.height * 0.86, size.width * 0.9,
-        size.height * 0.87, size.width * 0.88, size.height * 0.87);
-    path.cubicTo(size.width * 0.88, size.height * 0.87, size.width / 5,
-        size.height * 0.87, size.width / 5, size.height * 0.87);
-    path.cubicTo(size.width * 0.19, size.height * 0.87, size.width * 0.18,
-        size.height * 0.91, size.width / 5, size.height * 0.96);
-    path.cubicTo(size.width * 0.22, size.height * 1.02, size.width * 0.19,
-        size.height, size.width * 0.18, size.height);
-    path.cubicTo(size.width * 0.14, size.height * 0.97, size.width * 0.11,
-        size.height * 0.88, size.width * 0.06, size.height * 0.86);
-    path.cubicTo(size.width * 0.03, size.height * 0.85, size.width * 0.03,
-        size.height * 0.85, size.width * 0.02, size.height * 0.82);
+    path.moveTo(size.width * 0.86, 0);
     path.cubicTo(
-        0, size.height * 0.74, 0, size.height * 0.67, 0, size.height * 0.6);
+        size.width * 0.86, 0, size.width * 0.1, 0, size.width * 0.1, 0);
     path.cubicTo(
-        0, size.height * 0.52, 0, size.height * 0.29, 0, size.height * 0.27);
-    path.cubicTo(0, size.height / 4, size.width * 0.01, size.height * 0.01,
-        size.width * 0.1, size.height * 0.01);
-    path.cubicTo(size.width * 0.8, size.height * 0.02, size.width * 0.93, -0.02,
-        size.width * 0.97, size.height * 0.07);
+        size.width * 0.05, 0, 0, size.height * 0.13, 0, size.height * 0.3);
+    path.cubicTo(
+        0, size.height * 0.3, 0, size.height * 0.64, 0, size.height * 0.64);
+    path.cubicTo(0, size.height * 0.74, size.width * 0.03, size.height * 0.82,
+        size.width * 0.06, size.height * 0.82);
+    path.cubicTo(size.width * 0.06, size.height * 0.82, size.width * 0.09,
+        size.height * 0.82, size.width * 0.09, size.height * 0.82);
+    path.cubicTo(size.width * 0.09, size.height * 0.82, size.width * 0.12,
+        size.height * 0.82, size.width * 0.13, size.height * 0.82);
+    path.cubicTo(size.width * 0.16, size.height * 0.83, size.width * 0.16,
+        size.height * 0.85, size.width * 0.17, size.height * 0.86);
+    path.cubicTo(size.width * 0.19, size.height * 0.9, size.width / 5,
+        size.height * 0.95, size.width * 0.23, size.height * 0.98);
+    path.cubicTo(size.width * 0.25, size.height, size.width / 4, size.height,
+        size.width / 4, size.height);
+    path.cubicTo(size.width * 0.26, size.height, size.width * 0.27, size.height,
+        size.width * 0.26, size.height);
+    path.cubicTo(size.width * 0.28, size.height * 0.99, size.width * 0.27,
+        size.height * 0.94, size.width * 0.27, size.height * 0.94);
+    path.cubicTo(size.width * 0.27, size.height * 0.94, size.width / 4,
+        size.height * 0.82, size.width * 0.27, size.height * 0.82);
+    path.cubicTo(size.width * 0.27, size.height * 0.82, size.width * 0.87,
+        size.height * 0.82, size.width * 0.87, size.height * 0.82);
+    path.cubicTo(size.width * 0.94, size.height * 0.82, size.width,
+        size.height * 0.65, size.width, size.height * 0.44);
+    path.cubicTo(size.width, size.height * 0.44, size.width, size.height * 0.42,
+        size.width, size.height * 0.42);
+    path.cubicTo(size.width, size.height * 0.19, size.width * 0.94, 0,
+        size.width * 0.86, 0);
+    path.cubicTo(
+        size.width * 0.86, 0, size.width * 0.86, 0, size.width * 0.86, 0);
     canvas.drawPath(path.shift(Constants.SHADOW_OFFSET), shadowPaint);
     canvas.drawPath(path, paint);
     canvas.drawPath(path, outLinePaint);
@@ -78,31 +86,43 @@ class ListBubble1 extends CustomPainter {
       ..style = PaintingStyle.fill;
     Path path = Path();
     path = Path();
-    path.moveTo(size.width * 0.16, 0);
-    path.cubicTo(size.width * 0.12, 0, size.width * 0.08, size.height * 0.03,
-        size.width * 0.05, size.height * 0.18);
-    path.cubicTo(size.width * 0.03, size.height * 0.29, -0.05,
-        size.height * 0.83, size.width * 0.05, size.height * 0.84);
-    path.cubicTo(size.width * 0.63, size.height * 0.84, size.width * 0.68,
-        size.height * 0.84, size.width * 0.73, size.height * 0.83);
-    path.cubicTo(size.width * 0.76, size.height * 0.83, size.width * 0.79,
-        size.height * 0.82, size.width * 0.81, size.height * 0.84);
-    path.cubicTo(size.width * 0.84, size.height * 0.86, size.width * 0.85,
-        size.height * 0.94, size.width * 0.87, size.height * 0.98);
-    path.cubicTo(size.width * 0.87, size.height * 0.98, size.width * 0.88,
-        size.height, size.width * 0.89, size.height * 0.98);
-    path.cubicTo(size.width * 0.9, size.height * 0.93, size.width * 0.92,
-        size.height * 0.85, size.width * 0.94, size.height * 0.84);
-    path.cubicTo(size.width * 0.97, size.height * 0.83, size.width,
-        size.height * 0.84, size.width, size.height * 0.74);
-    path.cubicTo(size.width, size.height * 0.67, size.width, size.height * 0.62,
-        size.width, size.height * 0.54);
-    path.cubicTo(size.width, size.height * 0.42, size.width, size.height * 0.31,
-        size.width, size.height * 0.19);
-    path.cubicTo(size.width, size.height * 0.09, size.width * 0.98, 0,
-        size.width * 0.94, 0);
+    path.moveTo(size.width * 0.92, 0);
     path.cubicTo(
-        size.width * 0.17, 0, size.width * 0.16, 0, size.width * 0.16, 0);
+        size.width * 0.92, 0, size.width * 0.12, 0, size.width * 0.12, 0);
+    path.cubicTo(size.width * 0.07, 0, size.width * 0.06, size.height * 0.07,
+        size.width * 0.05, size.height * 0.15);
+    path.cubicTo(size.width * 0.05, size.height * 0.15, 0, size.height * 0.51,
+        0, size.height * 0.64);
+    path.cubicTo(0, size.height * 0.74, size.width * 0.03, size.height * 0.82,
+        size.width * 0.06, size.height * 0.82);
+    path.cubicTo(size.width * 0.06, size.height * 0.82, size.width * 0.73,
+        size.height * 0.82, size.width * 0.73, size.height * 0.82);
+    path.cubicTo(size.width * 0.73, size.height * 0.82, size.width * 0.73,
+        size.height * 0.82, size.width * 0.73, size.height * 0.82);
+    path.cubicTo(size.width * 0.73, size.height * 0.82, size.width * 0.75,
+        size.height * 0.82, size.width * 0.75, size.height * 0.82);
+    path.cubicTo(size.width * 0.77, size.height * 0.82, size.width * 0.79,
+        size.height * 0.87, size.width * 0.79, size.height * 0.94);
+    path.cubicTo(size.width * 0.79, size.height, size.width * 0.8, size.height,
+        size.width * 0.81, size.height);
+    path.cubicTo(size.width * 0.83, size.height * 0.99, size.width * 0.84,
+        size.height * 0.93, size.width * 0.84, size.height * 0.94);
+    path.cubicTo(size.width * 0.85, size.height * 0.9, size.width * 0.86,
+        size.height * 0.88, size.width * 0.87, size.height * 0.86);
+    path.cubicTo(size.width * 0.88, size.height * 0.84, size.width * 0.89,
+        size.height * 0.83, size.width * 0.9, size.height * 0.825);
+    path.cubicTo(size.width * 0.91, size.height * 0.82, size.width * 0.92,
+        size.height * 0.82, size.width * 0.92, size.height * 0.82);
+    path.cubicTo(size.width * 0.92, size.height * 0.82, size.width * 0.95,
+        size.height * 0.82, size.width * 0.95, size.height * 0.82);
+    path.cubicTo(size.width * 0.98, size.height * 0.82, size.width,
+        size.height * 0.76, size.width, size.height * 0.68);
+    path.cubicTo(size.width, size.height * 0.68, size.width, size.height * 0.23,
+        size.width, size.height * 0.23);
+    path.cubicTo(size.width, size.height * 0.1, size.width * 0.96, 0,
+        size.width * 0.92, 0);
+    path.cubicTo(
+        size.width * 0.92, 0, size.width * 0.92, 0, size.width * 0.92, 0);
     canvas.drawPath(path.shift(Constants.SHADOW_OFFSET), shadowPaint);
     canvas.drawPath(path, paint);
     canvas.drawPath(path, outLinePaint);
@@ -133,36 +153,35 @@ class ListBubble2 extends CustomPainter {
       ..style = PaintingStyle.fill;
     Path path = Path();
     path = Path();
-    path.moveTo(size.width * 0.17, 0);
-    path.cubicTo(size.width * 0.17, 0, 0, -0.05, 0, size.height * 0.48);
-    path.cubicTo(0, size.height * 0.48, 0, size.height * 0.76, size.width * 0.1,
-        size.height * 0.83);
-    path.cubicTo(size.width * 0.1, size.height * 0.83, size.width * 0.14,
-        size.height * 0.85, size.width * 0.15, size.height * 0.89);
-    path.cubicTo(size.width * 0.15, size.height * 0.89, size.width * 0.19,
-        size.height * 0.98, size.width * 0.23, size.height);
-    path.cubicTo(size.width * 0.23, size.height, size.width * 0.24, size.height,
-        size.width * 0.24, size.height);
-    path.cubicTo(size.width * 0.27, size.height, size.width * 0.24,
-        size.height * 0.96, size.width * 0.24, size.height * 0.95);
-    path.cubicTo(size.width * 0.23, size.height * 0.93, size.width * 0.22,
-        size.height * 0.9, size.width * 0.22, size.height * 0.87);
-    path.cubicTo(size.width * 0.22, size.height * 0.82, size.width * 0.29,
-        size.height * 0.84, size.width * 0.3, size.height * 0.84);
-    path.cubicTo(size.width * 0.74, size.height * 0.84, size.width * 0.89,
-        size.height * 0.84, size.width * 0.89, size.height * 0.84);
-    path.cubicTo(size.width * 0.89, size.height * 0.84, size.width,
-        size.height * 0.86, size.width, size.height * 0.64);
-    path.cubicTo(size.width, size.height * 0.52, size.width, size.height * 0.4,
-        size.width * 0.98, size.height * 0.3);
-    path.cubicTo(size.width * 0.96, size.height * 0.22, size.width * 0.94,
-        size.height * 0.14, size.width * 0.92, size.height * 0.08);
-    path.cubicTo(size.width * 0.9, size.height * 0.01, size.width * 0.88, 0,
-        size.width * 0.85, 0);
+    path.moveTo(size.width, size.height * 0.62);
+    path.cubicTo(size.width, size.height * 0.51, size.width * 0.96,
+        size.height * 0.19, size.width * 0.96, size.height * 0.19);
+    path.cubicTo(size.width * 0.95, size.height * 0.11, size.width * 0.93, 0,
+        size.width * 0.9, 0);
     path.cubicTo(
-        size.width * 0.78, 0, size.width * 0.17, 0, size.width * 0.17, 0);
+        size.width * 0.9, 0, size.width * 0.13, 0, size.width * 0.13, 0);
     path.cubicTo(
-        size.width * 0.17, 0, size.width * 0.17, 0, size.width * 0.17, 0);
+        size.width * 0.06, 0, 0, size.height * 0.17, 0, size.height * 0.38);
+    path.cubicTo(
+        0, size.height * 0.38, 0, size.height * 0.44, 0, size.height * 0.44);
+    path.cubicTo(0, size.height * 0.63, size.width * 0.05, size.height * 0.8,
+        size.width * 0.12, size.height * 0.82);
+    path.cubicTo(size.width * 0.15, size.height * 0.84, size.width * 0.16,
+        size.height * 0.85, size.width * 0.17, size.height * 0.87);
+    path.cubicTo(size.width * 0.19, size.height * 0.9, size.width / 5,
+        size.height * 0.95, size.width * 0.23, size.height * 0.98);
+    path.cubicTo(size.width * 0.24, size.height, size.width / 4, size.height,
+        size.width / 4, size.height);
+    path.cubicTo(size.width * 0.28, size.height, size.width * 0.27,
+        size.height * 0.94, size.width * 0.27, size.height * 0.94);
+    path.cubicTo(size.width * 0.27, size.height * 0.94, size.width / 4,
+        size.height * 0.82, size.width * 0.27, size.height * 0.82);
+    path.cubicTo(size.width * 0.27, size.height * 0.82, size.width * 0.93,
+        size.height * 0.82, size.width * 0.93, size.height * 0.82);
+    path.cubicTo(size.width * 0.97, size.height * 0.82, size.width,
+        size.height * 0.73, size.width, size.height * 0.62);
+    path.cubicTo(size.width, size.height * 0.62, size.width, size.height * 0.62,
+        size.width, size.height * 0.62);
     canvas.drawPath(path.shift(Constants.SHADOW_OFFSET), shadowPaint);
     canvas.drawPath(path, paint);
     canvas.drawPath(path, outLinePaint);
@@ -192,31 +211,43 @@ class ListBubble3 extends CustomPainter {
       ..color = Colors.black
       ..style = PaintingStyle.fill;
     Path path = Path();
-    path.moveTo(size.width * 0.05, size.height * 0.04);
-    path.cubicTo(size.width * 0.05, size.height * 0.04, size.width * 0.07, 0,
-        size.width * 0.1, 0);
+    path.moveTo(size.width * 0.92, 0);
     path.cubicTo(
-        size.width * 0.82, 0, size.width * 0.84, 0, size.width * 0.86, 0);
+        size.width * 0.92, 0, size.width * 0.08, 0, size.width * 0.08, 0);
     path.cubicTo(
-        size.width * 0.93, 0, size.width, 0, size.width, size.height / 5);
-    path.cubicTo(size.width, size.height * 0.7, size.width, size.height * 0.63,
-        size.width, size.height * 0.66);
-    path.cubicTo(size.width, size.height * 0.81, size.width * 0.93,
-        size.height * 0.8, size.width * 0.9, size.height * 0.84);
-    path.cubicTo(size.width * 0.88, size.height * 0.86, size.width * 0.87,
-        size.height * 0.92, size.width * 0.86, size.height * 0.97);
-    path.cubicTo(size.width * 0.84, size.height * 1.03, size.width * 0.84,
-        size.height * 0.97, size.width * 0.83, size.height * 0.93);
-    path.cubicTo(size.width * 0.81, size.height * 0.86, size.width * 0.79,
-        size.height * 0.84, size.width * 0.76, size.height * 0.84);
-    path.cubicTo(size.width * 0.19, size.height * 0.84, size.width * 0.11,
-        size.height * 0.85, size.width * 0.09, size.height * 0.83);
-    path.cubicTo(size.width * 0.07, size.height * 0.82, size.width * 0.04,
-        size.height * 0.81, size.width * 0.02, size.height * 0.71);
+        size.width * 0.04, 0, 0, size.height * 0.11, 0, size.height * 0.24);
     path.cubicTo(
-        0, size.height * 0.63, 0, size.height * 0.54, 0, size.height * 0.41);
-    path.cubicTo(0, size.height * 0.17, size.width * 0.01, size.height * 0.12,
-        size.width * 0.05, size.height * 0.04);
+        0, size.height * 0.24, 0, size.height * 0.57, 0, size.height * 0.57);
+    path.cubicTo(0, size.height * 0.71, size.width * 0.04, size.height * 0.82,
+        size.width * 0.08, size.height * 0.82);
+    path.cubicTo(size.width * 0.08, size.height * 0.82, size.width * 0.73,
+        size.height * 0.82, size.width * 0.73, size.height * 0.82);
+    path.cubicTo(size.width * 0.73, size.height * 0.82, size.width * 0.73,
+        size.height * 0.82, size.width * 0.73, size.height * 0.82);
+    path.cubicTo(size.width * 0.73, size.height * 0.82, size.width * 0.75,
+        size.height * 0.82, size.width * 0.75, size.height * 0.82);
+    path.cubicTo(size.width * 0.77, size.height * 0.82, size.width * 0.79,
+        size.height * 0.87, size.width * 0.79, size.height * 0.94);
+    path.cubicTo(size.width * 0.79, size.height, size.width * 0.8, size.height,
+        size.width * 0.82, size.height * 0.98);
+    path.cubicTo(size.width * 0.82, size.height * 0.98, size.width * 0.84,
+        size.height * 0.93, size.width * 0.84, size.height * 0.93);
+    path.cubicTo(size.width * 0.85, size.height * 0.9, size.width * 0.86,
+        size.height * 0.88, size.width * 0.87, size.height * 0.865);
+    path.cubicTo(size.width * 0.88, size.height * 0.85, size.width * 0.89,
+        size.height * 0.84, size.width * 0.9, size.height * 0.83);
+    path.cubicTo(size.width * 0.91, size.height * 0.82, size.width * 0.92,
+        size.height * 0.82, size.width * 0.92, size.height * 0.82);
+    path.cubicTo(size.width * 0.92, size.height * 0.82, size.width * 0.92,
+        size.height * 0.82, size.width * 0.92, size.height * 0.82);
+    path.cubicTo(size.width * 0.97, size.height * 0.82, size.width,
+        size.height * 0.72, size.width, size.height * 0.59);
+    path.cubicTo(size.width, size.height * 0.59, size.width, size.height * 0.24,
+        size.width, size.height * 0.24);
+    path.cubicTo(size.width, size.height * 0.11, size.width * 0.96, 0,
+        size.width * 0.92, 0);
+    path.cubicTo(
+        size.width * 0.92, 0, size.width * 0.92, 0, size.width * 0.92, 0);
     canvas.drawPath(path.shift(Constants.SHADOW_OFFSET), shadowPaint);
     canvas.drawPath(path, paint);
     canvas.drawPath(path, outLinePaint);

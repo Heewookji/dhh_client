@@ -27,11 +27,11 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
   static List<Point<double>> getLocationPoints(Size homeSize) {
     return [
       //character
-      Point(homeSize.width * 0.2, homeSize.height * 0.78),
-      Point(homeSize.width * 0.47, homeSize.height * 0.75),
-      Point(homeSize.width * 0.7, homeSize.height * 0.623),
-      Point(homeSize.width * 0.13, homeSize.height * 0.543),
-      Point(homeSize.width * 0.43, homeSize.height * 0.543),
+      Point(homeSize.width * 0.2, homeSize.height * 0.775),
+      Point(homeSize.width * 0.47, homeSize.height * 0.74),
+      Point(homeSize.width * 0.7, homeSize.height * 0.618),
+      Point(homeSize.width * 0.13, homeSize.height * 0.54),
+      Point(homeSize.width * 0.43, homeSize.height * 0.54),
       Point(homeSize.width * 0.55, homeSize.height * 0.33),
       Point(homeSize.width * 0.12, homeSize.height * 0.25),
       Point(homeSize.width * 0.4, homeSize.height * 0.09),

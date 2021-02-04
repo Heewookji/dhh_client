@@ -78,10 +78,9 @@ class _CharacterHomeState extends State<CharacterHome> {
       child: Column(
         children: [
           Container(
-            color: Color(character.color),
             child: SizedBox(
-              height: homeSize.height * 0.19,
-              width: homeSize.height * 0.19,
+              height: homeSize.height * 0.3,
+              width: homeSize.height * 0.3,
               child: SvgPicture.asset(
                 character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
               ),

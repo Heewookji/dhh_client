@@ -68,7 +68,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             _locationPoints = getLocationPoints(constraints.biggest);
-            final characterWidth = constraints.biggest.height * 0.1;
+            final characterWidth = constraints.biggest.height * 0.17;
             return Consumer<CharactersProvider>(
               builder: (context, charactersProvider, child) {
                 return Stack(
@@ -107,17 +107,12 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
       double characterWidth, int chosenId) {
     return Column(
       children: [
-        _buildBubble(character, chosenId),
         GestureDetector(
           onTap: () => chooseCharacter(character),
           child: Stack(
-            alignment: Alignment.center,
+            alignment: Alignment.topCenter,
             children: [
-              SizedBox(
-                width: bubbleWidth,
-              ),
               Container(
-                color: Color(character.color),
                 child: SizedBox(
                   height: characterWidth,
                   width: characterWidth,
@@ -125,7 +120,9 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
                     character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
                   ),
                 ),
+                margin: EdgeInsets.only(top: 15),
               ),
+              _buildBubble(character, chosenId),
             ],
           ),
         ),

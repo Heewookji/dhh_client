@@ -64,11 +64,11 @@ class CustomDialog extends StatelessWidget {
               top: result['status'] == Status.Error
                   ? screenSize.height * 0.03783
                   : screenSize.height * 0.03783 +
-                      screenSize.height * 0.14864 / 2,
+                      screenSize.height * 0.14864 / 5,
               right: screenSize.width * 0.02777,
               bottom: screenSize.height * 0.04054,
             ),
-            margin: EdgeInsets.only(top: screenSize.height * 0.14864 / 2),
+            margin: EdgeInsets.only(top: screenSize.height * 0.14864 / 1.3),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: const BorderRadius.all(

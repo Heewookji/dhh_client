@@ -21,7 +21,7 @@ class Crew extends StatelessWidget {
         ),
         Container(
           child: CustomRaisedButton(
-            '이현지 : UX/UI Designer',
+            '헤이즐 : UX/UI Designer',
             color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,
@@ -31,7 +31,7 @@ class Crew extends StatelessWidget {
         ),
         Container(
           child: CustomRaisedButton(
-            '전다영 : UX/UI Designer',
+            '제이 : UX/UI Designer',
             color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,
@@ -41,7 +41,7 @@ class Crew extends StatelessWidget {
         ),
         Container(
           child: CustomRaisedButton(
-            '지희욱 : Planer, Developer',
+            '우유튀김 : Planer, Developer',
             color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,

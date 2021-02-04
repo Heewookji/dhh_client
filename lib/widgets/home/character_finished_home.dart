@@ -27,16 +27,16 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
   static List<Point<double>> getLocationPoints(Size homeSize) {
     return [
       //character
-      Point(homeSize.width * 0.2, homeSize.height * 0.775),
-      Point(homeSize.width * 0.47, homeSize.height * 0.74),
-      Point(homeSize.width * 0.7, homeSize.height * 0.618),
-      Point(homeSize.width * 0.13, homeSize.height * 0.54),
-      Point(homeSize.width * 0.43, homeSize.height * 0.54),
-      Point(homeSize.width * 0.55, homeSize.height * 0.33),
-      Point(homeSize.width * 0.12, homeSize.height * 0.25),
-      Point(homeSize.width * 0.4, homeSize.height * 0.09),
-      Point(homeSize.width * 0.72, homeSize.height * 0.09),
-      Point(homeSize.width * 0.1, homeSize.height * 0.02),
+      Point(homeSize.width * 0.12, homeSize.height * 0.775),
+      Point(homeSize.width * 0.4, homeSize.height * 0.74),
+      Point(homeSize.width * 0.66, homeSize.height * 0.618),
+      Point(homeSize.width * 0.05, homeSize.height * 0.54),
+      Point(homeSize.width * 0.41, homeSize.height * 0.54),
+      Point(homeSize.width * 0.48, homeSize.height * 0.33),
+      Point(homeSize.width * 0.05, homeSize.height * 0.25),
+      Point(homeSize.width * 0.35, homeSize.height * 0.115),
+      Point(homeSize.width * 0.67, homeSize.height * 0.115),
+      Point(homeSize.width * 0.08, homeSize.height * 0.02),
     ];
   }
 
@@ -68,7 +68,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             _locationPoints = getLocationPoints(constraints.biggest);
-            final characterWidth = constraints.biggest.height * 0.17;
+            final characterWidth = constraints.biggest.height * 0.15;
             return Consumer<CharactersProvider>(
               builder: (context, charactersProvider, child) {
                 return Stack(

@@ -8,8 +8,10 @@ class WriteFreePanel extends StatelessWidget {
   final Character character;
   final TextEditingController _controller;
   final FocusNode _focus;
+  final Function _onChanged;
 
-  WriteFreePanel(this.character, this._controller, this._focus);
+  WriteFreePanel(
+      this.character, this._controller, this._focus, this._onChanged);
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class WriteFreePanel extends StatelessWidget {
               child: TextFormField(
                 controller: _controller,
                 focusNode: _focus,
+                onChanged: (text) => _onChanged(),
                 style: theme.textTheme.bodyText2,
                 autocorrect: false,
                 enableSuggestions: false,

@@ -6,7 +6,9 @@ class WriteTextField extends StatelessWidget {
   final bool _isFreeWrite;
   final TextEditingController _controller;
   final FocusNode _focus;
-  WriteTextField(this._isFreeWrite, this._controller, this._focus);
+  final Function _onChanged;
+  WriteTextField(
+      this._isFreeWrite, this._controller, this._focus, this._onChanged);
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class WriteTextField extends StatelessWidget {
                 controller: _controller,
                 focusNode: _focus,
                 style: theme.textTheme.bodyText2,
+                onChanged: (text) => _onChanged(),
                 autocorrect: false,
                 enableSuggestions: false,
                 scrollPhysics: BouncingScrollPhysics(),

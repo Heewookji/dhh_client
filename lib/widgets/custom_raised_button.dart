@@ -8,6 +8,7 @@ class CustomRaisedButton extends StatefulWidget {
   final Function onPressed;
   final Alignment alignment;
   final EdgeInsets padding;
+  final bool disabled;
 
   CustomRaisedButton(
     this.text, {
@@ -15,6 +16,7 @@ class CustomRaisedButton extends StatefulWidget {
     this.onPressed,
     this.padding,
     this.alignment,
+    this.disabled = false,
   });
 
   @override
@@ -33,7 +35,9 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
-      child: pressed ? _buildPressedButton(theme) : _buildButton(theme),
+      child: widget.disabled || pressed
+          ? _buildPressedButton(theme)
+          : _buildButton(theme),
       onTap: () {
         setState(() {
           pressed = false;

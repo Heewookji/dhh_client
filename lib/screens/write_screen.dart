@@ -77,6 +77,10 @@ class _WriteScreenState extends State<WriteScreen> {
     }
   }
 
+  void _onChanged() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -99,10 +103,10 @@ class _WriteScreenState extends State<WriteScreen> {
             child: Column(
               children: [
                 _isFreeWrite
-                    ? WriteFreePanel(
-                        character, _questionController, _questionFocus)
+                    ? WriteFreePanel(character, _questionController,
+                        _questionFocus, _onChanged)
                     : WritePanel(character, question),
-                WriteTextField(_isFreeWrite, _controller, _focus),
+                WriteTextField(_isFreeWrite, _controller, _focus, _onChanged),
                 _buildSubmitButton(_screenSize, _isFreeWrite),
               ],
             ),
@@ -113,20 +117,29 @@ class _WriteScreenState extends State<WriteScreen> {
   }
 
   Widget _buildSubmitButton(Size _screenSize, bool _isFreeWrite) {
+    bool disabled = false;
+    if (_isFreeWrite)
+      disabled =
+          _controller.text.length == 0 || _questionController.text.length == 0;
+    else
+      disabled = _controller.text.length == 0;
     return Consumer3<DiariesProvider, CharactersProvider, HomeProvider>(
       builder:
           (context, diariesProvider, charactersProvider, homeProvider, child) {
         return Container(
           child: CustomRaisedButton(
             '저장하기',
-            onPressed: () => _submit(
-              _isFreeWrite,
-              diariesProvider,
-              charactersProvider,
-              homeProvider,
-            ),
+            onPressed: disabled
+                ? null
+                : () => _submit(
+                      _isFreeWrite,
+                      diariesProvider,
+                      charactersProvider,
+                      homeProvider,
+                    ),
             color: Colors.black,
             alignment: Alignment.center,
+            disabled: disabled,
           ),
           margin: EdgeInsets.only(bottom: _screenSize.height * 0.02702),
         );

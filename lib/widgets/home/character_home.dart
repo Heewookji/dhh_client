@@ -21,11 +21,11 @@ class _CharacterHomeState extends State<CharacterHome> {
   static List<Point<double>> getLocationPoints(Size homeSize) {
     return [
       //character
-      Point(homeSize.width * 0.1, homeSize.height * 0.68),
-      Point(homeSize.width * 0.7, homeSize.height * 0.54),
-      Point(homeSize.width * 0.3, homeSize.height * 0.37),
-      Point(homeSize.width * 0.2, homeSize.height * 0.03),
-      Point(homeSize.width * 0.55, homeSize.height * 0.03),
+      Point(homeSize.width * 0.08, homeSize.height * 0.68),
+      Point(homeSize.width * 0.62, homeSize.height * 0.54),
+      Point(homeSize.width * 0.27, homeSize.height * 0.37),
+      Point(homeSize.width * 0.12, homeSize.height * 0.03),
+      Point(homeSize.width * 0.48, homeSize.height * 0.03),
     ];
   }
 
@@ -79,8 +79,8 @@ class _CharacterHomeState extends State<CharacterHome> {
         children: [
           Container(
             child: SizedBox(
-              height: homeSize.height * 0.3,
-              width: homeSize.height * 0.3,
+              height: homeSize.height * 0.28,
+              width: homeSize.height * 0.28,
               child: SvgPicture.asset(
                 character.statusImageUrl + Constants.CHARACTER_IMAGE_FORMAT,
               ),

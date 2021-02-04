@@ -141,7 +141,7 @@ class CharacterSql {
         standardSerializers.deserializeWith(Character.serializer, dataMap);
     await db.rawUpdate(''
         'update home_location set character_id = ${newCharacter.id.toString()} '
-        'where character_id is null '
+        'where id = (select id from home_location where character_id is null order by random() limit 1) '
         '');
     result['newCharacter'] = newCharacter;
     return result;

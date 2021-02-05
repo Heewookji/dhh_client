@@ -41,7 +41,7 @@ class MyCustomClipper extends CustomClipper<Path> {
     path.addOval(
       Rect.fromCircle(
         center: _location ?? Offset(0, 0),
-        radius: (size.height * _value) / 1.2,
+        radius: (size.height * _value) / 1,
       ),
     );
     return path;

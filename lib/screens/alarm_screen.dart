@@ -52,7 +52,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                   width: _screenSize.height *
                       Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
                   child: SvgPicture.asset(
-                    'assets/images/future_1.svg',
+                    'assets/images/future_2.svg',
                   ),
                 ),
                 margin: EdgeInsets.only(

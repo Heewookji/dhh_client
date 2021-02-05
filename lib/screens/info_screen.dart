@@ -47,7 +47,7 @@ class InfoScreen extends StatelessWidget {
                   width: _screenSize.height *
                       Constants.CHARACTER_IMAGE_HEIGHT_PERCENT,
                   child: SvgPicture.asset(
-                    'assets/images/love_1.svg',
+                    'assets/images/love_2.svg',
                   ),
                 ),
                 margin: EdgeInsets.only(

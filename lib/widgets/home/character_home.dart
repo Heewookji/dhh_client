@@ -34,6 +34,7 @@ class _CharacterHomeState extends State<CharacterHome> {
     final _screenSize = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(top: _screenSize.height * 0.232),
+      width: (_screenSize.height * 0.5) * 0.8777,
       height: _screenSize.height * 0.5,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -44,7 +45,7 @@ class _CharacterHomeState extends State<CharacterHome> {
                 overflow: Overflow.visible,
                 children: [
                   SizedBox(
-                    width: _screenSize.width,
+                    width: (_screenSize.height * 0.5) * 0.8777,
                     height: _screenSize.height * 0.5,
                     child: SvgPicture.asset(
                       'assets/images/background.svg',

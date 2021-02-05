@@ -64,6 +64,7 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
         margin: EdgeInsets.only(
           bottom: _screenSize.height * 0.02162,
         ),
+        width: (_screenSize.height * 0.85) * 0.5411,
         height: _screenSize.height * 0.85,
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -72,9 +73,10 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
             return Consumer<CharactersProvider>(
               builder: (context, charactersProvider, child) {
                 return Stack(
+                  overflow: Overflow.visible,
                   children: [
                     SizedBox(
-                      width: _screenSize.width,
+                      width: (_screenSize.height * 0.85) * 0.5411,
                       height: _screenSize.height * 0.85,
                       child: SvgPicture.asset(
                           'assets/images/background_finished.svg'),
@@ -84,7 +86,10 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
                         i++)
                       Positioned(
                         left: _locationPoints[i].x -
-                            ((bubbleWidth - characterWidth) / 2),
+                            ((bubbleWidth - characterWidth <= 0
+                                    ? 0
+                                    : bubbleWidth - characterWidth) /
+                                2),
                         bottom: _locationPoints[i].y,
                         child: _buildCharacterAndBubble(
                           _theme,
@@ -131,30 +136,35 @@ class _CharacterHomeState extends State<CharacterFinishedHome> {
   }
 
   Widget _buildBubble(Character character, int chosenId) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeOutCirc,
-      width: character.id == chosenId ? bubbleWidth : 0,
-      height: character.id == chosenId ? bubbleHeight : 0,
-      child: character.id == chosenId &&
+    return Stack(
+      children: [
+        Container(width: bubbleWidth),
+        AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOutCirc,
+          width: character.id == chosenId ? bubbleWidth : 0,
+          height: character.id == chosenId ? bubbleHeight : 0,
+          child: character.id == chosenId &&
 //              !widget._isSubmittedToday
-              true
-          ? CustomHomeBubble(
-              FlatButton(
-                child: Text(
-                  '일기쓰기 >',
-                  softWrap: false,
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () => _navigateFreeWriteScreen(character),
-              ),
-              Colors.white,
-              Size(bubbleWidth, bubbleHeight),
-              padding: EdgeInsets.only(bottom: 2),
-              alignment: Alignment.center,
-            )
-          : Container(),
-      margin: EdgeInsets.only(bottom: 5),
+                  true
+              ? CustomHomeBubble(
+                  FlatButton(
+                    child: Text(
+                      '일기쓰기 >',
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () => _navigateFreeWriteScreen(character),
+                  ),
+                  Colors.white,
+                  Size(bubbleWidth, bubbleHeight),
+                  padding: EdgeInsets.only(bottom: 2),
+                  alignment: Alignment.center,
+                )
+              : Container(),
+          margin: EdgeInsets.only(bottom: 5),
+        ),
+      ],
     );
   }
 }

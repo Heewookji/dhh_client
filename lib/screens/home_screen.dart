@@ -186,11 +186,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ? Center()
           : Stack(
               children: <Widget>[
-                _allFinished
-                    ? CharacterFinishedHome(_isSubmittedToday)
-                    : CharacterHome(
-                        _chooseCharacter,
-                      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _allFinished
+                        ? CharacterFinishedHome(_isSubmittedToday)
+                        : CharacterHome(
+                            _chooseCharacter,
+                          ),
+                  ],
+                ),
                 Padding(
                   padding: EdgeInsets.only(
                     left: _screenSize.width *

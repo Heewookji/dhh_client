@@ -64,9 +64,9 @@ class CustomDialog extends StatelessWidget {
               top: result['status'] == Status.Error
                   ? screenSize.height * 0.03783
                   : screenSize.height * 0.03783 +
-                      screenSize.height * 0.14864 / 5,
+                      screenSize.height * 0.14864 / 8,
               right: screenSize.width * 0.02777,
-              bottom: screenSize.height * 0.04054,
+              bottom: screenSize.height * 0.02554,
             ),
             margin: EdgeInsets.only(top: screenSize.height * 0.14864 / 1.3),
             decoration: BoxDecoration(
@@ -92,11 +92,11 @@ class CustomDialog extends StatelessWidget {
               children: <Widget>[
                 _buildTitle(theme, detailStatus),
                 Container(
-                  margin: EdgeInsets.only(top: screenSize.height * 0.01621),
+                  margin: EdgeInsets.only(top: screenSize.height * 0.0151),
                   child: _buildDescription(theme, detailStatus),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: screenSize.height * 0.01621),
+                  margin: EdgeInsets.only(top: screenSize.height * 0.0321),
                   child: _buildButton(context, detailStatus),
                 ),
               ],

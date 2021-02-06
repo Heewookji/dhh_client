@@ -30,7 +30,7 @@ insert into character(id, name, color, face_url, description) values (5,'상상�
 insert into character(id, name, color, face_url, description) values (6,'식타미' ,  0xFFfc5c00, 'assets/images/face_food'  , '안녕? 내 이름은 식타미!\n나는 음식 이야기를 엄청 좋아해!\n너도 먹는 거 좋아하니?');
 insert into character(id, name, color, face_url, description) values (7,'룰루'  ,  0xFFffd817, 'assets/images/face_hobby'  , '안녕? 내 이름은 룰루!\n나는 엄청 다양한 취미를 가지고 있어!\n넌 어떤 취미가 있니?');
 insert into character(id, name, color, face_url, description) values (8,'보사리' ,  0xFF56e556, 'assets/images/face_people'  , '안녕? 내 이름은 보사리!\n인간관계란 누구라도 어려운 문제지.\n하.하.하.하.하');
-insert into character(id, name, color, face_url, description) values (9,'폭폭이' ,  0xFF69b70c, 'assets/images/face_fact'  , '안녕? 내 이름은 폭폭이!\n인생의 쓴맛을 과감없이 알려줄께!\n자아성찰은 중요하다고!');
+insert into character(id, name, color, face_url, description) values (9,'팩폭이' ,  0xFF69b70c, 'assets/images/face_fact'  , '안녕? 내 이름은 팩폭이!\n인생의 쓴맛을 과감없이 알려줄께!\n자아성찰은 중요하다고!');
 insert into character(id, name, color, face_url, description) values (10,'하차니' ,  0xFF760de9, 'assets/images/face_hachani'  , '안녕? 내 이름은 하차니!\n작지만 소중한 일상 이야기는\n삶의 원동력이지~!');
 
 -- 홈
@@ -328,39 +328,39 @@ insert into question(character_id, text) VALUES (5, '상상이 질문27');
 insert into question(character_id, text) VALUES (5, '상상이 질문28');
 insert into question(character_id, text) VALUES (5, '상상이 질문29');
 insert into question(character_id, text) VALUES (5, '상상이 질문30');
+이
 
 
-
-insert into question(character_id, text) VALUES (9, '폭폭이 질문1');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문2');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문3');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문4');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문5');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문6');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문7');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문8');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문9');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문10');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문11');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문12');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문13');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문14');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문15');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문16');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문17');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문18');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문19');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문20');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문21');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문22');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문23');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문24');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문25');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문26');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문27');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문28');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문29');
-insert into question(character_id, text) VALUES (9, '폭폭이 질문30');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문1');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문2');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문3');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문4');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문5');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문6');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문7');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문8');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문9');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문10');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문11');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문12');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문13');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문14');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문15');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문16');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문17');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문18');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문19');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문20');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문21');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문22');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문23');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문24');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문25');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문26');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문27');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문28');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문29');
+insert into question(character_id, text) VALUES (9, '팩폭이 질문30');
 
 
 

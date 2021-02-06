@@ -44,7 +44,7 @@ class HomePanel extends StatelessWidget {
               child: Text(
                 _chosenQuestion != null
                     ? _chosenQuestion.text
-                    : '푸쉬 알림을 통해\n규칙적인 일기 습관을 만들어요.',
+                    : '오늘은 어떤 몽글이와 일기를 써볼까요?\n원하는 몽글이를 선택해보세요.',
                 style: _theme.textTheme.bodyText1,
                 textAlign: TextAlign.center,
                 softWrap: false,

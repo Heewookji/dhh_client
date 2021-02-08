@@ -75,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       await showDialog(
         context: context,
         barrierColor: Colors.black54,
+        barrierDismissible: false,
         builder: (context) => CustomDialog(result),
       );
     }
@@ -132,12 +133,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         showDialog(
           context: context,
           barrierColor: Colors.black54,
+          barrierDismissible: false,
           builder: (context) => CustomDialog(result),
         );
       } else {
         await showDialog(
           context: context,
           barrierColor: Colors.black54,
+          barrierDismissible: false,
           builder: (context) => CustomDialog(result),
         );
       }
@@ -189,7 +192,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _allFinished
+//                    _allFinished
+                    true
                         ? CharacterFinishedHome(_isSubmittedToday)
                         : CharacterHome(
                             _chooseCharacter,

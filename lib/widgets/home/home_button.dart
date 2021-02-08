@@ -19,7 +19,7 @@ class HomeButton extends StatelessWidget {
         : SafeArea(
             child: Container(
               padding:
-                  EdgeInsets.symmetric(vertical: _screenSize.height * 0.02162),
+                  EdgeInsets.symmetric(vertical: _screenSize.height * 0.03162),
               child: CustomRaisedButton(
                 '일기쓰기',
                 onPressed: () => _navigateWriteScreen(),

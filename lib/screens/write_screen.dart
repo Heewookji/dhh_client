@@ -30,6 +30,8 @@ class _WriteScreenState extends State<WriteScreen> {
   void dispose() {
     _controller.dispose();
     _focus.dispose();
+    _questionController.dispose();
+    _questionFocus.dispose();
     super.dispose();
   }
 
@@ -52,6 +54,7 @@ class _WriteScreenState extends State<WriteScreen> {
         await showDialog(
           context: context,
           barrierColor: Colors.black54,
+          barrierDismissible: false,
           builder: (context) => CustomDialog(result),
         );
         return;
@@ -69,6 +72,7 @@ class _WriteScreenState extends State<WriteScreen> {
         await showDialog(
           context: context,
           barrierColor: Colors.black54,
+          barrierDismissible: false,
           builder: (context) => CustomDialog(result),
         );
         return;
@@ -91,7 +95,10 @@ class _WriteScreenState extends State<WriteScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: GestureDetector(
-        onTap: () => _focus.unfocus(),
+        onTap: () {
+          _focus.unfocus();
+          _questionFocus.unfocus();
+        },
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Container(
@@ -126,22 +133,24 @@ class _WriteScreenState extends State<WriteScreen> {
     return Consumer3<DiariesProvider, CharactersProvider, HomeProvider>(
       builder:
           (context, diariesProvider, charactersProvider, homeProvider, child) {
-        return Container(
-          child: CustomRaisedButton(
-            '저장하기',
-            onPressed: disabled
-                ? null
-                : () => _submit(
-                      _isFreeWrite,
-                      diariesProvider,
-                      charactersProvider,
-                      homeProvider,
-                    ),
-            color: Colors.black,
-            alignment: Alignment.center,
-            disabled: disabled,
+        return Center(
+          child: Container(
+            child: CustomRaisedButton(
+              '저장하기',
+              onPressed: disabled
+                  ? null
+                  : () => _submit(
+                        _isFreeWrite,
+                        diariesProvider,
+                        charactersProvider,
+                        homeProvider,
+                      ),
+              color: Colors.black,
+              alignment: Alignment.center,
+              disabled: disabled,
+            ),
+            margin: EdgeInsets.only(bottom: _screenSize.height * 0.02702),
           ),
-          margin: EdgeInsets.only(bottom: _screenSize.height * 0.02702),
         );
       },
     );

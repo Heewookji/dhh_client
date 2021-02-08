@@ -41,7 +41,7 @@ class Crew extends StatelessWidget {
         ),
         Container(
           child: CustomRaisedButton(
-            '우유튀김 : Planer, Developer',
+            '우유튀김 : Developer',
             color: Colors.black,
             onPressed: () {},
             alignment: Alignment.centerLeft,

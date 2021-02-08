@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 class AlarmScreen extends StatefulWidget {
   static final routeName = '/alarm';
@@ -17,16 +18,44 @@ class AlarmScreen extends StatefulWidget {
 class _AlarmScreenState extends State<AlarmScreen> {
   DateTime _initialDateTime;
   DateTime _scheduleDateTime;
+  bool _isBusy = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _doFuture();
+  }
+
+  void _doFuture() async {
+    final _currentNotification =
+        await NotificationService.getCurrentNotification();
+    _initialDateTime = _currentNotification ?? DateTime.now().toLocal();
+    setState(() {
+      _isBusy = false;
+    });
+  }
 
   void _setAlarmSchedule() async {
     if (_scheduleDateTime == null) _scheduleDateTime = _initialDateTime;
     await NotificationService.setScheduledNotification(_scheduleDateTime);
+    _doFuture();
+  }
+
+  String _doFormatHM(DateTime date) {
+    return _isBusy
+        ? '   0시 0분'
+        : (DateFormat('a').format(date) == 'AM' ? '오전 ' : '오후 ') +
+            DateFormat('h시').format(date) +
+            (DateFormat('m').format(date) == '0'
+                ? '에\n알람이 울립니다.'
+                : ' ${DateFormat('m').format(date)}분에\n알람이 울립니다.');
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final _screenSize = MediaQuery.of(context).size;
+    final _panelText = _doFormatHM(_initialDateTime);
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -41,7 +70,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                '알람시간\n설정할래요.',
+                _panelText,
                 style: theme.textTheme.headline6,
               ),
               Container(
@@ -69,29 +98,23 @@ class _AlarmScreenState extends State<AlarmScreen> {
               Container(
                 height: _screenSize.height * 0.4,
                 child: CustomCard(
-                  FutureBuilder<DateTime>(
-                    future: NotificationService.getCurrentNotification(),
-                    builder: (ctx, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting)
-                        return Container();
-                      _initialDateTime =
-                          snapshot.data ?? DateTime.now().toLocal();
-                      return CupertinoTheme(
-                        data: CupertinoThemeData(
-                          textTheme: CupertinoTextThemeData(
-                            dateTimePickerTextStyle: theme.textTheme.subtitle1,
+                  _isBusy
+                      ? Container()
+                      : CupertinoTheme(
+                          data: CupertinoThemeData(
+                            textTheme: CupertinoTextThemeData(
+                              dateTimePickerTextStyle:
+                                  theme.textTheme.subtitle1,
+                            ),
+                          ),
+                          child: CupertinoDatePicker(
+                            initialDateTime: _initialDateTime,
+                            onDateTimeChanged: (dateTime) {
+                              _scheduleDateTime = dateTime;
+                            },
+                            mode: CupertinoDatePickerMode.time,
                           ),
                         ),
-                        child: CupertinoDatePicker(
-                          initialDateTime: _initialDateTime,
-                          onDateTimeChanged: (dateTime) {
-                            _scheduleDateTime = dateTime;
-                          },
-                          mode: CupertinoDatePickerMode.time,
-                        ),
-                      );
-                    },
-                  ),
                 ),
               ),
               Container(

@@ -1,12 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" fill="none" viewBox="0 0 110 110">
-    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M5.47 30.128l3.29-2.346M2 17.778l4.19.699M8.57 7.365l2.57 3.604M31.97 11.228l-3.28 2.346M21.73 4l-.7 4.183"/>
-    <path fill="#FFD817" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M26.44 15.292c-3.02-4.163-8.85-5.092-13.02-2.077-4.17 3.015-5.1 8.836-2.08 13 2.42 3.334 6.64 4.592 10.36 3.414l2.94 4.063 4.76-3.434-2.94-4.064c2.28-3.175 2.4-7.567-.02-10.902z"/>
-    <path fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M27.525 27.582l-4.754 3.438 1.807 2.49 4.754-3.438-1.807-2.49z"/>
     <path fill="#3BE3FF" stroke="#000" stroke-miterlimit="10" stroke-width="2" d="M88.94 59.74C77.3 39.572 58.29 39.363 55.12 39.483c-2.09-.07-11.02-.01-20.21 5.78-5.06-4.942-10.88-7.148-13.11-4.932-1.43 1.428-1.02 4.363.78 7.618-4.61-.809-8.34-.07-9.18 2.126-1.03 2.676 2.54 6.59 8.16 9.225-.09.15-.18.29-.26.44C8.56 81.794 10.77 95.282 10.77 95.282S10.77 109 28.16 109h53.93c17.39 0 17.39-13.718 17.39-13.718s2.19-13.488-10.54-35.542z"/>
     <path fill="#000" d="M46.98 63.124c1.939 0 3.51-1.569 3.51-3.504 0-1.936-1.571-3.505-3.51-3.505-1.938 0-3.51 1.57-3.51 3.505 0 1.935 1.572 3.504 3.51 3.504zM67.07 63.124c1.939 0 3.51-1.569 3.51-3.504 0-1.936-1.571-3.505-3.51-3.505-1.938 0-3.51 1.57-3.51 3.505 0 1.935 1.572 3.504 3.51 3.504z"/>
     <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M63.37 64.342H52.59c-.04 0 .65 4.024.74 4.293.47 1.518.7 2.666 1.99 4.074 2.31 2.516 4.7-2.896 4.94-5.002.13-1.168.29-2.197.29-3.365M63.68 64.342l-3.46-3.654"/>
-    <path fill="#FF0084" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M70.47 99.256l29.14 7.638 9.36-35.623-5.31-1.388-23.83-6.24-9.36 35.613z"/>
-    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M94 104.986l9.25-35.213"/>
-    <path fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M81.484 76.326l13.484 3.531 1.017-3.872-13.484-3.531-1.017 3.872z"/>
-    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M108.89 79.458l-3.71-.969M106.27 89.452l-3.71-.969M103.64 99.445l-3.71-.968"/>
+    <path fill="#FF0084" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M70.47 99.256l29.14 7.638 9.36-35.623-5.31-1.388-23.83-6.24-9.36 35.613z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M94 104.986l9.25-35.213"/>
+    <path fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M81.484 76.326l13.484 3.531 1.017-3.872-13.484-3.531-1.017 3.872z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M108.89 79.458l-3.71-.969M106.27 89.452l-3.71-.969M103.64 99.445l-3.71-.968"/>
+    <path fill="#606060" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M37.952 28.568V43.29h.01c.148 2.574 7.957 4.648 17.59 4.648 9.622 0 17.431-2.074 17.59-4.648h.01V28.568h-35.2z"/>
+    <path fill="#606060" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M55.234 30.603l28.521-3.262L55.462 24 27.16 27.212l11.426 1.376 16.648 2.015z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M32.442 28.01v6.074"/>
+    <path fill="#606060" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M32.442 37.884c1.023 0 1.853-.835 1.853-1.865s-.83-1.865-1.853-1.865c-1.024 0-1.854.835-1.854 1.865s.83 1.865 1.854 1.865z"/>
 </svg>

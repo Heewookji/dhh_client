@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" fill="none" viewBox="0 0 110 110">
     <path fill="#56E556" stroke="#000" stroke-miterlimit="10" stroke-width="2" d="M12.97 78.296c-.27 3.361-2.13 22.38 15.63 28.274 9.25 3.062 48.28 3.122 56.41.788 15.49-4.448 16.93-16.326 16.77-28.144-.16-11.5-7.25-29.451-26.79-36.552-18.2-6.612-35.54-1.835-45.25 5.924-11.41 9.116-16.02 20.335-16.77 29.71z"/>
     <path stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M64.55 58.938s5.32-3.67 9.44 1.536M50.41 58.729s-5.28-3.53-9.59 1.835M50.5 64.274s6.5 3.38 14.27 0"/>
-    <path fill="#228922" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M87.672 75.174h4.6V59.526h-4.6v15.648z"/>
-    <path fill="#228922" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M82.89 108.621h14.15V76.783c0-2.294-1.84-4.162-4.1-4.162h-6c-2.24 0-4.05 1.848-4.05 4.11v31.89zM86.558 62.5h6.91v-4.17h-6.91v4.17z"/>
-    <path fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M83.154 101.28h9.46V79.678h-9.46v21.602z"/>
-    <path fill="#FFD817" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M39.49 37.705l-5.17.24L32.58 21l8.55.31-1.64 16.395zM30.32 39.64l-4.89 3.022-10.39-13.604 7.76-4.877 7.52 15.459zM23.03 45.664l-1.31 5.345L9 48.446l.12-7.67 13.91 4.888z"/>
+    <path fill="#228922" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M87.672 75.174h4.6V59.526h-4.6v15.648z"/>
+    <path fill="#228922" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M82.89 108.621h14.15V76.783c0-2.294-1.84-4.162-4.1-4.162h-6c-2.24 0-4.05 1.848-4.05 4.11v31.89zM86.558 62.5h6.91v-4.17h-6.91v4.17z"/>
+    <path fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M83.154 101.28h9.46V79.678h-9.46v21.602z"/>
+    <path fill="#FFD817" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M39.49 37.705l-5.17.24L32.58 21l8.55.31-1.64 16.395zM30.32 39.64l-4.89 3.022-10.39-13.604 7.76-4.877 7.52 15.459zM23.03 45.664l-1.31 5.345L9 48.446l.12-7.67 13.91 4.888z"/>
 </svg>

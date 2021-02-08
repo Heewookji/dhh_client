@@ -173,7 +173,7 @@ class CustomDialog extends StatelessWidget {
     String text;
     switch (detailStatus) {
       case DetailStatus.Traveled:
-        text = '엄청 보고 싶을꺼야.\n질문을 더 찾아서 돌아올게.\n기다려줘! 잘 있어. 안녕!';
+        text = '엄청 보고 싶을 거야.\n질문을 더 찾아서 돌아올게.\n기다려줘! 잘 있어. 안녕!';
         break;
       case DetailStatus.Finished:
         text = '나머지 친구들과 함께 일기 쓰는 습관을\n만들어가줘! 내가 여행 간 친구들과\n다시 만나러 올게!';
@@ -182,7 +182,7 @@ class CustomDialog extends StatelessWidget {
         text = '스스로 일기쓰는 습관이 생겼니?\n이제는 직접 자신만의 이야기로\n일기를 써보자.';
         break;
       case DetailStatus.FirstNewCome:
-        text = '안녕? 나는 ${character.name}!\n앞으로 너가 일기를 쓸 때마다\n나랑 내 친구들이 성장할꺼야~!';
+        text = '안녕? 나는 ${character.name}!\n앞으로 너가 일기를 쓸 때마다\n나랑 내 친구들이 성장할거야~!';
         break;
       case DetailStatus.NewCome:
         text = character.description.replaceAll('\\n', '\n');

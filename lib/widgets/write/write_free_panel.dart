@@ -46,7 +46,7 @@ class WriteFreePanel extends StatelessWidget {
         Container(
           child: CustomCard(
             Container(
-              height: _screenSize.height * 0.16756,
+              height: _screenSize.height * 0.11,
               child: TextFormField(
                 controller: _controller,
                 focusNode: _focus,

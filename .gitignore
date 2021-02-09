@@ -272,4 +272,8 @@ Temporary Items
 **/GoogleService-Info.plist
 **/google-services.json
 
+### android key 관련
+
+**/keystore/*
+
 # End of https://www.toptal.com/developers/gitignore/api/dart,macos,flutter,visualstudiocode,intellij

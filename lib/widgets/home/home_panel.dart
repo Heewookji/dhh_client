@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
 import 'package:dhh_client/widgets/home/custom_home_bubble.dart';
@@ -41,13 +42,14 @@ class HomePanel extends StatelessWidget {
             Container(
               margin: EdgeInsets.all(10),
               alignment: Alignment.center,
-              child: Text(
+              child: AutoSizeText(
                 _chosenQuestion != null
-                    ? _chosenQuestion.text
+                    ? _panelAnimation.value >= 0.93
+                        ? _chosenQuestion.text
+                        : ''
                     : '오늘은 어떤 몽글이와 일기를 써볼까요?\n원하는 몽글이를 선택해보세요.',
                 style: _theme.textTheme.bodyText1,
                 textAlign: TextAlign.center,
-                softWrap: false,
               ),
             ),
             _chosenCharacter == null

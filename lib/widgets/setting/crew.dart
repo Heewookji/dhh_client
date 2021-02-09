@@ -25,7 +25,7 @@ class Crew extends StatelessWidget {
             '헤이즐 : UX/UI Designer',
             color: Colors.black,
             onPressed: () async {
-              await launch('https://github.com/Heewookji');
+              await launch('https://www.instagram.com/hazel_ux');
             },
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: _screenSize.width * 0.04),
@@ -37,7 +37,7 @@ class Crew extends StatelessWidget {
             '제이 : UX/UI Designer',
             color: Colors.black,
             onPressed: () async {
-              await launch('https://github.com/Heewookji');
+              await launch('https://www.instagram.com/puxdjeon_21');
             },
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: _screenSize.width * 0.04),

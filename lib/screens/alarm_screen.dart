@@ -71,7 +71,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
             children: [
               Text(
                 _panelText,
-                style: theme.textTheme.headline6,
+                style: theme.textTheme.subtitle1,
               ),
               Container(
                 alignment: Alignment.centerRight,

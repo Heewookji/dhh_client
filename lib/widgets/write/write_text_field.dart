@@ -27,7 +27,7 @@ class WriteTextField extends StatelessWidget {
         Container(
           child: CustomCard(
             Container(
-              height: _screenSize.height * 0.44,
+              height: _screenSize.height * 0.3,
               child: TextFormField(
                 controller: _controller,
                 focusNode: _focus,

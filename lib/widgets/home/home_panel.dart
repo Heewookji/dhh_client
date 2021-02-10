@@ -40,14 +40,17 @@ class HomePanel extends StatelessWidget {
           opacity: _chosenCharacter == null ? 1.0 : _panelAnimation.value,
           child: CustomHomeBubble(
             Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.symmetric(
+                horizontal: _screenSize.width * 0.05,
+                vertical: _screenSize.height * 0.01,
+              ),
               alignment: Alignment.center,
               child: AutoSizeText(
                 _chosenQuestion != null
                     ? _panelAnimation.value >= 0.93
                         ? _chosenQuestion.text
                         : ''
-                    : '오늘은 어떤 몽글이와 일기를 써볼까요?\n원하는 몽글이를 선택해보세요.',
+                    : '오늘은 어떤 몽글이와 일기를 써볼까요? 원하는 몽글이를 선택해보세요.',
                 style: _theme.textTheme.bodyText1,
                 textAlign: TextAlign.center,
               ),

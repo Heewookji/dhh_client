@@ -56,18 +56,18 @@ class Crew extends StatelessWidget {
           ),
           margin: EdgeInsets.only(bottom: _screenSize.height * 0.02162),
         ),
-//        Container(
-//          child: CustomRaisedButton(
-//            '앤도 라즈 : Sound Designer',
-//            color: Colors.black,
-//            onPressed: () async {
-//              await launch('https://andolaj.com');
-//            },
-//            alignment: Alignment.centerLeft,
-//            padding: EdgeInsets.only(left: _screenSize.width * 0.04),
-//          ),
-//          margin: EdgeInsets.only(bottom: _screenSize.height * 0.02162),
-//        ),
+        Container(
+          child: CustomRaisedButton(
+            '앤도 라즈 : Sound Designer',
+            color: Colors.black,
+            onPressed: () async {
+              await launch('https://andolaj.com');
+            },
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: _screenSize.width * 0.04),
+          ),
+          margin: EdgeInsets.only(bottom: _screenSize.height * 0.02162),
+        ),
       ],
     );
   }

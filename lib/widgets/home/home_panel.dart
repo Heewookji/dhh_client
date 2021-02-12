@@ -53,8 +53,8 @@ class HomePanel extends StatelessWidget {
                         ? _chosenQuestion.text
                         : ''
                     : _isSubmittedToday
-                        ? '오늘 일기를 다 썼어요. 내일 다시 봐요!'
-                        : '오늘은 어떤 몽글이와 일기를 써볼까요? 원하는 몽글이를 선택해보세요.',
+                        ? '오늘은 이미 일기를 썼어. 내일 다시 봐!'
+                        : '오늘은 어떤 몽글이와 일기를 써볼까? 원하는 몽글이를 선택해봐.',
                 style: _theme.textTheme.bodyText1,
                 textAlign: TextAlign.center,
               ),

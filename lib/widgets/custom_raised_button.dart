@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/util/inner_shadow.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
   static final BoxBorder border =
       Border.all(width: Constants.BORDER_WIDTH, color: Colors.black);
   bool pressed = false;
+  AudioCache _audioPlayer = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,10 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
         setState(() {
           pressed = false;
         });
-        if (widget.onPressed != null) widget.onPressed();
+        if (widget.onPressed != null) {
+          _audioPlayer.play('sounds/button.wav');
+          widget.onPressed();
+        }
       },
       onTapCancel: () {
         setState(() {

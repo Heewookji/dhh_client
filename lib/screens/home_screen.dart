@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/models/question.dart';
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Offset _pressedLocation;
   AnimationController _panelAnimationController;
   Animation<double> _panelAnimation;
+  AudioCache _audioPlayer;
 
   @override
   void initState() {
@@ -56,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         curve: Curves.easeOutCirc,
       ),
     );
+    _audioPlayer = AudioCache();
     await Provider.of<HomeProvider>(context, listen: false).setAllFinished();
     await _newCharacterComeIfPossible();
     await Provider.of<DiariesProvider>(context, listen: false).setTopDiary();
@@ -95,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void _chooseCharacter(Character character,
       QuestionsProvider questionsProvider, Offset pressedLocation) {
+    _audioPlayer.play('sounds/bubble.wav');
     _panelAnimationController.reset();
     _panelAnimationController.forward();
     setState(() {

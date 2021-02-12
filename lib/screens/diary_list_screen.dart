@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:dhh_client/constants.dart';
 import 'package:dhh_client/models/character.dart';
 import 'package:dhh_client/providers/characters_provider.dart';
@@ -28,6 +29,7 @@ class _DiaryListScreenState extends State<DiaryListScreen>
   Character _chosenCharacter;
   Offset _pickedLocation;
   Color _pastColor;
+  AudioCache _audioPlayer;
 
   @override
   void initState() {
@@ -53,6 +55,7 @@ class _DiaryListScreenState extends State<DiaryListScreen>
         curve: Curves.easeInOutQuart,
       ),
     );
+    _audioPlayer = AudioCache();
     await Provider.of<CharactersProvider>(context, listen: false)
         .setAllCharacters();
     await _setDiariesAndQuestions(null, init: true);
@@ -95,6 +98,7 @@ class _DiaryListScreenState extends State<DiaryListScreen>
     await _setDiariesAndQuestions(character);
     _animationController.reset();
     _pickedLocation = pickedLocation;
+    _audioPlayer.play('sounds/list.wav');
     await _animationController.forward();
     _pastColor =
         _chosenCharacter != null ? Color(_chosenCharacter.color) : Colors.white;

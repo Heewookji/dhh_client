@@ -212,7 +212,7 @@ insert into question(character_id, text) VALUES (7, '캠핑이나 등산에 관�
 insert into question(character_id, text) VALUES (7, '가족 여행에 관한 추억이 있어?');
 insert into question(character_id, text) VALUES (7, '너는 집돌이야? 집순이야?');
 insert into question(character_id, text) VALUES (7, '한 달 동안 외국에서 살아야 한다면 가고 싶은 나라는?');
-insert into question(character_id, text) VALUES (7, '좋아하는 tv 프로그램 있어? 왜 좋아해?');
+insert into question(character_id, text) VALUES (7, '좋아하는 TV 프로그램 있어? 왜 좋아해?');
 insert into question(character_id, text) VALUES (7, '새로운 친구를 사귄다면 어떤 취미의 사람들을 만나고 싶어?');
 insert into question(character_id, text) VALUES (7, '꼭 해보고 싶은 취미 활동이 있을까?');
 insert into question(character_id, text) VALUES (7, '무언가를 수집하고 있거나 모아보고 싶은 게 있어?');
@@ -502,7 +502,7 @@ insert into question(character_id, text) VALUES (2, '너는 돈이 생기면 어
 insert into question(character_id, text) VALUES (2, '너가 생각하는 성공한 삶은 뭐야?');
 insert into question(character_id, text) VALUES (2, '내가 용돈을 버는 특별한 방법이 있다면?');
 insert into question(character_id, text) VALUES (2, '휴식을 위해 계획해놓은 시간이 있어?');
-insert into question(character_id, text) VALUES (2, '너가 가장 관심있는 분야는 뭐야?"');
+insert into question(character_id, text) VALUES (2, '너가 가장 관심있는 분야는 뭐야?');
 insert into question(character_id, text) VALUES (2, '계획은 세세하게 하는 편이야?');
 insert into question(character_id, text) VALUES (2, '일이 계획대로 되지 않을 때 어떻게 해왔어?');
 insert into question(character_id, text) VALUES (2, '미래를 위해 현재의 나에게 가장 필요한 것은?');

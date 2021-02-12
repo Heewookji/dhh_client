@@ -90,8 +90,8 @@ class CharacterSql {
     );
     final enableLastTraveled = lastTraveledCharacterId != null &&
         possibleCharacterCount == 1 &&
-//        lastTraveledAt.add(Duration(days: 1)).isBefore(DateTime.now());
-        lastTraveledAt.second != DateTime.now().second;
+        lastTraveledAt.add(Duration(days: 1)).isBefore(DateTime.now());
+//        lastTraveledAt.second != DateTime.now().second;
     final result = await db.rawQuery(''
         'select c.*, s.*,'
         '( '

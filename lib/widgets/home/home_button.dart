@@ -14,7 +14,7 @@ class HomeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    return _chosenQuestion == null
+    return _chosenQuestion == null || _isSubmittedToday
         ? Container()
         : SafeArea(
             child: Container(

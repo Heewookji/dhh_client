@@ -9,11 +9,13 @@ class HomePanel extends StatelessWidget {
   final Character _chosenCharacter;
   final Offset _pressedLocation;
   final Animation<double> _panelAnimation;
+  final bool _isSubmittedToday;
   HomePanel(
     this._chosenQuestion,
     this._chosenCharacter,
     this._pressedLocation,
     this._panelAnimation,
+    this._isSubmittedToday,
   );
 
   Tail _getTailByPressedLocation(Size _screenSize) {
@@ -50,7 +52,9 @@ class HomePanel extends StatelessWidget {
                     ? _panelAnimation.value >= 0.93
                         ? _chosenQuestion.text
                         : ''
-                    : '오늘은 어떤 몽글이와 일기를 써볼까요? 원하는 몽글이를 선택해보세요.',
+                    : _isSubmittedToday
+                        ? '오늘 일기를 다 썼어요. 내일 다시 봐요!'
+                        : '오늘은 어떤 몽글이와 일기를 써볼까요? 원하는 몽글이를 선택해보세요.',
                 style: _theme.textTheme.bodyText1,
                 textAlign: TextAlign.center,
               ),

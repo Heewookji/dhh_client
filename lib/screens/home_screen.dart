@@ -196,6 +196,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ? CharacterFinishedHome(_isSubmittedToday)
                         : CharacterHome(
                             _chooseCharacter,
+                            _isSubmittedToday,
                           ),
                   ],
                 ),
@@ -216,6 +217,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               _chosenCharacter,
                               _pressedLocation,
                               _panelAnimation,
+                              _isSubmittedToday,
                             ),
                       _allFinished
                           ? Container()

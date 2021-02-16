@@ -108,6 +108,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
+  void _chooseCharacterAfterSubmitted(
+      Character character, Offset pressedLocation) {
+    _audioPlayer.play('sounds/bubble.wav');
+    _panelAnimationController.reset();
+    _panelAnimationController.forward();
+    setState(() {
+      _chosenCharacter = character;
+      _pressedLocation = pressedLocation;
+    });
+  }
+
   void _navigateDiaryListScreen() async {
     await Navigator.of(context).pushNamed(DiaryListScreen.routeName);
     setState(() {
@@ -201,6 +212,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         : CharacterHome(
                             _chooseCharacter,
                             _isSubmittedToday,
+                            _chooseCharacterAfterSubmitted,
                           ),
                   ],
                 ),

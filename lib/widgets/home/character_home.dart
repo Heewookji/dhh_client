@@ -10,10 +10,13 @@ import 'package:provider/provider.dart';
 
 class CharacterHome extends StatefulWidget {
   final Function(Character, QuestionsProvider, Offset) _chooseCharacter;
+  final Function(Character, Offset) _chooseCharacterAfterSubmitted;
   final bool _isSubmittedToday;
+
   CharacterHome(
     this._chooseCharacter,
     this._isSubmittedToday,
+    this._chooseCharacterAfterSubmitted,
   );
   @override
   _CharacterHomeState createState() => _CharacterHomeState();
@@ -79,7 +82,8 @@ class _CharacterHomeState extends State<CharacterHome> {
       Character character, QuestionsProvider questionsProvider, Size homeSize) {
     return GestureDetector(
       onTapDown: widget._isSubmittedToday
-          ? null
+          ? (detail) => widget._chooseCharacterAfterSubmitted(
+              character, detail.globalPosition)
           : (detail) => widget._chooseCharacter(
               character, questionsProvider, detail.globalPosition),
       child: Column(

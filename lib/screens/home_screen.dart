@@ -194,8 +194,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           _appBar.preferredSize.height,
     );
     final topDiary = Provider.of<DiariesProvider>(context).topDiary;
-    _isSubmittedToday =
-        topDiary != null && topDiary.createdAt.day == DateTime.now().day;
+    _isSubmittedToday = topDiary != null &&
+        topDiary.createdAt.toLocal().day == DateTime.now().day;
     final _allFinished =
         Provider.of<HomeProvider>(context, listen: false).allFinished;
     return Scaffold(

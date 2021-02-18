@@ -33,7 +33,8 @@ class HomeSql {
       batch.rawUpdate(
           'update home_location set character_id = ${idMapList[i - 1]['id']} where id = $i');
     }
-    batch.rawUpdate('update home set modified_at = current_date');
+    batch.rawUpdate(
+        'update home set modified_at = datetime(\'now\',\'localtime\') ');
     return await batch.commit();
   }
 }

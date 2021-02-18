@@ -52,9 +52,12 @@ class HomePanel extends StatelessWidget {
                     ? _panelAnimation.value >= 0.93
                         ? _chosenQuestion.text
                         : ''
-                    : _isSubmittedToday
-                        ? '오늘은 이미 일기를 썼어. 내일 다시 봐!'
-                        : '오늘은 어떤 몽글이와 일기를 써볼까? 원하는 몽글이를 선택해봐!',
+                    : _panelAnimation.value >= 0.93 ||
+                            _panelAnimation.value == 0
+                        ? _isSubmittedToday
+                            ? '오늘은 이미 일기를 썼어. 내일 다시 봐!'
+                            : '오늘은 어떤 몽글이와 일기를 써볼까? 원하는 몽글이를 선택해봐!'
+                        : '',
                 style: _theme.textTheme.bodyText1,
                 textAlign: TextAlign.center,
               ),

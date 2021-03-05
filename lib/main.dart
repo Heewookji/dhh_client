@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => DiaryDetailProvider()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'mongle',
         debugShowCheckedModeBanner: false,
         theme: RootTheme.rootThemeBuilder(),
         home: FutureBuilder(

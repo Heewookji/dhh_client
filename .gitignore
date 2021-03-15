@@ -276,4 +276,28 @@ Temporary Items
 
 **/keystore/*
 
+### fastlane json key
+android/app/service_account.json
+
+### fastlane ###
+# fastlane - A streamlined workflow tool for Cocoa deployment
+
+# fastlane specific
+**/fastlane/report.xml
+
+# deliver temporary files
+**/fastlane/Preview.html
+
+# snapshot generated screenshots
+**/fastlane/screenshots/**/*.png
+**/fastlane/screenshots/screenshots.html
+
+# scan temporary files
+**/fastlane/test_output
+
+# Fastlane.swift runner binary
+**/fastlane/FastlaneRunner
+
+
+
 # End of https://www.toptal.com/developers/gitignore/api/dart,macos,flutter,visualstudiocode,intellij

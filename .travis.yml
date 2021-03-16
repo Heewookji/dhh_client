@@ -1,8 +1,21 @@
 language: generic
 
-before_script:
-  - git clone https://github.com/flutter/flutter.git -b stable
-  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-
-script:
-  - flutter packages get
+env:
+  - FLUTTER_BUILD_RELEASE_CHANNEL=stable
+matrix:
+  include:
+    - name: iOS Build
+    - name: Android Build
+      language: android
+      before_install:
+        - openssl aes-256-cbc -K $encrypted_3b9f0b9d36d1_key -iv $encrypted_3b9f0b9d36d1_iv -in secrets.tar.enc -out secrets.tar -d
+      before_script:
+        - tar xvf secrets.tar
+        - git clone https://github.com/flutter/flutter.git -b stable
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - gem install bundler && cd android && bundle install && cd ..
+      script:
+        - flutter doctor -v # 빌드 디버깅을 위한 Flutter 정보 로깅
+        - flutter build appbundle --build-number=$TRAVIS_BUILD_NUMBER # App Bundle 빌드
+        - cd android
+        - bundle exec fastlane beta # fastlane을 이용해 빌드 파일 업로드

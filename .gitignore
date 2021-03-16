@@ -298,6 +298,9 @@ android/app/service_account.json
 # Fastlane.swift runner binary
 **/fastlane/FastlaneRunner
 
+# travis secret tar
+secrets.tar
+
 
 
 # End of https://www.toptal.com/developers/gitignore/api/dart,macos,flutter,visualstudiocode,intellij

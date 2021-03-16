@@ -1,5 +1,7 @@
 language: generic
 
+rvm:
+  - 2.7.2
 env:
   - FLUTTER_BUILD_RELEASE_CHANNEL=stable
 matrix:

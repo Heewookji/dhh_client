@@ -7,7 +7,6 @@ matrix:
     - name: iOS Build
     - name: Android Build
       language: android
-      jdk: openjdk8
       android:
         components:
           - build-tools-29.0.3

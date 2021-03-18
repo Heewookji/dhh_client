@@ -8,7 +8,7 @@ matrix:
     - name: iOS Build
       os: osx
       language: generic
-
+      osx_image: xcode12.4
       before_script:
         - echo -e "machine github.com\n  login $GITHUB_TOKEN" >> ~/.netrc # match 인증서 저장소에 접근하기 위해 GitHub Token 설치
 
@@ -21,8 +21,6 @@ matrix:
 
       script:
         - flutter doctor -v # 빌드 디버깅을 위한 Flutter 정보 로깅
-
-        - bash scripts/populate_secret.sh # 환경 변수에 들어있는 써드 파티 라이브러리 시크릿을 파일로 작성
 
         - flutter build ios --no-codesign --build-number=$TRAVIS_BUILD_NUMBER # Flutter iOS 빌드에 필요한 파일을 내려받고 번들의 빌드 이름 및 빌드 번호 설정
 

@@ -25,7 +25,7 @@ matrix:
       script:
         - flutter doctor -v # 빌드 디버깅을 위한 Flutter 정보 로깅
 
-        - flutter build ios --no-codesign --build-number=$TRAVIS_BUILD_NUMBER # Flutter iOS 빌드에 필요한 파일을 내려받고 번들의 빌드 이름 및 빌드 번호 설정
+        - flutter build ios --no-codesign --build-number=$(( $VERSION_CODE_BASE + $TRAVIS_BUILD_NUMBER )) # Flutter iOS 빌드에 필요한 파일을 내려받고 번들의 빌드 이름 및 빌드 번호 설정
 
         - cd ios
         - bundle exec fastlane beta # fastlane을 사용한 코드 사이닝, 빌드 및 TestFligth 배포

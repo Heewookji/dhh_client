@@ -1,4 +1,4 @@
-git_url("https://github.com/Heewookji/dhh_client")
+git_url("https://github.com/Heewookji/ios_cert")
 
 storage_mode("git")
 
